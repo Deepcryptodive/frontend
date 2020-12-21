@@ -13,19 +13,22 @@ import KovanFaucet from "./../elements/KovanFaucet";
 import KovanFauctet from "./../elements/KovanFaucet";
 import Schedule from "./../elements/Schedule";
 import SuccessModal from "./../elements/SuccessModal";
-
+import Tabs from "./../elements/Tabs";
 export default (props) => (
   <>
     <SuccessModal
       close={props.toggleSuccess.bind(null, "makeDeposit")}
       show={props.success.makeDeposit}
     />
-    <GameStats
-      hasBgColor
-      className="illustration-section-07"
-      gameInfo={props.gameInfo}
-      players={props.players}
-    />
+
+    <Tabs>
+      <GameStats
+        gameInfo={props.gameInfo}
+        players={props.players}
+        header={"Game Stats"}
+      />
+      <div header="Tab 2">Tab 2</div>
+    </Tabs>
 
     <div style={{ justifyContent: "center", marginTop: "3em " }}>
       {props.connectToWallet()}
