@@ -6,7 +6,6 @@ import PlayerInfo from "../elements/PlayerInfo";
 import GameStats from "./GameStats";
 import Loading from "./../../assets/loading.svg";
 import LoadingDark from "./../../assets/loading-dark.svg";
-import dayjs from "dayjs";
 import CheckBox from "react-animated-checkbox";
 import EmergencyWithdraw from "./../elements/EmergencyWithdraw";
 import KovanFaucet from "./../elements/KovanFaucet";
@@ -22,20 +21,11 @@ export default (props) => (
     />
 
     <Tabs>
-      <GameStats
-        gameInfo={props.gameInfo}
-        players={props.players}
-        header={"Game Stats"}
-      />
-      <div header="Tab 2">Tab 2</div>
-    </Tabs>
-
-    <div style={{ justifyContent: "center", marginTop: "3em " }}>
-      {props.connectToWallet()}
-    </div>
-    {props.userStatus === status.unregistered && <UnRegisteredPlayer />}
-    <>
-      {props.userStatus === status.registered && (
+      <div header={"Game Stats"}>
+        <GameStats gameInfo={props.gameInfo} players={props.players} />
+        {props.userStatus === status.unregistered && <UnRegisteredPlayer />}
+      </div>
+      {/* {props.userStatus === status.registered && (
         <RegisteredPlayer
           gameInfo={props.gameInfo}
           playerInfo={props.playerInfo}
@@ -45,10 +35,16 @@ export default (props) => (
           loadingState={props.loadingState}
           redeem={props.redeem}
           emergencyWithdraw={props.emergencyWithdraw}
+          header="Player Info"
         />
-      )}
+      )} */}
+      <Schedule gameInfo={props.gameInfo} header="Schedule" topDivider />
+    </Tabs>
 
-      <Schedule gameInfo={props.gameInfo} topDivider />
+    <div style={{ justifyContent: "center", marginTop: "3em " }}>
+      {props.connectToWallet()}
+    </div>
+    <>
       {!props.gameInfo.isGameCompleted && (
         <div style={{ justifyContent: "center", marginTop: "3em " }}>
           {props.playerInfo.address && <h4> The Competition</h4>}
