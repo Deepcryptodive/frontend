@@ -48,24 +48,24 @@ class GameStats extends React.Component {
             : dayjs.duration(gameLength, "seconds").asDays()
         } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
       },
-      {
-        label: "🎯 Recurring Deposit",
-        data: `${web3.utils.fromWei(
-          this.props.gameInfo.rawSegmentPayment
-        )} DAI every ${
-          process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
-            ? dayjs.duration(roundsLengthsSecs, "seconds").asWeeks()
-            : dayjs.duration(roundsLengthsSecs, "seconds").asDays()
-        } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
-      },
-      {
-        label: "⏳ Current Round",
-        data: !this.props.gameInfo.isGameCompleted
-          ? `${displaySegment(
-              this.props.gameInfo.currentSegment
-            )} out of ${displaySegment(this.props.gameInfo.lastSegment - 1)}`
-          : "Game Completed ✔️",
-      },
+      // {
+      //   label: "🎯 Recurring Deposit",
+      //   data: `${web3.utils.fromWei(
+      //     this.props.gameInfo.rawSegmentPayment
+      //   )} DAI every ${
+      //     process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
+      //       ? dayjs.duration(roundsLengthsSecs, "seconds").asWeeks()
+      //       : dayjs.duration(roundsLengthsSecs, "seconds").asDays()
+      //   } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
+      // },
+      // {
+      //   label: "⏳ Current Round",
+      //   data: !this.props.gameInfo.isGameCompleted
+      //     ? `${displaySegment(
+      //         this.props.gameInfo.currentSegment
+      //       )} out of ${displaySegment(this.props.gameInfo.lastSegment - 1)}`
+      //     : "Game Completed ✔️",
+      // },
       {
         label: "👻 Players Status",
         data: `${numberOfPlayers("alive")} Alive and ${numberOfPlayers(
@@ -100,12 +100,18 @@ class GameStats extends React.Component {
       paddingLeft: "10px",
       paddingRight: "4px",
       borderRadius: "3px",
-      fontFamily: "monospace",
-      fontSize: "14pt",
+      fontSize: "0.7rem",
     };
     return (
       <section>
-        <div className="container">
+        <div
+          className="container"
+          style={{
+            backgroundColor: "white",
+            textAlign: "left",
+            maxWidth: "80vw",
+          }}
+        >
           <div>
             <h3 style={{ marginTop: "5px" }}>
               Game Stats{" "}
@@ -119,7 +125,13 @@ class GameStats extends React.Component {
               }
               return (
                 <div key={i}>
-                  <span style={{ fontWeight: "600", fontSize: "0.85rem" }}>
+                  <span
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "0.7rem",
+                      color: "black",
+                    }}
+                  >
                     {item.label} : {"  "}
                   </span>
                   <span style={valueStyle}>{item.data}</span>
