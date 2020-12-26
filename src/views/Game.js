@@ -424,7 +424,10 @@ const GamePage = () => {
   const isNotOnKovan = netId && netId !== 42;
   return (
     <main className="site-content">
-      <div className="section center-content illustration-section-04">
+      <div
+        className="section center-content"
+        style={{ backgroundColor: "rgb(246, 248, 254)", minHeight: "100vh" }}
+      >
         {!isNotEmptyObj(gameInfo) &&
           !isNotOnKovan &&
           !errors.needToAWeb3Browser && (
