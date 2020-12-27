@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { displaySegment, weiToERC20 } from "./../../utils/utilities";
 import web3 from "web3";
 import dayjs from "dayjs";
-
+import { Container, Row, Col } from "react-bootstrap";
 class GameStats extends React.Component {
   getPricingData = (values, set) => {
     return set !== undefined
@@ -41,12 +41,36 @@ class GameStats extends React.Component {
     const gameLength = numberOfPayableRounds * roundsLengthsSecs;
     const gameData = [
       {
-        label: "🕒 Game Duration",
+        label: "🕐Round",
+        data: `${displaySegment(
+          this.props.gameInfo.currentSegment
+        )} of ${displaySegment(this.props.gameInfo.lastSegment)}`,
+      },
+      {
+        label: "🕒 Round Length",
         data: `${
           process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
-            ? dayjs.duration(gameLength, "seconds").asWeeks()
-            : dayjs.duration(gameLength, "seconds").asDays()
+            ? dayjs
+                .duration(this.props.gameInfo.segmentLengthInSecs, "seconds")
+                .asWeeks()
+            : dayjs
+                .duration(this.props.gameInfo.segmentLengthInSecs, "seconds")
+                .asDays()
         } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
+      },
+      {
+        label: "🎯 Deposit Amount",
+        data: `${weiToERC20(this.props.gameInfo.rawSegmentPayment)} DAI`,
+      },
+      {
+        label: `🏁 Game Length`,
+        data: `${dayjs
+          .duration(
+            this.props.gameInfo.segmentLengthInSecs *
+              displaySegment(this.props.gameInfo.lastSegment),
+            "seconds"
+          )
+          .asDays()} Days`,
       },
       // {
       //   label: "🎯 Recurring Deposit",
@@ -66,32 +90,32 @@ class GameStats extends React.Component {
       //       )} out of ${displaySegment(this.props.gameInfo.lastSegment - 1)}`
       //     : "Game Completed ✔️",
       // },
-      {
-        label: "👻 Players Status",
-        data: `${numberOfPlayers("alive")} Alive and ${numberOfPlayers(
-          "dead"
-        )} Dead`,
-        //condition: !props.hidePlayersStatus,  //🚨 defaults to false so is not shown (see JoinableGame.js); not sure why you'd want to hide this?? because it is loading slowly?
-      },
-      {
-        label: "🏦 Total Pool Funds",
-        data: `${
-          this.props.gameInfo &&
-          weiToERC20(this.props.gameInfo.totalGamePrincipal)
-        } DAI`,
-      },
-      {
-        label: "💸 Total Pool Interest",
-        data: `${
-          this.props.gameInfo && weiToERC20(this.props.totalGameInterest)
-        } DAI`, //🚨 would be nice if this can show more decimals!
-      },
-      {
-        label: "💸 Pool APY",
-        data: `${
-          Math.round((this.props.gameInfo.poolAPY + Number.EPSILON) * 100) / 100
-        }%`,
-      },
+      // {
+      //   label: "👻 Players Status",
+      //   data: `${numberOfPlayers("alive")} Alive and ${numberOfPlayers(
+      //     "dead"
+      //   )} Dead`,
+      //   //condition: !props.hidePlayersStatus,  //🚨 defaults to false so is not shown (see JoinableGame.js); not sure why you'd want to hide this?? because it is loading slowly?
+      // },
+      // {
+      //   label: "🏦 Total Pool Funds",
+      //   data: `${
+      //     this.props.gameInfo &&
+      //     weiToERC20(this.props.gameInfo.totalGamePrincipal)
+      //   } DAI`,
+      // },
+      // {
+      //   label: "💸 Total Pool Interest",
+      //   data: `${
+      //     this.props.gameInfo && weiToERC20(this.props.totalGameInterest)
+      //   } DAI`, //🚨 would be nice if this can show more decimals!
+      // },
+      // {
+      //   label: "💸 Pool APY",
+      //   data: `${
+      //     Math.round((this.props.gameInfo.poolAPY + Number.EPSILON) * 100) / 100
+      //   }%`,
+      // },
     ];
 
     const valueStyle = {
@@ -119,25 +143,90 @@ class GameStats extends React.Component {
                 👾
               </span>
             </h3>
-            {gameData.map((item, i) => {
-              if (item.hasOwnProperty("condition") && !item.condition) {
-                return null;
-              }
-              return (
-                <div key={i}>
-                  <span
-                    style={{
-                      fontWeight: "600",
-                      fontSize: "0.7rem",
-                      color: "black",
-                    }}
-                  >
-                    {item.label} : {"  "}
-                  </span>
-                  <span style={valueStyle}>{item.data}</span>
-                </div>
-              );
-            })}
+            <Container>
+              {/* {gameData.map((item, i) => {
+                if (item.hasOwnProperty("condition") && !item.condition) {
+                  return null;
+                }
+                return (
+                  <>
+
+                    <div key={i}>
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "0.7rem",
+                          color: "black",
+                        }}
+                      >
+                        {item.label} : {"  "}
+                      </span>
+                      <span style={valueStyle}>{item.data}</span>
+                    </div>
+                  </>
+                );
+              })} */}
+              <Row>
+                <Col sm={6}>
+                  <div key={0}>
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "0.7rem",
+                        color: "black",
+                      }}
+                    >
+                      {gameData[0].label} : {"  "}
+                    </span>
+                    <span style={valueStyle}>{gameData[0].data}</span>
+                  </div>
+                </Col>
+                <Col sm={6}>
+                  <div key={1}>
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "0.7rem",
+                        color: "black",
+                      }}
+                    >
+                      {gameData[1].label} : {"  "}
+                    </span>
+                    <span style={valueStyle}>{gameData[1].data}</span>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={6}>
+                  <div>
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "0.7rem",
+                        color: "black",
+                      }}
+                    >
+                      {gameData[2].label} : {"  "}
+                    </span>
+                    <span style={valueStyle}>{gameData[2].data}</span>
+                  </div>
+                </Col>
+                <Col sm={6}>
+                  <div key={3}>
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "0.7rem",
+                        color: "black",
+                      }}
+                    >
+                      {gameData[3].label} : {"  "}
+                    </span>
+                    <span style={valueStyle}>{gameData[3].data}</span>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
           </div>
         </div>
       </section>
