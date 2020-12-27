@@ -143,7 +143,7 @@ class GameStats extends React.Component {
                 👾
               </span>
             </h3>
-            <Container>
+            <Container style={{ paddingBottom: "14px" }}>
               {/* {gameData.map((item, i) => {
                 if (item.hasOwnProperty("condition") && !item.condition) {
                   return null;
@@ -226,6 +226,15 @@ class GameStats extends React.Component {
                   </div>
                 </Col>
               </Row>
+              <Row>
+                <CircleData
+                  label="Pool APY"
+                  data={Math.round(props.gameInfo.poolAPY * 10) / 10}
+                  measure="%"
+                />
+                <CircleData label="Interest Earned" data={8} measure="DAI" />
+                <CircleData label="Total Pooled" data={39} measure="DAI" />
+              </Row>
             </Container>
           </div>
         </div>
@@ -233,5 +242,34 @@ class GameStats extends React.Component {
     );
   }
 }
+const CircleData = (props) => (
+  <Col sm={4}>
+    <h5 style={{ textAlign: "center" }}>{props.label}</h5>
+    <div
+      style={{
+        height: "150px",
+        borderColor: "#6EB0FC",
+        borderWidth: "12px",
+        width: "150px",
+        borderStyle: "solid",
+        borderRadius: "50%",
+        margin: "auto",
+        textAlign: "center",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "2em",
+          marginBottom: "0px",
+          marginTop: "1.5rem",
+          lineHeight: "1.7rem",
+        }}
+      >
+        {props.data}
+      </p>
+      <p>{props.measure}</p>
+    </div>
+  </Col>
+);
 
 export default GameStats;
