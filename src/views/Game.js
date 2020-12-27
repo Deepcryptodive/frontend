@@ -410,9 +410,9 @@ const GamePage = () => {
           wideMobile
           onClick={getAddressFromMetaMask}
         >
-          Connect MetaMask *
+          Connect Wallet *
         </Button>
-        <p style={{ lineHeight: "3rem" }}>
+        <p style={{ fontSize: "0.7rem" }}>
           * additional wallets will be added soon.
         </p>
       </>

@@ -26,8 +26,7 @@
 
 .react-tabs__tab--selected {
   background: #fff;
-  background-color: #9b88fc;
-  color: white;
+  background-color: #ccc5fa;
 }
 
 .react-tabs__tab--disabled {
