@@ -14,6 +14,8 @@ import Schedule from "./../elements/Schedule";
 import SuccessModal from "./../elements/SuccessModal";
 import Tabs from "./../elements/Tabs";
 import Welcome from "./Welcome";
+import TabContent from "./../elements/TabContent";
+
 export default (props) => (
   <>
     <SuccessModal
@@ -25,10 +27,10 @@ export default (props) => (
       usersAddress={props.usersAddress}
     />
     <Tabs>
-      <div header={"Game Stats"}>
+      <TabContent header={"Game Stats"}>
         <GameStats gameInfo={props.gameInfo} players={props.players} />
         {props.userStatus === status.unregistered && <UnRegisteredPlayer />}
-      </div>
+      </TabContent>
       {/* {props.userStatus === status.registered && (
         <RegisteredPlayer
           gameInfo={props.gameInfo}
@@ -42,7 +44,12 @@ export default (props) => (
           header="Player Info"
         />
       )} */}
-      <Schedule gameInfo={props.gameInfo} header="Timeline" topDivider />
+      <TabContent header="Timeline">
+        <Schedule gameInfo={props.gameInfo} header="Timeline" topDivider />
+      </TabContent>
+      <TabContent header={"Players"}>
+        {props.players && PlayersPrint(props.players)}
+      </TabContent>
     </Tabs>
 
     {/* <div style={{ justifyContent: "center", marginTop: "3em " }}>

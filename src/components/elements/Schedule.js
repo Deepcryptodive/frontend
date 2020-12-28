@@ -40,16 +40,7 @@ const Schedule = (props) => {
   });
 
   return (
-    <div
-      className="schedule container tabs-content"
-      style={{
-        backgroundColor: "white",
-        // textAlign: "left",
-        maxWidth: "80vw",
-        paddingTop: "8px",
-        margin: "auto",
-      }}
-    >
+    <div className="schedule tabs-content">
       <h3
         className="show-mobile-only"
         style={{ marginTop: "5px", textAlign: "left" }}

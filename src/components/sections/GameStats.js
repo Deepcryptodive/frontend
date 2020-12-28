@@ -128,15 +128,7 @@ class GameStats extends React.Component {
     };
     return (
       <section>
-        <div
-          className="container"
-          style={{
-            backgroundColor: "white",
-            textAlign: "left",
-            maxWidth: "80vw",
-            paddingTop: "8px",
-          }}
-        >
+        <div>
           <div>
             <h3
               className="show-mobile-only animate__fadeIn"
