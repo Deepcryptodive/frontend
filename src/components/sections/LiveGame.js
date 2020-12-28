@@ -50,6 +50,13 @@ export default (props) => (
       <TabContent header={"Players"}>
         {props.players && PlayersPrint(props.players)}
       </TabContent>
+      <TabContent header={"Admin"}>
+        <h1>This is the admin content</h1>
+        <p>
+          You shouldn't need to call these functions, as the GoodGhosting team
+          will do. However for transparency we have made them open.
+        </p>
+      </TabContent>
     </Tabs>
 
     {/* <div style={{ justifyContent: "center", marginTop: "3em " }}>
