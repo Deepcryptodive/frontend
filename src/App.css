@@ -36,7 +36,7 @@
   margin-right: 10px;
 }
 .timeline {
-  margin-top: 60px;
+  margin-top: 30px;
   margin-bottom: 100px;
 }
 .schedule-right {
@@ -48,5 +48,11 @@
 @media (min-width: 641) {
   .schedule-right {
     text-align: right;
+  }
+}
+
+@media (min-width: 578px) {
+  .show-mobile-only {
+    display: none !important;
   }
 }

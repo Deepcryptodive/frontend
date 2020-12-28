@@ -134,16 +134,17 @@ class GameStats extends React.Component {
             backgroundColor: "white",
             textAlign: "left",
             maxWidth: "80vw",
+            paddingTop: "8px",
           }}
         >
           <div>
-            <h3 style={{ marginTop: "5px" }}>
-              Game Stats{" "}
-              <span role="img" aria-label="game emoji">
-                👾
-              </span>
+            <h3
+              className="show-mobile-only animate__fadeIn"
+              style={{ marginTop: "5px" }}
+            >
+              Game Stats
             </h3>
-            <Container style={{ paddingBottom: "14px" }}>
+            <Container style={{ paddingBottom: "24px" }}>
               {/* {gameData.map((item, i) => {
                 if (item.hasOwnProperty("condition") && !item.condition) {
                   return null;

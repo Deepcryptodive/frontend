@@ -4,7 +4,6 @@ import "./../../assets/scss/react-tabs.css";
 
 const TabsGroup = (props) => {
   const [tabIndex, setTabIndex] = useState(0);
-  console.log(props.children);
   return (
     <div className="cointainer">
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>

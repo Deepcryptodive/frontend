@@ -42,7 +42,7 @@ export default (props) => (
           header="Player Info"
         />
       )} */}
-      <Schedule gameInfo={props.gameInfo} header="Schedule" topDivider />
+      <Schedule gameInfo={props.gameInfo} header="Timeline" topDivider />
     </Tabs>
 
     {/* <div style={{ justifyContent: "center", marginTop: "3em " }}>

@@ -40,9 +40,23 @@ const Schedule = (props) => {
   });
 
   return (
-    <div className="schedule">
-      <section className={outerClasses}>
-        <h3>Deposit Timeline</h3>
+    <div
+      className="schedule container tabs-content"
+      style={{
+        backgroundColor: "white",
+        // textAlign: "left",
+        maxWidth: "80vw",
+        paddingTop: "8px",
+        margin: "auto",
+      }}
+    >
+      <h3
+        className="show-mobile-only"
+        style={{ marginTop: "5px", textAlign: "left" }}
+      >
+        Timeline
+      </h3>
+      {/* <h3>Deposit Timeline</h3>
         <p style={{ marginBottom: "10px" }}>
           Each round lasts{" "}
           {dayjs.duration(roundsLengthsSecs, "seconds").asDays()} days
@@ -54,48 +68,45 @@ const Schedule = (props) => {
           {" "}
           To be safe, we recomend depositing at least an hour before each round
           ends.{" "}
-        </p>
-        <div className="container">
-          <Timeline>
-            {segments.map((i) => {
-              return (
-                <TimelineItem
-                  title={i.dateData.format("HH:mm ddd D MMM")}
-                  key={i.round}
-                  className={
-                    i.round % 2 !== 0 ? "schedule-left" : "schedule-right"
-                  }
-                >
-                  {i.round === 1
-                    ? "Game launched"
-                    : `Round ${i.round - 1} ends`}
-                </TimelineItem>
-              );
-            })}
-            <p
-              style={{
-                textTransform: "uppercase",
-                fontFamily: "Cardo",
-                fontWeight: "400",
-                marginTop: "40px",
-                fontSize: "14px",
-              }}
-            >
-              After the final round
-            </p>
-            <span
-              role="img"
-              aria-label="money-emoji"
-              style={{
-                fontSize: "2.5rem",
-                lineHeight: "2.5rem",
-              }}
-            >
-              🤑
-            </span>
-          </Timeline>
-        </div>
-      </section>
+        </p> */}
+      <div className="container">
+        <Timeline>
+          {segments.map((i) => {
+            return (
+              <TimelineItem
+                title={i.dateData.format("HH:mm ddd D MMM")}
+                key={i.round}
+                className={
+                  i.round % 2 !== 0 ? "schedule-left" : "schedule-right"
+                }
+              >
+                {i.round === 1 ? "Game launched" : `Round ${i.round - 1} ends`}
+              </TimelineItem>
+            );
+          })}
+          <p
+            style={{
+              textTransform: "uppercase",
+              fontFamily: "Cardo",
+              fontWeight: "400",
+              marginTop: "40px",
+              fontSize: "14px",
+            }}
+          >
+            After the final round
+          </p>
+          <span
+            role="img"
+            aria-label="money-emoji"
+            style={{
+              fontSize: "2.5rem",
+              lineHeight: "2.5rem",
+            }}
+          >
+            🤑
+          </span>
+        </Timeline>
+      </div>
     </div>
   );
 };
