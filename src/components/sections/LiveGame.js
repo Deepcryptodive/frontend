@@ -15,6 +15,8 @@ import SuccessModal from "./../elements/SuccessModal";
 import Tabs from "./../elements/Tabs";
 import Welcome from "./Welcome";
 import TabContent from "./../elements/TabContent";
+import { Row, Col } from "react-bootstrap";
+import Image from "./../elements/Image";
 
 export default (props) => (
   <>
@@ -26,12 +28,82 @@ export default (props) => (
       connectToWallet={props.connectToWallet}
       usersAddress={props.usersAddress}
     />
-    <Tabs>
-      <TabContent header={"Game Stats"}>
-        <GameStats gameInfo={props.gameInfo} players={props.players} />
-        {props.userStatus === status.unregistered && <UnRegisteredPlayer />}
-      </TabContent>
-      {/* {props.userStatus === status.registered && (
+    <div className="container">
+      <Row>
+        {true && (
+          <Col className="show-desktop-only">
+            <div
+              style={{
+                backgroundColor: "white",
+                marginTop: "24px",
+                height: "413px",
+                paddingTop: "16px",
+              }}
+            >
+              <Image
+                style={{
+                  borderRadius: "50%",
+                  width: "200px",
+                  borderColor: "#A0CBFD",
+                  borderStyle: "solid",
+                  borderWidth: "6px",
+                  fontFamily: "Monsterrat",
+                }}
+                width={100}
+                height={100}
+                src={
+                  // props.player.threeBoxAvatar
+                  // ? `https://ipfs.infura.io/ipfs/${props.player.threeBoxAvatar}`
+                  // :
+                  `https://robohash.org/${0x2f4ce4f714c68a3fc871d1f543ffc24b9b3c2386}`
+                }
+              />
+              <h5>Fake Name</h5>
+              <div
+                className="container"
+                style={{
+                  textAlign: "left",
+                  fontFamily: "Montserrat",
+                  fontSize: "0.7rem",
+                  lineHeight: "1.5rem",
+                  padding: "0 10px",
+                }}
+              >
+                <Row>
+                  <Col lg={8}>
+                    <span>👀Status</span>
+                  </Col>
+                  <Col lg={4}>
+                    <span>Alive</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={8}>
+                    <span>💰Deposits Made</span>
+                  </Col>
+                  <Col lg={4}>
+                    <span>1/4</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={8}>
+                    <span>💸Total Deposited </span>
+                  </Col>
+                  <Col lg={4}>
+                    <span>Status</span>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+          </Col>
+        )}
+        <Col lg={9}>
+          <Tabs>
+            <TabContent header={"Game Stats"}>
+              <GameStats gameInfo={props.gameInfo} players={props.players} />
+            </TabContent>
+
+            {/* {props.userStatus === status.registered && (
         <RegisteredPlayer
           gameInfo={props.gameInfo}
           playerInfo={props.playerInfo}
@@ -44,20 +116,28 @@ export default (props) => (
           header="Player Info"
         />
       )} */}
-      <TabContent header="Timeline">
-        <Schedule gameInfo={props.gameInfo} header="Timeline" topDivider />
-      </TabContent>
-      <TabContent header={"Players"}>
-        {props.players && PlayersPrint(props.players)}
-      </TabContent>
-      <TabContent header={"Admin"}>
-        <h1>This is the admin content</h1>
-        <p>
-          You shouldn't need to call these functions, as the GoodGhosting team
-          will do. However for transparency we have made them open.
-        </p>
-      </TabContent>
-    </Tabs>
+            <TabContent header="Timeline">
+              <Schedule
+                gameInfo={props.gameInfo}
+                header="Timeline"
+                topDivider
+              />
+            </TabContent>
+            <TabContent header={"Players"}>
+              {props.players && PlayersPrint(props.players)}
+            </TabContent>
+            <TabContent header={"Admin"}>
+              <h1>This is the admin content</h1>
+              <p>
+                You shouldn't need to call these functions, as the GoodGhosting
+                team will do. However for transparency we have made them open.
+              </p>
+            </TabContent>
+          </Tabs>
+        </Col>
+      </Row>
+      {props.userStatus === status.unregistered && <UnRegisteredPlayer />}
+    </div>
 
     {/* <div style={{ justifyContent: "center", marginTop: "3em " }}>
       {props.connectToWallet()}
@@ -77,8 +157,8 @@ export default (props) => (
                 </span>
               </p>
             )}
-          {props.players &&
-            PlayersPrint(props.players, props.playerInfo.address)}
+          {/* {props.players &&
+            PlayersPrint(props.players, props.playerInfo.address)} */}
         </div>
       )}
       {props.gameInfo.isGameCompleted && (

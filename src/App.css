@@ -51,8 +51,18 @@
   }
 }
 
+.show-desktop-only {
+  display: none !important;
+}
+
 @media (min-width: 578px) {
   .show-mobile-only {
     display: none !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .show-desktop-only {
+    display: initial !important;
   }
 }
