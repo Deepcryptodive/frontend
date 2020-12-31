@@ -283,11 +283,12 @@ const GamePage = () => {
     setUserStatus(checkUserStatus());
   }, [usersAddress, players, getPlayersStatus]);
 
-  useEffect(() => {
-    getPlayerInfo();
-  }, [userStatus]);
+  // useEffect(() => {
+  //   getPlayerInfo();
+  // }, [userStatus]);
 
   const joinGame = async () => {
+    console.log("In joinGame Statr");
     setLoadingState({ joinGame: true });
     if (!isNotEmptyObj(web3)) {
       const web3 = new Web3(window.ethereum);
@@ -307,7 +308,8 @@ const GamePage = () => {
     await goodGhostingContract.methods
       .joinGame()
       .send({ from: usersAddress })
-      .then(() => {
+      .then((something) => {
+        console.log("in joinGame then", something);
         setSuccessState({ joinGame: true });
         setLoadingState({ joinGame: false });
         setUserStatus(status.registered);
@@ -330,6 +332,7 @@ const GamePage = () => {
   };
 
   const getPlayerInfo = async () => {
+    console.log("InGetPlayerInfo");
     if (!usersAddress) {
       return;
     }
@@ -354,7 +357,7 @@ const GamePage = () => {
 
     const players2 = await playerReq()
       .then((data) => {
-        console.log("🤣", data.player);
+        console.log("🤣", data);
         const player = data.player;
         player.isLive =
           gameInfo.currentSegment - 1 >= player.mostRecentSegmentPaid;
@@ -371,6 +374,7 @@ const GamePage = () => {
 
   //🚨TODO replace this with portis or alternative wallet connection
   const getAddressFromMetaMask = async () => {
+    console.log("in get address from metamask");
     if (typeof window.ethereum == "undefined") {
       setErrors({ needToAWeb3Browser: true });
     } else {

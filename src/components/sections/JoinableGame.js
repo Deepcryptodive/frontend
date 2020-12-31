@@ -17,96 +17,110 @@ import Tabs from "./../elements/Tabs";
 import Welcome from "./Welcome";
 import TabContent from "./../elements/TabContent";
 import Image from "./../elements/Image";
+import Join from "./Join";
 
 import { Col, Row } from "react-bootstrap";
 // import CountdownContainer from "./../elements/countdown-container";
 
-const JoinableGame = (props) => (
-  <div>
-    <SuccessModal
-      close={props.toggleSuccess.bind(null, "joinGame")}
-      show={props.success.joinGame}
-    />
-    <Welcome
-      connectToWallet={props.connectToWallet}
-      usersAddress={props.usersAddress}
-    />
-    <div className="container">
-      <Row>
-        {true && (
-          <Col className="show-desktop-only">
-            <div
-              style={{
-                backgroundColor: "white",
-                marginTop: "24px",
-                height: "413px",
-                paddingTop: "16px",
-              }}
-            >
-              <Image
-                style={{
-                  borderRadius: "50%",
-                  width: "200px",
-                  borderColor: "#A0CBFD",
-                  borderStyle: "solid",
-                  borderWidth: "6px",
-                  fontFamily: "Monsterrat",
-                }}
-                width={100}
-                height={100}
-                src={
-                  // props.player.threeBoxAvatar
-                  // ? `https://ipfs.infura.io/ipfs/${props.player.threeBoxAvatar}`
-                  // :
-                  `https://robohash.org/${0x2f4ce4f714c68a3fc871d1f543ffc24b9b3c2386}`
-                }
-              />
-              <h5>Fake Name</h5>
+const JoinableGame = (props) => {
+  const registeredPlayer =
+    props.usersAddress && props.userStatus === status.registered;
+  const unRegisteredPlayer =
+    props.usersAddress && props.userStatus === status.unregistered;
+  return (
+    <div>
+      <SuccessModal
+        close={props.toggleSuccess.bind(null, "joinGame")}
+        show={props.success.joinGame}
+      />
+      <Welcome
+        connectToWallet={props.connectToWallet}
+        usersAddress={props.usersAddress}
+        getAddressFromMetaMask={props.getAddressFromMetaMask}
+      />
+      {unRegisteredPlayer && (
+        <Join
+          joinGame={props.joinGame}
+          errors={props.errors}
+          success={props.success}
+        />
+      )}
+      <div className="container">
+        <Row>
+          {registeredPlayer && (
+            <Col className="show-desktop-only">
               <div
-                className="container"
                 style={{
-                  textAlign: "left",
-                  fontFamily: "Montserrat",
-                  fontSize: "0.7rem",
-                  lineHeight: "1.5rem",
-                  padding: "0 10px",
+                  backgroundColor: "white",
+                  marginTop: "24px",
+                  height: "413px",
+                  paddingTop: "16px",
                 }}
               >
-                <Row>
-                  <Col lg={8}>
-                    <span>👀Status</span>
-                  </Col>
-                  <Col lg={4}>
-                    <span>Alive</span>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg={8}>
-                    <span>💰Deposits Made</span>
-                  </Col>
-                  <Col lg={4}>
-                    <span>1/4</span>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg={8}>
-                    <span>💸Total Deposited </span>
-                  </Col>
-                  <Col lg={4}>
-                    <span>Status</span>
-                  </Col>
-                </Row>
+                <Image
+                  style={{
+                    borderRadius: "50%",
+                    width: "200px",
+                    borderColor: "#A0CBFD",
+                    borderStyle: "solid",
+                    borderWidth: "6px",
+                    fontFamily: "Monsterrat",
+                  }}
+                  width={100}
+                  height={100}
+                  src={
+                    // props.player.threeBoxAvatar
+                    // ? `https://ipfs.infura.io/ipfs/${props.player.threeBoxAvatar}`
+                    // :
+                    `https://robohash.org/${0x2f4ce4f714c68a3fc871d1f543ffc24b9b3c2386}`
+                  }
+                />
+                <h5>Fake Name</h5>
+                <div
+                  className="container"
+                  style={{
+                    textAlign: "left",
+                    fontFamily: "Montserrat",
+                    fontSize: "0.7rem",
+                    lineHeight: "1.5rem",
+                    padding: "0 10px",
+                  }}
+                >
+                  <Row>
+                    <Col lg={8}>
+                      <span>👀Status</span>
+                    </Col>
+                    <Col lg={4}>
+                      <span>Alive</span>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg={8}>
+                      <span>💰Deposits Made</span>
+                    </Col>
+                    <Col lg={4}>
+                      <span>1/4</span>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg={8}>
+                      <span>💸Total Deposited </span>
+                    </Col>
+                    <Col lg={4}>
+                      <span>Status</span>
+                    </Col>
+                  </Row>
+                </div>
               </div>
-            </div>
-          </Col>
-        )}
-        <Col lg={9}>
-          <Tabs>
-            <TabContent header={"Game Stats"}>
-              <GameStats gameInfo={props.gameInfo} players={props.players} />
-            </TabContent>
+            </Col>
+          )}
+          <Col lg={registeredPlayer ? 9 : 12}>
+            <Tabs>
+              <TabContent header={"Game Stats"}>
+                <GameStats gameInfo={props.gameInfo} players={props.players} />
+              </TabContent>
 
-            {/* {props.userStatus === status.registered && (
+              {/* {props.userStatus === status.registered && (
         <RegisteredPlayer
           gameInfo={props.gameInfo}
           playerInfo={props.playerInfo}
@@ -119,66 +133,67 @@ const JoinableGame = (props) => (
           header="Player Info"
         />
       )} */}
-            <TabContent header="Timeline">
-              <Schedule
-                gameInfo={props.gameInfo}
-                header="Timeline"
-                topDivider
-              />
-            </TabContent>
-            <TabContent header={"Players"}>
-              {props.players && PlayersPrint(props.players)}
-            </TabContent>
-            <TabContent header={"Admin"}>
-              <h1>This is the admin content</h1>
-              <p className="Cardo">
-                You shouldn't need to call these functions, as the GoodGhosting
-                team will do. However for transparency we have made them open.
-              </p>
-              <p>
-                Contract Address:{" "}
-                <a
-                  href={`https://kovan.etherscan.io/address/${process.env.REACT_APP_GG_CONTRACT}`}
-                  rel="noopener noreferrer nofollow"
-                  target="_blank"
-                >
-                  <span
-                    style={{
-                      backgroundColor: "rgb(246, 248, 254)",
-                      borderRadius: "3px",
-                    }}
+              <TabContent header="Timeline">
+                <Schedule
+                  gameInfo={props.gameInfo}
+                  header="Timeline"
+                  topDivider
+                />
+              </TabContent>
+              <TabContent header={"Players"}>
+                {props.players && PlayersPrint(props.players)}
+              </TabContent>
+              <TabContent header={"Admin"}>
+                <h1>This is the admin content</h1>
+                <p className="Cardo">
+                  You shouldn't need to call these functions, as the
+                  GoodGhosting team will do. However for transparency we have
+                  made them open.
+                </p>
+                <p>
+                  Contract Address:{" "}
+                  <a
+                    href={`https://kovan.etherscan.io/address/${process.env.REACT_APP_GG_CONTRACT}`}
+                    rel="noopener noreferrer nofollow"
+                    target="_blank"
                   >
-                    {" "}
-                    {process.env.REACT_APP_GG_CONTRACT}
-                  </span>
-                </a>
-              </p>
-              <p>
-                The Graph URL:{" "}
-                <a
-                  href={process.env.REACT_APP_GRAPH_URL}
-                  rel="noopener noreferrer nofollow"
-                  target="_blank"
-                >
-                  <span
-                    style={{
-                      backgroundColor: "rgb(246, 248, 254)",
-                      borderRadius: "3px",
-                    }}
+                    <span
+                      style={{
+                        backgroundColor: "rgb(246, 248, 254)",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      {" "}
+                      {process.env.REACT_APP_GG_CONTRACT}
+                    </span>
+                  </a>
+                </p>
+                <p>
+                  The Graph URL:{" "}
+                  <a
+                    href={process.env.REACT_APP_GRAPH_URL}
+                    rel="noopener noreferrer nofollow"
+                    target="_blank"
                   >
-                    {" "}
-                    {process.env.REACT_APP_GRAPH_URL}
-                  </span>
-                </a>
-              </p>
-            </TabContent>
-          </Tabs>
-        </Col>
-      </Row>
+                    <span
+                      style={{
+                        backgroundColor: "rgb(246, 248, 254)",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      {" "}
+                      {process.env.REACT_APP_GRAPH_URL}
+                    </span>
+                  </a>
+                </p>
+              </TabContent>
+            </Tabs>
+          </Col>
+        </Row>
+      </div>
+
+      <KovanFaucet />
     </div>
-
-    <KovanFaucet />
-  </div>
-);
-
+  );
+};
 export default JoinableGame;
