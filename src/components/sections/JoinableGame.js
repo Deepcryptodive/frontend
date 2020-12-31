@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./../elements/Button";
 import PlayersPrint from "./../elements/PrintPlayers";
 import { status, isNotEmptyObj, brandColors } from "../../utils/utilities";
@@ -13,6 +13,7 @@ import Schedule from "./../elements/Schedule";
 import classNames from "classnames";
 import { JoinError } from "./../elements/Errors";
 import SuccessModal from "./../elements/SuccessModal";
+import ConfirmModal from "./../elements/ConfirmModal";
 import Tabs from "./../elements/Tabs";
 import Welcome from "./Welcome";
 import TabContent from "./../elements/TabContent";
@@ -23,6 +24,8 @@ import { Col, Row } from "react-bootstrap";
 // import CountdownContainer from "./../elements/countdown-container";
 
 const JoinableGame = (props) => {
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   const registeredPlayer =
     props.usersAddress && props.userStatus === status.registered;
   const unRegisteredPlayer =
@@ -33,6 +36,11 @@ const JoinableGame = (props) => {
         close={props.toggleSuccess.bind(null, "joinGame")}
         show={props.success.joinGame}
       />
+      <ConfirmModal
+        show={showConfirmModal}
+        close={() => setShowConfirmModal(false)}
+        gameInfo={props.gameInfo}
+      />
       <Welcome
         connectToWallet={props.connectToWallet}
         usersAddress={props.usersAddress}
@@ -40,7 +48,7 @@ const JoinableGame = (props) => {
       />
       {unRegisteredPlayer && (
         <Join
-          joinGame={props.joinGame}
+          joinGame={() => setShowConfirmModal(true)}
           errors={props.errors}
           success={props.success}
         />
@@ -119,20 +127,6 @@ const JoinableGame = (props) => {
               <TabContent header={"Game Stats"}>
                 <GameStats gameInfo={props.gameInfo} players={props.players} />
               </TabContent>
-
-              {/* {props.userStatus === status.registered && (
-        <RegisteredPlayer
-          gameInfo={props.gameInfo}
-          playerInfo={props.playerInfo}
-          makeDeposit={props.makeDeposit}
-          players={props.players}
-          withdraw={props.withdraw}
-          loadingState={props.loadingState}
-          redeem={props.redeem}
-          emergencyWithdraw={props.emergencyWithdraw}
-          header="Player Info"
-        />
-      )} */}
               <TabContent header="Timeline">
                 <Schedule
                   gameInfo={props.gameInfo}

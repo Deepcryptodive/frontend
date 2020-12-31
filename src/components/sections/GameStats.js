@@ -4,6 +4,36 @@ import { displaySegment, weiToERC20 } from "./../../utils/utilities";
 import web3 from "web3";
 import dayjs from "dayjs";
 import { Container, Row, Col } from "react-bootstrap";
+
+export const getViewableGameStats = (gameInfo) => [
+  {
+    label: "🕐Round",
+    data: `${displaySegment(gameInfo.currentSegment)} of ${displaySegment(
+      gameInfo.lastSegment
+    )}`,
+  },
+  {
+    label: "🕒 Round Length",
+    data: `${
+      process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
+        ? dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asWeeks()
+        : dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asDays()
+    } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
+  },
+  {
+    label: "🎯 Deposit Amount",
+    data: `${weiToERC20(gameInfo.rawSegmentPayment)} DAI`,
+  },
+  {
+    label: `🏁 Game Length`,
+    data: `${dayjs
+      .duration(
+        gameInfo.segmentLengthInSecs * displaySegment(gameInfo.lastSegment),
+        "seconds"
+      )
+      .asDays()} Days`,
+  },
+];
 class GameStats extends React.Component {
   getPricingData = (values, set) => {
     return set !== undefined
@@ -35,88 +65,7 @@ class GameStats extends React.Component {
       return deadPlayers.length;
     };
 
-    const roundsLengthsSecs = props.gameInfo.segmentLengthInSecs;
-    const numberOfPayableRounds = parseInt(props.gameInfo.lastSegment);
-    const numberOfRounds = numberOfPayableRounds + 1;
-    const gameLength = numberOfPayableRounds * roundsLengthsSecs;
-    const gameData = [
-      {
-        label: "🕐Round",
-        data: `${displaySegment(
-          this.props.gameInfo.currentSegment
-        )} of ${displaySegment(this.props.gameInfo.lastSegment)}`,
-      },
-      {
-        label: "🕒 Round Length",
-        data: `${
-          process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
-            ? dayjs
-                .duration(this.props.gameInfo.segmentLengthInSecs, "seconds")
-                .asWeeks()
-            : dayjs
-                .duration(this.props.gameInfo.segmentLengthInSecs, "seconds")
-                .asDays()
-        } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
-      },
-      {
-        label: "🎯 Deposit Amount",
-        data: `${weiToERC20(this.props.gameInfo.rawSegmentPayment)} DAI`,
-      },
-      {
-        label: `🏁 Game Length`,
-        data: `${dayjs
-          .duration(
-            this.props.gameInfo.segmentLengthInSecs *
-              displaySegment(this.props.gameInfo.lastSegment),
-            "seconds"
-          )
-          .asDays()} Days`,
-      },
-      // {
-      //   label: "🎯 Recurring Deposit",
-      //   data: `${web3.utils.fromWei(
-      //     this.props.gameInfo.rawSegmentPayment
-      //   )} DAI every ${
-      //     process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
-      //       ? dayjs.duration(roundsLengthsSecs, "seconds").asWeeks()
-      //       : dayjs.duration(roundsLengthsSecs, "seconds").asDays()
-      //   } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
-      // },
-      // {
-      //   label: "⏳ Current Round",
-      //   data: !this.props.gameInfo.isGameCompleted
-      //     ? `${displaySegment(
-      //         this.props.gameInfo.currentSegment
-      //       )} out of ${displaySegment(this.props.gameInfo.lastSegment - 1)}`
-      //     : "Game Completed ✔️",
-      // },
-      // {
-      //   label: "👻 Players Status",
-      //   data: `${numberOfPlayers("alive")} Alive and ${numberOfPlayers(
-      //     "dead"
-      //   )} Dead`,
-      //   //condition: !props.hidePlayersStatus,  //🚨 defaults to false so is not shown (see JoinableGame.js); not sure why you'd want to hide this?? because it is loading slowly?
-      // },
-      // {
-      //   label: "🏦 Total Pool Funds",
-      //   data: `${
-      //     this.props.gameInfo &&
-      //     weiToERC20(this.props.gameInfo.totalGamePrincipal)
-      //   } DAI`,
-      // },
-      // {
-      //   label: "💸 Total Pool Interest",
-      //   data: `${
-      //     this.props.gameInfo && weiToERC20(this.props.totalGameInterest)
-      //   } DAI`, //🚨 would be nice if this can show more decimals!
-      // },
-      // {
-      //   label: "💸 Pool APY",
-      //   data: `${
-      //     Math.round((this.props.gameInfo.poolAPY + Number.EPSILON) * 100) / 100
-      //   }%`,
-      // },
-    ];
+    const gameData = getViewableGameStats(this.props.gameInfo);
 
     const valueStyle = {
       backgroundColor: "#F6F8FE",
