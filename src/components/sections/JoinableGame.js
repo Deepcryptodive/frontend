@@ -13,6 +13,12 @@ import Schedule from "./../elements/Schedule";
 import classNames from "classnames";
 import { JoinError } from "./../elements/Errors";
 import SuccessModal from "./../elements/SuccessModal";
+import Tabs from "./../elements/Tabs";
+import Welcome from "./Welcome";
+import TabContent from "./../elements/TabContent";
+import Image from "./../elements/Image";
+
+import { Col, Row } from "react-bootstrap";
 // import CountdownContainer from "./../elements/countdown-container";
 
 const JoinableGame = (props) => (
@@ -21,134 +27,157 @@ const JoinableGame = (props) => (
       close={props.toggleSuccess.bind(null, "joinGame")}
       show={props.success.joinGame}
     />
-    {/* <SectionHeader
-      tag="h1"
-      data={{
-        title: "Our saving pool closes",
-        paragraph: dayjs().to(props.gameInfo.firstSegmentEnd),
-      }}
-      headerStyle={{ paddingBottom: "20px" }}
-      className="center-content"
-    /> */}
-    {/* <CountdownContainer
-      timeTillDate="08 16 2020 , 6:00 am"
-      timeFormat="MM DD YYYY, h:mm a"
-    /> */}
-    {props.userStatus === status.registered && (
-      <AddEmail addr={props.playerInfo.addr} bannerStyle={true} />
-    )}
-    {props.gameInfo && props.players && (
-      <GameStats
-        hasBgColor
-        className="illustration-section-07"
-        gameInfo={props.gameInfo}
-        players={props.players}
-        hidePlayersStatus={true}
-        isJoinable={true}
-      />
-    )}
-    {props.usersAddress && props.userStatus === status.unregistered && (
-      <>
-        {props.usersAddress && props.userStatus !== status.registered && (
-          <>
-            <Button tag="a" color="primary" wideMobile onClick={props.joinGame}>
-              {props.loadingState.joinGame ? (
-                <>
-                  Loading{" "}
-                  <img
-                    src={Loading}
-                    alt="loading"
-                    className="loading-img-button"
-                    style={{ width: "28px", paddingLeft: "10px" }}
-                  />
-                </>
-              ) : (
-                "Click to join the Game *"
-              )}
-            </Button>
-            <p
+    <Welcome
+      connectToWallet={props.connectToWallet}
+      usersAddress={props.usersAddress}
+    />
+    <div className="container">
+      <Row>
+        {true && (
+          <Col className="show-desktop-only">
+            <div
               style={{
-                maxWidth: "300px",
-                margin: "auto",
-                marginTop: "10px",
-                fontSize: "0.9rem",
+                backgroundColor: "white",
+                marginTop: "24px",
+                height: "413px",
+                paddingTop: "16px",
               }}
             >
-              *You will need Kovan{" "}
-              <a
-                className="kovan-link"
-                style={{ textDecoration: "none" }}
-                href="https://kovan.faucet.enjin.io/"
-                target="blank"
-                rel="noopener noreferrer nofollow"
+              <Image
+                style={{
+                  borderRadius: "50%",
+                  width: "200px",
+                  borderColor: "#A0CBFD",
+                  borderStyle: "solid",
+                  borderWidth: "6px",
+                  fontFamily: "Monsterrat",
+                }}
+                width={100}
+                height={100}
+                src={
+                  // props.player.threeBoxAvatar
+                  // ? `https://ipfs.infura.io/ipfs/${props.player.threeBoxAvatar}`
+                  // :
+                  `https://robohash.org/${0x2f4ce4f714c68a3fc871d1f543ffc24b9b3c2386}`
+                }
+              />
+              <h5>Fake Name</h5>
+              <div
+                className="container"
+                style={{
+                  textAlign: "left",
+                  fontFamily: "Montserrat",
+                  fontSize: "0.7rem",
+                  lineHeight: "1.5rem",
+                  padding: "0 10px",
+                }}
               >
-                ETH
-              </a>{" "}
-              and{" "}
-              <a
-                className="kovan-link"
-                style={{ textDecoration: "none" }}
-                href="https://testnet.aave.com/faucet"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
-                DAI
-              </a>
-              . Requires two signatures from your wallet.
-            </p>
-          </>
+                <Row>
+                  <Col lg={8}>
+                    <span>👀Status</span>
+                  </Col>
+                  <Col lg={4}>
+                    <span>Alive</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={8}>
+                    <span>💰Deposits Made</span>
+                  </Col>
+                  <Col lg={4}>
+                    <span>1/4</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={8}>
+                    <span>💸Total Deposited </span>
+                  </Col>
+                  <Col lg={4}>
+                    <span>Status</span>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+          </Col>
         )}
-        {props.errors.joinGame && <JoinError />}
-        {props.success.joinGame && <h1>🎉 Success</h1>}
-      </>
-    )}
-    {isNotEmptyObj(props.playerInfo) && (
-      <PlayerInfo
-        playerInfo={props.playerInfo}
-        players={props.players}
-        lastSegment={props.gameInfo.lastSegment}
-      />
-    )}
-    <div className="connect-to-wallet" style={{ margin: "20px" }}>
-      {props.connectToWallet()}
-    </div>
-    {props.players && isNotEmptyObj(props.gameInfo) && (
-      <div>
-        {props.gameInfo.firstSegmentStart && (
-          <p className="cardo" style={{ marginTop: "10px" }}>
-            Game launched on{" "}
-            <span>
-              {`${props.gameInfo.firstSegmentStartArr[2]} . ${
-                props.gameInfo.firstSegmentStartArr[1] + 1
-              } . ${props.gameInfo.firstSegmentStartArr[0]}`}
-            </span>
-          </p>
-        )}
-        <h3 style={{ fontSize: "2rem" }}>
-          Pool Closes {dayjs().to(props.gameInfo.firstSegmentEnd)}
-        </h3>
-        {props.userStatus === status.registered && (
-          <EmergencyWithdraw
-            emergencyWithdraw={props.emergencyWithdraw}
-            loadingState={props.loadingState}
-          />
-        )}
+        <Col lg={9}>
+          <Tabs>
+            <TabContent header={"Game Stats"}>
+              <GameStats gameInfo={props.gameInfo} players={props.players} />
+            </TabContent>
 
-        <Schedule gameInfo={props.gameInfo} />
-        <section style={{ paddingTop: "80px" }}>
-          <h3>Players in the game</h3>
-          <p style={{ fontSize: "0.7rem" }}>
-            Customize your avatar at{" "}
-            <a href="https://3box.io/hub" target="_blank" rel="noopen">
-              {" "}
-              3Box Hub
-            </a>
-          </p>
-          {props.players && PlayersPrint(props.players)}
-        </section>
-        <KovanFaucet />
-      </div>
-    )}
+            {/* {props.userStatus === status.registered && (
+        <RegisteredPlayer
+          gameInfo={props.gameInfo}
+          playerInfo={props.playerInfo}
+          makeDeposit={props.makeDeposit}
+          players={props.players}
+          withdraw={props.withdraw}
+          loadingState={props.loadingState}
+          redeem={props.redeem}
+          emergencyWithdraw={props.emergencyWithdraw}
+          header="Player Info"
+        />
+      )} */}
+            <TabContent header="Timeline">
+              <Schedule
+                gameInfo={props.gameInfo}
+                header="Timeline"
+                topDivider
+              />
+            </TabContent>
+            <TabContent header={"Players"}>
+              {props.players && PlayersPrint(props.players)}
+            </TabContent>
+            <TabContent header={"Admin"}>
+              <h1>This is the admin content</h1>
+              <p className="Cardo">
+                You shouldn't need to call these functions, as the GoodGhosting
+                team will do. However for transparency we have made them open.
+              </p>
+              <p>
+                Contract Address:{" "}
+                <a
+                  href={`https://kovan.etherscan.io/address/${process.env.REACT_APP_GG_CONTRACT}`}
+                  rel="noopener noreferrer nofollow"
+                  target="_blank"
+                >
+                  <span
+                    style={{
+                      backgroundColor: "rgb(246, 248, 254)",
+                      borderRadius: "3px",
+                    }}
+                  >
+                    {" "}
+                    {process.env.REACT_APP_GG_CONTRACT}
+                  </span>
+                </a>
+              </p>
+              <p>
+                The Graph URL:{" "}
+                <a
+                  href={process.env.REACT_APP_GRAPH_URL}
+                  rel="noopener noreferrer nofollow"
+                  target="_blank"
+                >
+                  <span
+                    style={{
+                      backgroundColor: "rgb(246, 248, 254)",
+                      borderRadius: "3px",
+                    }}
+                  >
+                    {" "}
+                    {process.env.REACT_APP_GRAPH_URL}
+                  </span>
+                </a>
+              </p>
+            </TabContent>
+          </Tabs>
+        </Col>
+      </Row>
+    </div>
+
+    <KovanFaucet />
   </div>
 );
 

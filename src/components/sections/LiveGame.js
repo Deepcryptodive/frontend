@@ -128,7 +128,7 @@ export default (props) => (
             </TabContent>
             <TabContent header={"Admin"}>
               <h1>This is the admin content</h1>
-              <p>
+              <p className="Cardo">
                 You shouldn't need to call these functions, as the GoodGhosting
                 team will do. However for transparency we have made them open.
               </p>
