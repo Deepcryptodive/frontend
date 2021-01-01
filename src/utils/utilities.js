@@ -47,3 +47,5 @@ export const weiToERC20 = (wei) => {
 };
 // current segment counts from 0 and is a string
 export const displaySegment = (raw) => parseInt(raw) + 1;
+
+export const round = (num) => Math.round((num + Number.EPSILON) * 100) / 100;

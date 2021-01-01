@@ -5,7 +5,12 @@
 	right: 0;
 	top: 0
 }
-
+.modal-x{
+	transition: color 0.2s;
+}
+.modal-x:hover{
+	color : white
+}
 .modal {
 	display: none;
 	align-items: center;

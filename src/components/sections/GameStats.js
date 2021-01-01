@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { displaySegment, weiToERC20 } from "./../../utils/utilities";
+import { displaySegment, weiToERC20, round } from "./../../utils/utilities";
 import web3 from "web3";
 import dayjs from "dayjs";
 import { Container, Row, Col } from "react-bootstrap";
@@ -11,27 +11,38 @@ export const getViewableGameStats = (gameInfo) => [
     data: `${displaySegment(gameInfo.currentSegment)} of ${displaySegment(
       gameInfo.lastSegment
     )}`,
+    confirmLabel: "Number of Rounds",
+    confirmData: displaySegment(gameInfo.lastSegment),
   },
   {
     label: "🕒 Round Length",
+    confirmLabel: "Round Length",
     data: `${
       process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
-        ? dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asWeeks()
-        : dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asDays()
+        ? round(
+            dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asWeeks()
+          )
+        : round(
+            dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asDays()
+          )
     } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
   },
   {
     label: "🎯 Deposit Amount",
+    confirmLabel: "Deposit Amount",
     data: `${weiToERC20(gameInfo.rawSegmentPayment)} DAI`,
   },
   {
     label: `🏁 Game Length`,
-    data: `${dayjs
-      .duration(
-        gameInfo.segmentLengthInSecs * displaySegment(gameInfo.lastSegment),
-        "seconds"
-      )
-      .asDays()} Days`,
+    confirmLabel: "Game Length",
+    data: `${round(
+      dayjs
+        .duration(
+          gameInfo.segmentLengthInSecs * displaySegment(gameInfo.lastSegment),
+          "seconds"
+        )
+        .asDays()
+    )} Days`,
   },
 ];
 class GameStats extends React.Component {
@@ -68,11 +79,11 @@ class GameStats extends React.Component {
     const gameData = getViewableGameStats(this.props.gameInfo);
 
     const valueStyle = {
-      backgroundColor: "#F6F8FE",
+      // backgroundColor: "#F6F8FE",
       marginLeft: "18px",
       paddingLeft: "10px",
       paddingRight: "4px",
-      borderRadius: "3px",
+      // borderRadius: "3px",
       fontSize: "0.7rem",
     };
     return (
@@ -120,7 +131,9 @@ class GameStats extends React.Component {
                     >
                       {gameData[0].label} : {"  "}
                     </span>
-                    <span style={valueStyle}>{gameData[0].data}</span>
+                    <span className="code" style={valueStyle}>
+                      {gameData[0].data}
+                    </span>
                   </div>
                 </Col>
                 <Col sm={6}>
@@ -134,7 +147,9 @@ class GameStats extends React.Component {
                     >
                       {gameData[1].label} : {"  "}
                     </span>
-                    <span style={valueStyle}>{gameData[1].data}</span>
+                    <span className="code" style={valueStyle}>
+                      {gameData[1].data}
+                    </span>
                   </div>
                 </Col>
               </Row>
@@ -150,7 +165,9 @@ class GameStats extends React.Component {
                     >
                       {gameData[2].label} : {"  "}
                     </span>
-                    <span style={valueStyle}>{gameData[2].data}</span>
+                    <span className="code" style={valueStyle}>
+                      {gameData[2].data}
+                    </span>
                   </div>
                 </Col>
                 <Col sm={6}>
@@ -164,7 +181,9 @@ class GameStats extends React.Component {
                     >
                       {gameData[3].label} : {"  "}
                     </span>
-                    <span style={valueStyle}>{gameData[3].data}</span>
+                    <span className="code" style={valueStyle}>
+                      {gameData[3].data}
+                    </span>
                   </div>
                 </Col>
               </Row>
