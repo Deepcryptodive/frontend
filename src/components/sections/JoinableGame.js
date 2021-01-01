@@ -44,6 +44,7 @@ const JoinableGame = (props) => {
         joinGame={props.joinGame}
         success={props.success.joinGame}
         loadingState={props.loadingState}
+        errors={props.errors}
       />
       <Welcome
         connectToWallet={props.connectToWallet}
@@ -52,9 +53,10 @@ const JoinableGame = (props) => {
       />
       {unRegisteredPlayer && (
         <Join
-          joinGame={() => setShowConfirmModal(true)}
+          openModal={() => setShowConfirmModal(true)}
           errors={props.errors}
           success={props.success}
+          loadingState={props.loadingState}
         />
       )}
       <div className="container">
@@ -189,7 +191,7 @@ const JoinableGame = (props) => {
           </Col>
         </Row>
       </div>
-
+      {props.errors.joinGame && <JoinError />}
       <KovanFaucet />
     </div>
   );

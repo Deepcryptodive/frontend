@@ -3,57 +3,73 @@ import Modal from "./Modal";
 import Button from "./Button";
 import { getViewableGameStats } from "./../sections/GameStats";
 import Loading from "./../../assets/loading.svg";
+import { JoinError } from "./../elements/Errors";
 
 export default (props) => {
   const gameInfo = getViewableGameStats(props.gameInfo);
   return (
     <Modal show={props.show} handleClose={props.close}>
       <h3>Join our saving pool</h3>
-      <p>Click join below to join the pool, and make your first deposit.</p>
-      <p>
-        You will need the deposit amount in DAI and some ETH for gas in your
-        wallet.{" "}
-      </p>
+      {props.errors.joinGame && <JoinError />}
+      {props.success && (
+        <div>
+          <h4>
+            Congrats you have now joined the pool!{" "}
+            <span role="img" aria-label="swimmer">
+              🥳
+            </span>{" "}
+          </h4>
+        </div>
+      )}
+      {!props.success && (
+        <>
+          <p>Click join below to join the pool, and make your first deposit.</p>
+          <p>
+            You will need the deposit amount in DAI and some ETH for gas in your
+            wallet.{" "}
+          </p>
 
-      <h4>
-        Pool Rules{" "}
-        <span role="img" aria-label="swimmer">
-          🏊‍♀️
-        </span>
-      </h4>
-      <div style={{ fontFamily: "Montserrat", paddingBottom: "24px" }}>
-        <div>
-          <span>{gameInfo[3].confirmLabel}:</span>{" "}
-          <span className="code">{gameInfo[3].data}</span>
-        </div>
-        <div>
-          <span>{gameInfo[1].confirmLabel}:</span>{" "}
-          <span className="code">{gameInfo[1].data}</span>
-        </div>
-        <div>
-          <span>{gameInfo[2].confirmLabel}:</span>{" "}
-          <span className="code">{gameInfo[2].data}</span>
-        </div>
-      </div>
-      {/* <Button color="primary" onClick={props.joinGame}>
-        Join the Pool!
-      </Button> */}
-
-      <Button tag="a" color="primary" onClick={props.joinGame}>
-        {props.loadingState.joinGame ? (
-          <>
-            Loading{" "}
-            <img
-              src={Loading}
-              alt="loading"
-              className="loading-img-button"
-              style={{ width: "28px", marginLeft: "10px", marginRight: "10px" }}
-            />
-          </>
-        ) : (
-          "Click to join the Game *"
-        )}
-      </Button>
+          <h4>
+            Pool Rules{" "}
+            <span role="img" aria-label="swimmer">
+              🏊‍♀️
+            </span>
+          </h4>
+          <div style={{ fontFamily: "Montserrat", paddingBottom: "24px" }}>
+            <div>
+              <span>{gameInfo[3].confirmLabel}:</span>{" "}
+              <span className="code">{gameInfo[3].data}</span>
+            </div>
+            <div>
+              <span>{gameInfo[1].confirmLabel}:</span>{" "}
+              <span className="code">{gameInfo[1].data}</span>
+            </div>
+            <div>
+              <span>{gameInfo[2].confirmLabel}:</span>{" "}
+              <span className="code">{gameInfo[2].data}</span>
+            </div>
+          </div>
+          <Button tag="a" color="primary" onClick={props.joinGame}>
+            {props.loadingState.joinGame ? (
+              <>
+                Loading{" "}
+                <img
+                  src={Loading}
+                  alt="loading"
+                  className="loading-img-button"
+                  style={{
+                    width: "28px",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                />
+              </>
+            ) : (
+              "Join the Pool"
+            )}
+          </Button>
+        </>
+      )}
     </Modal>
   );
 };
