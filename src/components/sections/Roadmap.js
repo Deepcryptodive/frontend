@@ -58,7 +58,7 @@ class Roadmap extends React.Component {
                   target="_blank"
                   rel="noopener"
                 >
-                  Initial product ideation at ETH London, award a finalist
+                  Initial product ideation at ETH London, awarded a finalist
                   position
                 </a>
               </TimelineItem>
