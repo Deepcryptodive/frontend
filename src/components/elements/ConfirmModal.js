@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "./Modal";
 import Button from "./Button";
 import { getViewableGameStats } from "./../sections/GameStats";
+import Loading from "./../../assets/loading.svg";
 
 export default (props) => {
   const gameInfo = getViewableGameStats(props.gameInfo);
@@ -34,8 +35,24 @@ export default (props) => {
           <span className="code">{gameInfo[2].data}</span>
         </div>
       </div>
-      <Button color="primary" onClick={props.close}>
-        Close
+      {/* <Button color="primary" onClick={props.joinGame}>
+        Join the Pool!
+      </Button> */}
+
+      <Button tag="a" color="primary" onClick={props.joinGame}>
+        {props.loadingState.joinGame ? (
+          <>
+            Loading{" "}
+            <img
+              src={Loading}
+              alt="loading"
+              className="loading-img-button"
+              style={{ width: "28px", marginLeft: "10px", marginRight: "10px" }}
+            />
+          </>
+        ) : (
+          "Click to join the Game *"
+        )}
       </Button>
     </Modal>
   );

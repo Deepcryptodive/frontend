@@ -34,12 +34,16 @@ const JoinableGame = (props) => {
     <div>
       <SuccessModal
         close={props.toggleSuccess.bind(null, "joinGame")}
-        show={props.success.joinGame}
+        // show={props.success.joinGame}
+        show={false}
       />
       <ConfirmModal
         show={showConfirmModal}
         close={() => setShowConfirmModal(false)}
         gameInfo={props.gameInfo}
+        joinGame={props.joinGame}
+        success={props.success.joinGame}
+        loadingState={props.loadingState}
       />
       <Welcome
         connectToWallet={props.connectToWallet}
