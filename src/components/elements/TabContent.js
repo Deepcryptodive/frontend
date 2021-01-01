@@ -9,6 +9,7 @@ const TabContent = (props) => (
       textAlign: "left",
       maxWidth: "80vw",
       paddingTop: "8px",
+      marginBottom: "10%",
     }}
   >
     {props.children}

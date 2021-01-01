@@ -29,7 +29,7 @@ class Footer extends React.Component {
       <footer
         {...props}
         className={classes}
-        style={{ backgroundColor: "#F5F7FE" }}
+        style={{ backgroundColor: "#EDF1FF" }}
       >
         <div className="container">
           <div
