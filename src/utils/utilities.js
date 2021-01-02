@@ -49,3 +49,7 @@ export const weiToERC20 = (wei) => {
 export const displaySegment = (raw) => parseInt(raw) + 1;
 
 export const round = (num) => Math.round((num + Number.EPSILON) * 100) / 100;
+
+export const daiLink = "https://testnet.aave.com/faucet";
+
+export const ethLink = "https://kovan.faucet.enjin.io/";

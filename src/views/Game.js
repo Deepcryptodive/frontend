@@ -35,7 +35,7 @@ import PlayerInfo from "../components/elements/PlayerInfo";
 
 const GamePage = () => {
   const [players, setPlayers] = useState([]);
-  const [usersAddress, setUsersAddress] = useState(false);
+  const [usersAddress, setUsersAddress] = useState("");
   const [goodGhostingContract, setGoodGhostingContract] = useState({});
   const [loadingState, setLoadingState] = useState({});
   const [success, setSuccessState] = useState({});
@@ -287,8 +287,40 @@ const GamePage = () => {
   //   getPlayerInfo();
   // }, [userStatus]);
 
+  useEffect(() => {
+    lookForProfile();
+  }, [players, usersAddress]);
+
+  const lookForProfile = () => {
+    if (players && players.length > 0) {
+      console.log(
+        "in lookForProfile",
+        players[0].address,
+        "usersAddress",
+        usersAddress
+      );
+      console.log(!!players.find((player) => player.address == usersAddress));
+      console.log("playsUnod", !isNotEmptyObj(playerInfo), playerInfo);
+      console.log(
+        "second st",
+        usersAddress &&
+          !isNotEmptyObj(playerInfo) &&
+          !!players.find((player) => player.address == usersAddress)
+      );
+      if (
+        usersAddress &&
+        !isNotEmptyObj(playerInfo) &&
+        !!players.find((player) => player.address === usersAddress)
+      ) {
+        console.log("in if");
+        setPlayerInfo(
+          players.find((player) => player.address === usersAddress)
+        );
+      }
+    }
+  };
+
   const joinGame = async () => {
-    console.log("In joinGame Statr");
     setLoadingState({ joinGame: true });
     if (!isNotEmptyObj(web3)) {
       const web3 = new Web3(window.ethereum);

@@ -4,6 +4,7 @@ import Button from "./Button";
 import { getViewableGameStats } from "./../sections/GameStats";
 import Loading from "./../../assets/loading.svg";
 import { JoinError } from "./../elements/Errors";
+import { daiLink, ethLink } from "./../../utils/utilities";
 
 export default (props) => {
   const gameInfo = getViewableGameStats(props.gameInfo);
@@ -25,8 +26,23 @@ export default (props) => {
         <>
           <p>Click join below to join the pool, and make your first deposit.</p>
           <p>
-            You will need the deposit amount in DAI and some ETH for gas in your
-            wallet.{" "}
+            You will need the deposit amount in{" "}
+            <a
+              href={daiLink}
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+            >
+              DAI
+            </a>{" "}
+            and some{" "}
+            <a
+              href={ethLink}
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+            >
+              ETH
+            </a>{" "}
+            for gas in your wallet.{" "}
           </p>
 
           <h4>

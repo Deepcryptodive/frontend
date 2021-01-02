@@ -5,6 +5,7 @@ import classNames from "classnames";
 import Logo from "./../layout/partials/Logo";
 import FooterNav from "./../layout/partials/FooterNav";
 import FooterSocial from "./../layout/partials/FooterSocial";
+import { daiLink, ethLink } from "./../../utils/utilities";
 
 const propTypes = {
   topOuterDivider: PropTypes.bool,
@@ -53,7 +54,7 @@ class Footer extends React.Component {
                 <a
                   className="kovan-link"
                   style={{ textDecoration: "none" }}
-                  href="https://testnet.aave.com/faucet"
+                  href={daiLink}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                 >
@@ -63,7 +64,7 @@ class Footer extends React.Component {
                 <a
                   className="kovan-link"
                   style={{ textDecoration: "none" }}
-                  href="https://kovan.faucet.enjin.io/"
+                  href={ethLink}
                   target="blank"
                   rel="noopener noreferrer nofollow"
                 >
