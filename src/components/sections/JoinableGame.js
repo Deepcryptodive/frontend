@@ -59,7 +59,15 @@ const JoinableGame = (props) => {
       )}
       <div className="container">
         <Row>
-          {registeredPlayer && isNotEmptyObj(PlayerInfo) && <PlayerProfile />}
+          {console.log(
+            "registeredPlayer",
+            registeredPlayer,
+            "playInfo",
+            isNotEmptyObj(props.playerInfo)
+          )}
+          {registeredPlayer && isNotEmptyObj(props.playerInfo) && (
+            <PlayerProfile />
+          )}
           <Col lg={registeredPlayer ? 9 : 12}>
             <Tabs>
               <TabContent header={"Game Stats"}>
