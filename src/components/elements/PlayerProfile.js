@@ -1,7 +1,11 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Image from "./Image";
-import { displayAddress } from "./../../utils/utilities";
+import {
+  displayAddress,
+  weiToERC20,
+  displaySegment,
+} from "./../../utils/utilities";
 
 export default (props) => (
   <Col className="show-desktop-only">
@@ -21,6 +25,7 @@ export default (props) => (
           borderStyle: "solid",
           borderWidth: "6px",
           fontFamily: "Monsterrat",
+          maxHeight: "200px",
         }}
         width={100}
         height={100}
@@ -58,7 +63,9 @@ export default (props) => (
             <span>💰Deposits Made</span>
           </Col>
           <Col lg={4}>
-            <span>1/4</span>
+            <span>{`${displaySegment(
+              props.playerInfo.mostRecentSegmentPaid
+            )}/${displaySegment(props.gameInfo.lastSegment)}`}</span>
           </Col>
         </Row>
         <Row>
@@ -66,7 +73,7 @@ export default (props) => (
             <span>💸Total Deposited </span>
           </Col>
           <Col lg={4}>
-            <span>Status</span>
+            <span>{weiToERC20(props.playerInfo.amountPaid)}</span>
           </Col>
         </Row>
       </div>
