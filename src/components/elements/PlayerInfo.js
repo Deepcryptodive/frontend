@@ -6,8 +6,7 @@ import { weiToERC20 } from "./../../utils/utilities";
 const PlayerInfo = (props) => {
   const humanMostRecentSegmentPaid =
     parseInt(props.playerInfo.mostRecentSegmentPaid) + 1;
-  const humanTotalDepositsNeeded =
-    parseInt(props.lastSegment);
+  const humanTotalDepositsNeeded = parseInt(props.lastSegment);
   const getPlayerFromPlayers = () =>
     props.players.filter((player) => {
       return (
@@ -23,7 +22,7 @@ const PlayerInfo = (props) => {
     fontFamily: "monospace, monospace",
     fontSize: "0.85rem",
     marginLeft: "0px",
-    color: "#333366"
+    color: "#333366",
   };
   return (
     <div
@@ -63,29 +62,29 @@ const PlayerInfo = (props) => {
         )}
       </div>
       <div>
-      <div>
-        <span
-          className="sans_serif"
-          style={{ fontWeight: "600", fontSize: "0.85rem" }}
-        >
-          Status:
-        </span>{" "}
-        {!props.isGameCompleted && (
-          <span style={valueStyle}>
-            {props.playerInfo.isStillInGame
-              ? "Alive 🎉 you made all deposits so far - keep up the good work!"
-              : "Dead 😢 sorry you missed a deposit"}
-          </span>
-        )}
-        {props.isGameCompleted && (
-          <span style={valueStyle}>
-            {parseInt(props.lastSegment) - 1 ===
-            parseInt(props.playerInfo.mostRecentSegmentPaid)
-              ? "WINNER 🥳 you made all deposits and earned a slice of the interest"
-              : "DEFEATED 😢 you missed a deposit and did not earn a slice of the interest this time"}
-          </span>
-        )}
-      </div>
+        <div>
+          <span
+            className="sans_serif"
+            style={{ fontWeight: "600", fontSize: "0.85rem" }}
+          >
+            Status:
+          </span>{" "}
+          {!props.isGameCompleted && (
+            <span style={valueStyle}>
+              {props.playerInfo.isStillInGame
+                ? "Alive 🎉 you made all deposits so far - keep up the good work!"
+                : "Dead 😢 sorry you missed a deposit"}
+            </span>
+          )}
+          {props.isGameCompleted && (
+            <span style={valueStyle}>
+              {parseInt(props.lastSegment) - 1 ===
+              parseInt(props.playerInfo.mostRecentSegmentPaid)
+                ? "WINNER 🥳 you made all deposits and earned a slice of the interest"
+                : "DEFEATED 😢 you missed a deposit and did not earn a slice of the interest this time"}
+            </span>
+          )}
+        </div>
         <div>
           <span
             className="sans_serif"
@@ -93,7 +92,9 @@ const PlayerInfo = (props) => {
           >
             Deposits made:
           </span>{" "}
-          <span style={valueStyle}>{humanMostRecentSegmentPaid} (out of {humanTotalDepositsNeeded})</span>
+          <span style={valueStyle}>
+            {humanMostRecentSegmentPaid} (out of {humanTotalDepositsNeeded})
+          </span>
         </div>
         <div>
           <span
@@ -118,7 +119,7 @@ const PlayerInfo = (props) => {
         </div>
       </div>
 
-      <AddEmail addr={props.playerInfo.addr} buttonStyle={true} />
+      {/* <AddEmail addr={props.playerInfo.addr} buttonStyle={true} /> */}
     </div>
   );
 };

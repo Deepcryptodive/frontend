@@ -24,6 +24,9 @@ export const brandColors = {
   purple: "#8860d0",
 };
 
+export const displayAddress = (address) =>
+  address.slice(0, 4) + "..." + address.slice(-4);
+
 export const gqlErrors = {
   players: "gql players request failed",
   game: "gql game request failed",

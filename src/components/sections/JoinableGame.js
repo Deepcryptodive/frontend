@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Button from "./../elements/Button";
 import PlayersPrint from "./../elements/PrintPlayers";
-import { status, isNotEmptyObj, brandColors } from "../../utils/utilities";
+import {
+  status,
+  isNotEmptyObj,
+  brandColors,
+  displayAddress,
+} from "../../utils/utilities";
 import PlayerInfo from "../elements/PlayerInfo";
 import dayjs from "dayjs";
 import Alert from "./../elements/Alert";
@@ -30,6 +35,7 @@ const JoinableGame = (props) => {
     props.usersAddress && props.userStatus === status.registered;
   const unRegisteredPlayer =
     props.usersAddress && props.userStatus === status.unregistered;
+  const { playerInfo } = props;
   return (
     <div>
       {props.success.joinGame && (
@@ -59,14 +65,14 @@ const JoinableGame = (props) => {
       )}
       <div className="container">
         <Row>
-          {console.log(
-            "registeredPlayer",
-            registeredPlayer,
-            "playInfo",
-            isNotEmptyObj(props.playerInfo)
-          )}
-          {registeredPlayer && isNotEmptyObj(props.playerInfo) && (
-            <PlayerProfile />
+          {registeredPlayer && isNotEmptyObj(playerInfo) && (
+            <PlayerProfile
+              name={
+                playerInfo.threeBoxName
+                  ? playerInfo.threeBoxName
+                  : displayAddress(playerInfo.address)
+              }
+            />
           )}
           <Col lg={registeredPlayer ? 9 : 12}>
             <Tabs>

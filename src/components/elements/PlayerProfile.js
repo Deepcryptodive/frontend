@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Image from "./Image";
 
-export default () => (
+export default (props) => (
   <Col className="show-desktop-only">
     <div
       style={{
@@ -30,7 +30,7 @@ export default () => (
           `https://robohash.org/${0x2f4ce4f714c68a3fc871d1f543ffc24b9b3c2386}`
         }
       />
-      <h5>Fake Name</h5>
+      <h5>{props.name}</h5>
       <div
         className="container"
         style={{
