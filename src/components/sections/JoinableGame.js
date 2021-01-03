@@ -4,7 +4,7 @@ import PlayersPrint from "./../elements/PrintPlayers";
 import { status, isNotEmptyObj, brandColors } from "../../utils/utilities";
 import PlayerInfo from "../elements/PlayerInfo";
 import dayjs from "dayjs";
-import AddEmail from "./../elements/AddEmail";
+import Alert from "./../elements/Alert";
 import GameStats from "./GameStats";
 import Loading from "./../../assets/loading.svg";
 import EmergencyWithdraw from "./../elements/EmergencyWithdraw";
@@ -32,11 +32,9 @@ const JoinableGame = (props) => {
     props.usersAddress && props.userStatus === status.unregistered;
   return (
     <div>
-      <SuccessModal
-        close={props.toggleSuccess.bind(null, "joinGame")}
-        // show={props.success.joinGame}
-        show={false}
-      />
+      {props.success.joinGame && (
+        <Alert text={"Success you joined the Pool! 🥳"} />
+      )}
       <ConfirmModal
         show={showConfirmModal}
         close={() => setShowConfirmModal(false)}
@@ -61,7 +59,7 @@ const JoinableGame = (props) => {
       )}
       <div className="container">
         <Row>
-          {registeredPlayer && <PlayerProfile />}
+          {registeredPlayer && isNotEmptyObj(PlayerInfo) && <PlayerProfile />}
           <Col lg={registeredPlayer ? 9 : 12}>
             <Tabs>
               <TabContent header={"Game Stats"}>

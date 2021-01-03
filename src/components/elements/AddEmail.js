@@ -174,7 +174,7 @@ const AddEmail = (props) => {
 
 export default AddEmail;
 
-const Alert = (props) => {
+export const Alert = (props) => {
   const [visibiliy, setVisibility] = useState(true);
 
   return (
