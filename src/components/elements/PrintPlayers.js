@@ -47,7 +47,7 @@ export const PlayerImage = (props) => {
         height={100}
         src={
           props.player.threeBoxAvatar
-            ? `https://ipfs.infura.io/ipfs/${props.player.threeBoxAvatar}`
+            ? props.player.threeBoxAvatar
             : `https://robohash.org/${props.player.address}`
         }
       />

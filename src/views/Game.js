@@ -90,7 +90,9 @@ const GamePage = () => {
             isLive:
               gameInfo.currentSegment - 1 >=
               players.players[key].mostRecentSegmentPaid,
-            threeBoxAvatar: data.image ? data.image[0].contentUrl["/"] : null,
+            threeBoxAvatar: data.image
+              ? `https://ipfs.infura.io/ipfs/${data.image[0].contentUrl["/"]}`
+              : null,
           };
           playersArr.push(player);
         });

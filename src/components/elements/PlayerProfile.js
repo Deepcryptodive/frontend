@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Image from "./Image";
+import { displayAddress } from "./../../utils/utilities";
 
 export default (props) => (
   <Col className="show-desktop-only">
@@ -24,13 +25,16 @@ export default (props) => (
         width={100}
         height={100}
         src={
-          // props.player.threeBoxAvatar
-          // ? `https://ipfs.infura.io/ipfs/${props.player.threeBoxAvatar}`
-          // :
-          `https://robohash.org/${0x2f4ce4f714c68a3fc871d1f543ffc24b9b3c2386}`
+          props.playerInfo.threeBoxAvatar
+            ? props.playerInfo.threeBoxAvatar
+            : `https://robohash.org/${props.playerInfo.address}`
         }
       />
-      <h5>{props.name}</h5>
+      <h5>
+        {props.playerInfo.threeBoxName
+          ? props.playerInfo.threeBoxName
+          : displayAddress(props.playerInfo.address)}
+      </h5>
       <div
         className="container"
         style={{

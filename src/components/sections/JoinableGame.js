@@ -1,28 +1,17 @@
 import React, { useState } from "react";
 import Button from "./../elements/Button";
-import PlayersPrint from "./../elements/PrintPlayers";
-import {
-  status,
-  isNotEmptyObj,
-  brandColors,
-  displayAddress,
-} from "../../utils/utilities";
-import PlayerInfo from "../elements/PlayerInfo";
-import dayjs from "dayjs";
+import PrintPlayers from "./../elements/PrintPlayers";
+import { status, isNotEmptyObj } from "../../utils/utilities";
 import Alert from "./../elements/Alert";
 import GameStats from "./GameStats";
-import Loading from "./../../assets/loading.svg";
 import EmergencyWithdraw from "./../elements/EmergencyWithdraw";
 import KovanFaucet from "./../elements/KovanFaucet";
 import Schedule from "./../elements/Schedule";
-import classNames from "classnames";
 import { JoinError } from "./../elements/Errors";
-import SuccessModal from "./../elements/SuccessModal";
 import ConfirmModal from "./../elements/ConfirmModal";
 import Tabs from "./../elements/Tabs";
 import Welcome from "./Welcome";
 import TabContent from "./../elements/TabContent";
-import Image from "./../elements/Image";
 import Join from "./Join";
 import PlayerProfile from "./../elements/PlayerProfile";
 import { Col, Row } from "react-bootstrap";
@@ -66,13 +55,7 @@ const JoinableGame = (props) => {
       <div className="container">
         <Row>
           {registeredPlayer && isNotEmptyObj(playerInfo) && (
-            <PlayerProfile
-              name={
-                playerInfo.threeBoxName
-                  ? playerInfo.threeBoxName
-                  : displayAddress(playerInfo.address)
-              }
-            />
+            <PlayerProfile playerInfo={playerInfo} />
           )}
           <Col lg={registeredPlayer ? 9 : 12}>
             <Tabs>
@@ -87,7 +70,7 @@ const JoinableGame = (props) => {
                 />
               </TabContent>
               <TabContent header={"Players"}>
-                {props.players && PlayersPrint(props.players)}
+                {props.players && PrintPlayers(props.players)}
               </TabContent>
               <TabContent header={"Admin"}>
                 <h1>This is the admin content</h1>
