@@ -55,7 +55,7 @@ export default (props) => (
             <span>👀Status</span>
           </Col>
           <Col lg={4}>
-            <span>Alive</span>
+            <span>{props.playerInfo.isLive ? "Alive" : "Ghost"}</span>
           </Col>
         </Row>
         <Row>

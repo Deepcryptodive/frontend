@@ -80,6 +80,14 @@ const GamePage = () => {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(
+            "gameINfo",
+            gameInfo,
+            "gameCurrentSegment",
+            gameInfo.currentSegment,
+            "mostRecentSgementPaid",
+            players.players[0].mostRecentSegmentPaid
+          );
           const player = {
             id: players.players[key].id,
             address: players.players[key].address,
@@ -87,9 +95,9 @@ const GamePage = () => {
             amountPaid: players.players[key].amountPaid,
             threeBoxName: data.name,
             withdrawn: players.players[key].withdrawn,
-            isLive:
-              gameInfo.currentSegment - 1 >=
-              players.players[key].mostRecentSegmentPaid,
+            // isLive:
+            // parseInt(gameInfo.currentSegment) - 1 >=
+            // parseInt(players.players[key].mostRecentSegmentPaid),
             threeBoxAvatar: data.image
               ? `https://ipfs.infura.io/ipfs/${data.image[0].contentUrl["/"]}`
               : null,
@@ -272,10 +280,37 @@ const GamePage = () => {
 
   useEffect(() => {
     if (isNotEmptyObj(goodGhostingContract)) {
-      getPlayers();
       getGameInfo();
+      getPlayers();
     }
   }, [goodGhostingContract]);
+
+  useEffect(() => {
+    if (isNotEmptyObj(gameInfo) && players.length > 0) {
+      calculateIsLive();
+    }
+    return;
+  }, [gameInfo]);
+
+  // pass in isLive to profile picture
+  const calculateIsLive = () => {
+    return setPlayers(
+      players.map((player) => {
+        let newPlayer = player;
+        newPlayer.isLive =
+          parseInt(gameInfo.currentSegment) >=
+          parseInt(player.mostRecentSegmentPaid);
+        console.log(
+          "🥳",
+          parseInt(gameInfo.currentSegment) >=
+            parseInt(player.mostRecentSegmentPaid),
+          gameInfo.currentSegment,
+          player.mostRecentSegmentPaid
+        );
+        return newPlayer;
+      })
+    );
+  };
 
   useEffect(() => {
     setUp();
@@ -393,8 +428,9 @@ const GamePage = () => {
       .then((data) => {
         console.log("🤣", data);
         const player = data.player;
-        player.isLive =
-          gameInfo.currentSegment - 1 >= player.mostRecentSegmentPaid;
+        // player.isLive =
+        //   parseInt(gameInfo.currentSegment) - 1 >=
+        //   parseInt(player.mostRecentSegmentPaid);
         player.isStillInGame =
           parseInt(player.mostRecentSegmentPaid) >
           parseInt(gameInfo.currentSegment) - 2;
