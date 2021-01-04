@@ -18,6 +18,7 @@ import TabContent from "./../elements/TabContent";
 import { Row, Col } from "react-bootstrap";
 import Image from "./../elements/Image";
 import PlayerProfile from "./../elements/PlayerProfile";
+import GameAdmin from "./partials/GameAdmin";
 
 export default (props) => {
   const { playerInfo } = props;
@@ -56,48 +57,7 @@ export default (props) => {
                 {props.players && PlayersPrint(props.players)}
               </TabContent>
               <TabContent header={"Admin"}>
-                <h1>This is the admin content</h1>
-                <p className="Cardo">
-                  You shouldn't need to call these functions, as the
-                  GoodGhosting team will do. However for transparency we have
-                  made them open.
-                </p>
-                <p>
-                  Contract Address:{" "}
-                  <a
-                    href={`https://kovan.etherscan.io/address/${process.env.REACT_APP_GG_CONTRACT}`}
-                    rel="noopener noreferrer nofollow"
-                    target="_blank"
-                  >
-                    <span
-                      style={{
-                        backgroundColor: "rgb(246, 248, 254)",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      {" "}
-                      {process.env.REACT_APP_GG_CONTRACT}
-                    </span>
-                  </a>
-                </p>
-                <p>
-                  The Graph URL:{" "}
-                  <a
-                    href={process.env.REACT_APP_GRAPH_URL}
-                    rel="noopener noreferrer nofollow"
-                    target="_blank"
-                  >
-                    <span
-                      style={{
-                        backgroundColor: "rgb(246, 248, 254)",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      {" "}
-                      {process.env.REACT_APP_GRAPH_URL}
-                    </span>
-                  </a>
-                </p>
+                <GameAdmin />
               </TabContent>
             </Tabs>
           </Col>
