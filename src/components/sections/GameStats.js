@@ -45,6 +45,7 @@ export const getViewableGameStats = (gameInfo) => [
     )} Days`,
   },
 ];
+
 class GameStats extends React.Component {
   getPricingData = (values, set) => {
     return set !== undefined
@@ -61,6 +62,8 @@ class GameStats extends React.Component {
   render() {
     const { ...props } = this.props;
 
+    const personalInterest =
+      props.gameInfo.totalGameInterest / props.players.length;
     const numberOfPlayers = (status) => {
       const conditions = {
         dead: (player) =>
@@ -193,8 +196,16 @@ class GameStats extends React.Component {
                   data={Math.round(props.gameInfo.poolAPY * 10) / 10}
                   measure="%"
                 />
-                <CircleData label="Interest Earned" data={8} measure="DAI" />
-                <CircleData label="Total Pooled" data={39} measure="DAI" />
+                <CircleData
+                  label="Interest Earned"
+                  data={personalInterest}
+                  measure="DAI"
+                />
+                <CircleData
+                  label="Total Pooled"
+                  data={props.gameInfo.totalGameInterest}
+                  measure="DAI"
+                />
               </Row>
             </Container>
           </div>
