@@ -12,6 +12,7 @@ import Button from "./../components/elements/Button";
 import { useAlert } from "react-alert";
 import { gameNumber, gqlErrors } from "./../utils/utilities";
 import { NotKovan, NoWeb3 } from "./../components/elements/Errors";
+import Alert from "./../components/elements/Alert";
 // import parseErr  from 'parse-err';
 // import ErrorStackParser from 'error-stack-parser';
 
@@ -30,6 +31,7 @@ import {
 import RoboHashCredit from "../components/elements/RoboHashCredit";
 import { request, gql } from "graphql-request";
 import PlayerInfo from "../components/elements/PlayerInfo";
+import axios from "axios";
 
 // import getRevertReason from "eth-revert-reason";
 
@@ -46,6 +48,7 @@ const GamePage = () => {
   const [web3, setWeb3] = useState({});
   const [netId, setNetId] = useState(null);
   const [errors, setErrors] = useState({});
+  const [theGraphDown, setTheGraphDown] = useState(false);
 
   const getPlayers = async () => {
     // const alert = useAlert(); // 🚨 TODO fix
@@ -264,6 +267,7 @@ const GamePage = () => {
   };
 
   const setUp = () => {
+    checkTheGraph();
     if (typeof window.ethereum == "undefined") {
       setErrors({ needToAWeb3Browser: true });
       return;
@@ -292,7 +296,15 @@ const GamePage = () => {
     return;
   }, [gameInfo]);
 
-  // pass in isLive to profile picture
+  const checkTheGraph = () => {
+    axios
+      .get(
+        "https://api.thegraph.com/subgraphs/name/good-ghosting/goodghostingsept/graphql"
+      )
+      .then(setTheGraphDown(false))
+      .catch(setTheGraphDown(true));
+  };
+
   const calculateIsLive = () => {
     return setPlayers(
       players.map((player) => {
@@ -501,6 +513,9 @@ const GamePage = () => {
         className="section center-content"
         style={{ backgroundColor: "rgb(246, 248, 254)", minHeight: "100vh" }}
       >
+        {theGraphDown && (
+          <Alert text="Unfortunately The Graph is down, there may be inconsistencies." />
+        )}
         {!isNotEmptyObj(gameInfo) &&
           !isNotOnKovan &&
           !errors.needToAWeb3Browser && (
