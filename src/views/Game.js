@@ -363,7 +363,6 @@ const GamePage = () => {
       const web3 = new Web3(window.ethereum);
       setWeb3(web3);
     }
-
     const daiContract = new web3.eth.Contract(DaiABI, daiAddress);
     const approve = await daiContract.methods
       .approve(goodGhostingAdress, gameInfo.rawSegmentPayment)
