@@ -63,7 +63,9 @@ class GameStats extends React.Component {
     const { ...props } = this.props;
 
     const personalInterest =
-      props.gameInfo.totalGameInterest / props.players.length;
+      props.gameInfo.totalGameInterest > 0
+        ? props.gameInfo.totalGameInterest / props.players.length
+        : 0;
     const numberOfPlayers = (status) => {
       const conditions = {
         dead: (player) =>
