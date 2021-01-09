@@ -81,7 +81,7 @@ const JoinableGame = (props) => {
           </Col>
         </Row>
       </div>
-      {props.errors.joinGame && <JoinError />}
+      {props.errors.joinGame && !props.success.joinGame && <JoinError />}
       <KovanFaucet />
     </div>
   );

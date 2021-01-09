@@ -55,4 +55,5 @@ export const round = (num) => Math.round((num + Number.EPSILON) * 100) / 100;
 
 export const daiLink = "https://testnet.aave.com/faucet";
 
-export const ethLink = "https://kovan.faucet.enjin.io/";
+// export const ethLink = "https://kovan.faucet.enjin.io/"; // SSL Certificate issue with this faucet
+export const ethLink = "https://faucet.kovan.network/";

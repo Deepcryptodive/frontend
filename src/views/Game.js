@@ -231,7 +231,6 @@ const GamePage = () => {
     const newPlayerInfo = Object.assign({}, playerInfo, {
       mostRecentSegmentPaid: parseInt(playerInfo.mostRecentSegmentPaid) + 1,
     });
-    console.log("newPlayerInfo", newPlayerInfo);
     setSuccessState({ makeDeposit: true });
     setPlayerInfo(newPlayerInfo);
     getPlayerInfo();
@@ -312,13 +311,6 @@ const GamePage = () => {
         newPlayer.isLive =
           parseInt(gameInfo.currentSegment) >=
           parseInt(player.mostRecentSegmentPaid);
-        console.log(
-          "🥳",
-          parseInt(gameInfo.currentSegment) >=
-            parseInt(player.mostRecentSegmentPaid),
-          gameInfo.currentSegment,
-          player.mostRecentSegmentPaid
-        );
         return newPlayer;
       })
     );
@@ -335,6 +327,14 @@ const GamePage = () => {
   // useEffect(() => {
   //   getPlayerInfo();
   // }, [userStatus]);
+
+  useEffect(() => {
+    // getGameInfo();
+    console.log("success", success);
+    if (success.joinGame) {
+      getGameInfo();
+    }
+  }, [success]);
 
   useEffect(() => {
     lookForProfile();

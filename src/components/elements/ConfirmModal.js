@@ -10,12 +10,12 @@ export default (props) => {
   const gameInfo = getViewableGameStats(props.gameInfo);
   return (
     <Modal show={props.show} handleClose={props.close}>
-      <h3>Join our saving pool</h3>
-      {props.errors.joinGame && <JoinError />}
+      {!props.success && <h3>Join our saving pool</h3>}
+      {props.errors.joinGame && !props.success && <JoinError />}
       {props.success && (
         <div>
           <h4>
-            Congrats you have now joined the pool!{" "}
+            Congrats you have joined the pool!{" "}
             <span role="img" aria-label="swimmer">
               🥳
             </span>{" "}

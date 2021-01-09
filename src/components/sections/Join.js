@@ -35,7 +35,9 @@ const Join = (props) => {
               X
             </span>
           )}
-          <h1 style={{ paddingTop: "24px" }}>Unregistered</h1>
+          {!props.success.joinGame && (
+            <h1 style={{ paddingTop: "24px" }}>Unregistered</h1>
+          )}
           <p> Time to get started with the coolest way to save! </p>
           {!props.loadingState.joinGame && !props.success.joinGame && (
             <Button color="primary" onClick={props.openModal}>
