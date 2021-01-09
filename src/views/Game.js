@@ -329,8 +329,6 @@ const GamePage = () => {
   // }, [userStatus]);
 
   useEffect(() => {
-    // getGameInfo();
-    console.log("success", success);
     if (success.joinGame) {
       getGameInfo();
     }
