@@ -39,11 +39,16 @@ export default (props) => {
       <div className="container">
         <Row>
           {registeredPlayer && isNotEmptyObj(playerInfo) && (
-            <PlayerProfile playerInfo={playerInfo} gameInfo={props.gameInfo} />
+            <PlayerProfile
+              playerInfo={playerInfo}
+              gameInfo={props.gameInfo}
+              makeDeposit={props.makeDeposit}
+              showButton={true}
+            />
           )}
           <Col lg={registeredPlayer ? 9 : 12}>
             <Tabs>
-              <TabContent header={"Game Stats"}>
+              <TabContent header={"Game Stats"} style={{ padding: "30px 0" }}>
                 <GameStats gameInfo={props.gameInfo} players={props.players} />
               </TabContent>
               <TabContent header="Timeline">

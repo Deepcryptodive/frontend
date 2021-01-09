@@ -6,6 +6,7 @@ import {
   weiToERC20,
   displaySegment,
 } from "./../../utils/utilities";
+import Button from "./../elements/Button";
 
 export default (props) => (
   <Col className="show-desktop-only">
@@ -13,7 +14,7 @@ export default (props) => (
       style={{
         backgroundColor: "white",
         marginTop: "24px",
-        height: "413px",
+        height: props.showButton ? "465px" : "413px",
         paddingTop: "16px",
       }}
     >
@@ -77,6 +78,11 @@ export default (props) => (
           </Col>
         </Row>
       </div>
+      {props.showButton && (
+        <div style={{ paddingTop: "16px" }}>
+          <Button color="primary">Make a deposit</Button>
+        </div>
+      )}
     </div>
   </Col>
 );
