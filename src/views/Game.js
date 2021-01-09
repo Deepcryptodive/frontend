@@ -297,12 +297,12 @@ const GamePage = () => {
   }, [gameInfo]);
 
   const checkTheGraph = () => {
-    axios
-      .get(
-        "https://api.thegraph.com/subgraphs/name/good-ghosting/goodghostingsept/graphql"
-      )
-      .then(setTheGraphDown(false))
-      .catch(setTheGraphDown(true));
+    // axios
+    //   .get(
+    //     "https://api.thegraph.com/subgraphs/name/good-ghosting/goodghostingsept/graphql"
+    //   )
+    //   .then(setTheGraphDown(false))
+    //   .catch(setTheGraphDown(true));
   };
 
   const calculateIsLive = () => {
