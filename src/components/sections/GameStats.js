@@ -205,7 +205,7 @@ class GameStats extends React.Component {
                 />
                 <CircleData
                   label="Total Pooled"
-                  data={props.gameInfo.totalGameInterest}
+                  data={weiToERC20(props.gameInfo.totalGamePrincipal)}
                   measure="DAI"
                 />
               </Row>
@@ -233,12 +233,13 @@ const CircleData = (props) => (
     >
       <p
         style={{
-          fontSize: "2em",
+          fontSize: props.data.length > 3 ? "1em" : "2em",
           marginBottom: "0px",
           marginTop: "1.5rem",
           lineHeight: "1.7rem",
         }}
       >
+        {console.log("data", props.data, props.data.length)}
         {props.data}
       </p>
       <p>{props.measure}</p>
