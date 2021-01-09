@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { status, isNotEmptyObj, displaySegment } from "../../utils/utilities";
 import PlayersPrint from "./../elements/PrintPlayers";
 import Button from "./../elements/Button";
@@ -19,18 +19,28 @@ import { Row, Col } from "react-bootstrap";
 import Image from "./../elements/Image";
 import PlayerProfile from "./../elements/PlayerProfile";
 import GameAdmin from "./partials/GameAdmin";
+import DepositModal from "../elements/DepositModal";
 
 export default (props) => {
   const { playerInfo } = props;
+  const [showDepositModal, setShowDepsitModal] = useState(false);
   const registeredPlayer =
     props.usersAddress && props.userStatus === status.registered;
   const unRegisteredPlayer =
     props.usersAddress && props.userStatus === status.unregistered;
   return (
     <>
-      <SuccessModal
+      {/* <SuccessModal
         close={props.toggleSuccess.bind(null, "makeDeposit")}
         show={props.success.makeDeposit}
+      /> */}
+      <DepositModal
+        success={props.success.makeDeposit}
+        errors={props.errors}
+        loadingState={props.loadingState}
+        show={showDepositModal}
+        close={() => setShowDepsitModal(false)}
+        amount={props.gameInfo.segmentPayment}
       />
       <Welcome
         connectToWallet={props.connectToWallet}
@@ -44,6 +54,7 @@ export default (props) => {
               gameInfo={props.gameInfo}
               makeDeposit={props.makeDeposit}
               showButton={true}
+              buttonClick={() => setShowDepsitModal(true)}
             />
           )}
           <Col lg={registeredPlayer ? 9 : 12}>

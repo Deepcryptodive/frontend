@@ -80,7 +80,9 @@ export default (props) => (
       </div>
       {props.showButton && (
         <div style={{ paddingTop: "16px" }}>
-          <Button color="primary">Make a deposit</Button>
+          <Button onClick={props.buttonClick} color="primary">
+            Make a deposit
+          </Button>
         </div>
       )}
     </div>
