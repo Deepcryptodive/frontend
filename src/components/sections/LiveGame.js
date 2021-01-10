@@ -74,7 +74,10 @@ export default (props) => {
                 {props.players && PlayersPrint(props.players)}
               </TabContent>
               <TabContent header={"Admin"}>
-                <GameAdmin />
+                <GameAdmin
+                  liveGame={true}
+                  depositIntoExternalPool={props.depositIntoExternalPool}
+                />
               </TabContent>
             </Tabs>
           </Col>

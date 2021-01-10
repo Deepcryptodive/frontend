@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./../../elements/Button";
 
 const GameAdmin = (props) => {
   return (
@@ -44,6 +45,14 @@ const GameAdmin = (props) => {
           </span>
         </a>
       </p>
+      {props.liveGame && (
+        <div>
+          <Button color="primary" onClick={props.depositIntoExternalPool}>
+            {" "}
+            depositIntoExternalPool
+          </Button>
+        </div>
+      )}
     </>
   );
 };

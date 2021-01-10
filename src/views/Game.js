@@ -380,6 +380,19 @@ const GamePage = () => {
     // }, 5000);
   };
 
+  const depositIntoExternalPool = async () => {
+    // if (!isNotEmptyObj(web3)) {
+    //   const web3 = new Web3(window.ethereum);
+    //   setWeb3(web3);
+    // }
+    console.log("goodgHostingContract", goodGhostingContract);
+    await goodGhostingContract.methods
+      .depositIntoExternalPool()
+      .send({ from: usersAddress })
+      .then((res) => console.log("♥️", res))
+      .catch((err) => console.log("👀", Error));
+  };
+
   const toggleSuccess = (attribute) => {
     setSuccessState({ [attribute]: !success[attribute] });
   };
@@ -528,6 +541,7 @@ const GamePage = () => {
                 emergencyWithdraw={emergencyWithdraw}
                 toggleSuccess={toggleSuccess}
                 success={success}
+                depositIntoExternalPool={depositIntoExternalPool}
               />
             )}
             <RoboHashCredit />
