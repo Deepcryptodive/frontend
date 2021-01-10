@@ -1,4 +1,5 @@
 import React from "react";
+import { daiLink, ethLink } from "./../../utils/utilities";
 
 export const NoWeb3 = () => (
   <>
@@ -44,7 +45,7 @@ export const JoinError = () => (
       <a
         className="kovan-link"
         style={{ textDecoration: "none" }}
-        href="https://testnet.aave.com/faucet"
+        href={daiLink}
         target="_blank"
         rel="noopener noreferrer nofollow"
       >
@@ -54,7 +55,7 @@ export const JoinError = () => (
       <a
         className="kovan-link"
         style={{ textDecoration: "none" }}
-        href="https://kovan.faucet.enjin.io/"
+        href={ethLink}
         target="blank"
         rel="noopener noreferrer nofollow"
       >

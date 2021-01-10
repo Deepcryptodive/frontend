@@ -82,20 +82,23 @@ const Schedule = (props) => {
               fontWeight: "400",
               marginTop: "40px",
               fontSize: "14px",
+              textAlign: "center",
             }}
           >
             After the final round
           </p>
-          <span
-            role="img"
-            aria-label="money-emoji"
-            style={{
-              fontSize: "2.5rem",
-              lineHeight: "2.5rem",
-            }}
-          >
-            🤑
-          </span>
+          <p style={{ textAlign: "center", paddingBottom: "20px" }}>
+            <span
+              role="img"
+              aria-label="money-emoji"
+              style={{
+                fontSize: "2.5rem",
+                lineHeight: "2.5rem",
+              }}
+            >
+              🤑
+            </span>
+          </p>
         </Timeline>
       </div>
     </div>
