@@ -10,7 +10,7 @@ export default (props) => {
   // const gameInfo = getViewableGameStats(props.gameInfo);
   return (
     <Modal show={props.show} handleClose={props.close}>
-      {!props.success && <h3>Deposit for the round</h3>}
+      {!props.success && <h3>Deposit this round</h3>}
       {/* {props.errors.makeDeposit && !props.success && <JoinError />} */}
       {props.success && (
         <div>

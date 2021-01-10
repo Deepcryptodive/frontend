@@ -83,14 +83,6 @@ const GamePage = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(
-            "gameINfo",
-            gameInfo,
-            "gameCurrentSegment",
-            gameInfo.currentSegment,
-            "mostRecentSgementPaid",
-            players.players[0].mostRecentSegmentPaid
-          );
           const player = {
             id: players.players[key].id,
             address: players.players[key].address,
@@ -247,7 +239,6 @@ const GamePage = () => {
       .catch(async (error) => {
         const reason = await parseRevertError(error);
         //   alert.show(reason);
-        console.log("reason", reason);
       });
     // await goodGhostingContract.methods
     //   .allocateWithdrawAmounts()
@@ -340,26 +331,11 @@ const GamePage = () => {
 
   const lookForProfile = () => {
     if (players && players.length > 0) {
-      console.log(
-        "in lookForProfile",
-        players[0].address,
-        "usersAddress",
-        usersAddress
-      );
-      console.log(!!players.find((player) => player.address == usersAddress));
-      console.log("playsUnod", !isNotEmptyObj(playerInfo), playerInfo);
-      console.log(
-        "second st",
-        usersAddress &&
-          !isNotEmptyObj(playerInfo) &&
-          !!players.find((player) => player.address == usersAddress)
-      );
       if (
         usersAddress &&
         !isNotEmptyObj(playerInfo) &&
         !!players.find((player) => player.address === usersAddress)
       ) {
-        console.log("in if");
         setPlayerInfo(
           players.find((player) => player.address === usersAddress)
         );
@@ -386,8 +362,7 @@ const GamePage = () => {
     await goodGhostingContract.methods
       .joinGame()
       .send({ from: usersAddress })
-      .then((something) => {
-        console.log("in joinGame then", something);
+      .then(() => {
         setSuccessState({ joinGame: true });
         setLoadingState({ joinGame: false });
         setUserStatus(status.registered);
@@ -410,13 +385,11 @@ const GamePage = () => {
   };
 
   const getPlayerInfo = async () => {
-    console.log("InGetPlayerInfo");
     if (!usersAddress) {
       return;
     }
     const playerReq = async () => {
       const hex = web3.utils.toHex(usersAddress);
-      console.log("hex", hex);
       const query = gql`
         {
           player(id: "${hex}") {
@@ -435,7 +408,6 @@ const GamePage = () => {
 
     const players2 = await playerReq()
       .then((data) => {
-        console.log("🤣", data);
         const player = data.player;
         // player.isLive =
         //   parseInt(gameInfo.currentSegment) - 1 >=
@@ -453,7 +425,6 @@ const GamePage = () => {
 
   //🚨TODO replace this with portis or alternative wallet connection
   const getAddressFromMetaMask = async () => {
-    console.log("in get address from metamask");
     if (typeof window.ethereum == "undefined") {
       setErrors({ needToAWeb3Browser: true });
     } else {
