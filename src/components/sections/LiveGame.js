@@ -54,13 +54,16 @@ export default (props) => {
               playerInfo={playerInfo}
               gameInfo={props.gameInfo}
               makeDeposit={props.makeDeposit}
-              showButton={true}
+              showButton={props.playerInfo.isLive}
               buttonClick={() => setShowDepsitModal(true)}
             />
           )}
           <Col lg={registeredPlayer ? 9 : 12}>
             <Tabs>
-              <TabContent header={"Game Stats"} style={{ padding: "30px 0" }}>
+              <TabContent
+                header={"Game Stats"}
+                style={props.playerInfo.isLive ? { padding: "30px 0" } : {}}
+              >
                 <GameStats gameInfo={props.gameInfo} players={props.players} />
               </TabContent>
               <TabContent header="Timeline">

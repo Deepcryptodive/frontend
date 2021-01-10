@@ -300,8 +300,8 @@ const GamePage = () => {
       players.map((player) => {
         let newPlayer = player;
         newPlayer.isLive =
-          parseInt(gameInfo.currentSegment) >=
-          parseInt(player.mostRecentSegmentPaid);
+          parseInt(player.mostRecentSegmentPaid) + 1 >=
+          parseInt(gameInfo.currentSegment);
         return newPlayer;
       })
     );
