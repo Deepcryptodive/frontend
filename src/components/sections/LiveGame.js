@@ -41,6 +41,7 @@ export default (props) => {
         show={showDepositModal}
         close={() => setShowDepsitModal(false)}
         amount={props.gameInfo.segmentPayment}
+        makeDeposit={props.makeDeposit}
       />
       <Welcome
         connectToWallet={props.connectToWallet}

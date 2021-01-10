@@ -46,7 +46,7 @@ export default (props) => {
             for gas in your wallet.{" "}
           </p>
 
-          <Button tag="a" color="primary" onClick={() => console.log("hi")}>
+          <Button tag="a" color="primary" onClick={props.makeDeposit}>
             {props.loadingState.makeDeposit ? (
               <>
                 Loading{" "}
