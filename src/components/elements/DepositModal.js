@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "./Modal";
 import Button from "./Button";
+import LoadingButton from "./LoadingButton";
 // import { getViewableGameStats } from "../sections/GameStats";
 import Loading from "./../../assets/loading.svg";
 import { JoinError } from "./Errors";
@@ -11,6 +12,7 @@ export default (props) => {
   return (
     <Modal show={props.show} handleClose={props.close}>
       {!props.success && <h3>Deposit this round</h3>}
+      {props.errors.makeDeposit && <JoinError />}
       {/* {props.errors.makeDeposit && !props.success && <JoinError />} */}
       {props.success && (
         <div>
@@ -46,25 +48,11 @@ export default (props) => {
             for gas in your wallet.{" "}
           </p>
 
-          <Button tag="a" color="primary" onClick={props.makeDeposit}>
-            {props.loadingState.makeDeposit ? (
-              <>
-                Loading{" "}
-                <img
-                  src={Loading}
-                  alt="loading"
-                  className="loading-img-button"
-                  style={{
-                    width: "28px",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
-                />
-              </>
-            ) : (
-              "Make your deposit"
-            )}
-          </Button>
+          <LoadingButton
+            onClick={props.makeDeposit}
+            loading={props.loadingState.makeDeposit}
+            text={"Make your deposit"}
+          />
         </>
       )}
     </Modal>

@@ -30,8 +30,6 @@ import {
 } from "../utils/utilities";
 import RoboHashCredit from "../components/elements/RoboHashCredit";
 import { request, gql } from "graphql-request";
-import PlayerInfo from "../components/elements/PlayerInfo";
-import axios from "axios";
 
 // import getRevertReason from "eth-revert-reason";
 
@@ -100,8 +98,8 @@ const GamePage = () => {
           playersArr.push(player);
         });
     }
-    setGetPlayersStatus(true);
     setPlayers(playersArr);
+    setGetPlayersStatus(true);
   };
 
   const getGameInfo = async () => {
@@ -213,21 +211,25 @@ const GamePage = () => {
     await goodGhostingContract.methods
       .makeDeposit()
       .send({ from: usersAddress })
-      .catch(async (error) => {
-        console.log(error);
-        // const reason = await parseRevertError(error);
+      .then((res) => {
+        const newPlayerInfo = Object.assign({}, playerInfo, {
+          mostRecentSegmentPaid: parseInt(playerInfo.mostRecentSegmentPaid) + 1,
+        });
+        console.log("oldPlayer:", playerInfo, "newPlayerInfo :", newPlayerInfo);
+        setSuccessState({ makeDeposit: true });
+        setPlayerInfo(newPlayerInfo);
+        getGameInfo();
+        setLoadingState({ makeDeposit: false });
+      })
+      .catch(async (err) => {
+        // TODO return error reason
+        setErrors({ makeDeposit: err }); // 🚨 TODO display in FE
+        setLoadingState({ makeDeposit: false });
+        setSuccessState({ makeDeposit: false }); // const reason = await parseRevertError(error);
         //   alert.show(reason);
       });
     //🚨 TODO Debugg why this is not updating properly -newPlayerInfo is correct -
     // try next time without the additional calling of getPlayerInfo() - could this be slowing it down?
-    const newPlayerInfo = Object.assign({}, playerInfo, {
-      mostRecentSegmentPaid: parseInt(playerInfo.mostRecentSegmentPaid) + 1,
-    });
-    setSuccessState({ makeDeposit: true });
-    setPlayerInfo(newPlayerInfo);
-    getPlayerInfo();
-    getGameInfo();
-    setLoadingState({ makeDeposit: false });
   };
   const redeem = async () => {
     setLoadingState({ redeem: true });
@@ -279,12 +281,15 @@ const GamePage = () => {
     }
   }, [goodGhostingContract]);
 
+  // TODO find away to make this always call with out trigger an infinit loop
   useEffect(() => {
-    if (isNotEmptyObj(gameInfo) && players.length > 0) {
-      calculateIsLive();
+    console.log("getPlayersStatus", getPlayersStatus);
+    if (isNotEmptyObj(gameInfo) && getPlayersStatus) {
+      console.log("in calculater triggers");
+      return calculateIsLive();
     }
-    return;
-  }, [gameInfo]);
+    // return false;
+  }, [gameInfo, getPlayersStatus]);
 
   const checkTheGraph = () => {
     // axios
@@ -321,13 +326,17 @@ const GamePage = () => {
 
   useEffect(() => {
     if (success.joinGame) {
-      getGameInfo();
+      const fetchData = async () => {
+        await getGameInfo();
+        calculateIsLive();
+      };
+      fetchData();
     }
   }, [success]);
 
   useEffect(() => {
     lookForProfile();
-  }, [players, usersAddress]);
+  }, [players, usersAddress, gameInfo]);
 
   const lookForProfile = () => {
     if (players && players.length > 0) {
@@ -385,12 +394,14 @@ const GamePage = () => {
     //   const web3 = new Web3(window.ethereum);
     //   setWeb3(web3);
     // }
+    setLoadingState({ depositIntoExternalPool: true });
     console.log("goodgHostingContract", goodGhostingContract);
     await goodGhostingContract.methods
       .depositIntoExternalPool()
       .send({ from: usersAddress })
       .then((res) => console.log("♥️", res))
       .catch((err) => console.log("👀", Error));
+    setLoadingState({ depositIntoExternalPool: false }); //put inside then and catch
   };
 
   const toggleSuccess = (attribute) => {
@@ -422,12 +433,6 @@ const GamePage = () => {
     const players2 = await playerReq()
       .then((data) => {
         const player = data.player;
-        // player.isLive =
-        //   parseInt(gameInfo.currentSegment) - 1 >=
-        //   parseInt(player.mostRecentSegmentPaid);
-        player.isStillInGame =
-          parseInt(player.mostRecentSegmentPaid) >
-          parseInt(gameInfo.currentSegment) - 2;
         setPlayerInfo(player);
       })
       .catch((err) => {
@@ -542,6 +547,7 @@ const GamePage = () => {
                 toggleSuccess={toggleSuccess}
                 success={success}
                 depositIntoExternalPool={depositIntoExternalPool}
+                errors={errors}
               />
             )}
             <RoboHashCredit />

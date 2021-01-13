@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./../../elements/Button";
+import LoadingButton from "./../../elements/LoadingButton";
 
 const GameAdmin = (props) => {
   return (
@@ -47,10 +48,11 @@ const GameAdmin = (props) => {
       </p>
       {props.liveGame && (
         <div>
-          <Button color="primary" onClick={props.depositIntoExternalPool}>
-            {" "}
-            depositIntoExternalPool
-          </Button>
+          <LoadingButton
+            text="depositIntoExternalPool"
+            loading={props.loadingState.depositIntoExternalPool}
+            onClick={props.depositIntoExternalPool}
+          />
         </div>
       )}
     </>

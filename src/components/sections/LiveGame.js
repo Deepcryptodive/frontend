@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { status, isNotEmptyObj, displaySegment } from "../../utils/utilities";
 import PlayersPrint from "./../elements/PrintPlayers";
 import Button from "./../elements/Button";
-import PlayerInfo from "../elements/PlayerInfo";
 import GameStats from "./GameStats";
 import Loading from "./../../assets/loading.svg";
 import LoadingDark from "./../../assets/loading-dark.svg";
@@ -80,6 +79,7 @@ export default (props) => {
                 <GameAdmin
                   liveGame={true}
                   depositIntoExternalPool={props.depositIntoExternalPool}
+                  loadingState={props.loadingState}
                 />
               </TabContent>
             </Tabs>
