@@ -58,12 +58,12 @@ class Roadmap extends React.Component {
                   target="_blank"
                   rel="noopener"
                 >
-                  Initial product ideation at ETH London, award a finalist
-                  position.
+                  Initial product ideation at ETH London, awarded a finalist
+                  position
                 </a>
               </TimelineItem>
               <TimelineItem title="July 2020" fadeInGG>
-                GoodGhosting joins Gitcoin's Kernel program. New team formation.
+                GoodGhosting joins Gitcoin's KERNEL program. New team formation
               </TimelineItem>
               <TimelineItem title="August 2020" fadeInGG>
                 <a
@@ -71,7 +71,7 @@ class Roadmap extends React.Component {
                   target="_blank"
                   rel="noopener"
                 >
-                  Concept launch and validiated.
+                  Concept launch and validation
                 </a>
               </TimelineItem>
               <TimelineItem title="September 2020" fadeInGG>
@@ -81,14 +81,32 @@ class Roadmap extends React.Component {
                   rel="noopener"
                 >
                   {" "}
-                  Our gitcoin grant is live.
+                  Our gitcoin grant is live
                 </a>
               </TimelineItem>
-              <TimelineItem title="Q4 2020" fadeInGG>
-                Testnet launch and UX testing.
+              <TimelineItem title="NOVEMBER 2020" fadeInGG>
+              <a
+                href="https://medium.com/goodghosting/the-beginners-guide-to-using-goodghosting-on-kovan-testnet-9b7edb8fb640"
+                target="_blank"
+                rel="noopener"
+              >
+                Testnet launch</a>
+                <a
+                  href="https://medium.com/goodghosting/goodghosting-alpha-testing-94e1f8c083e1"
+                  target="_blank"
+                  rel="noopener"
+                > & UX testing</a>
+              </TimelineItem>
+              <TimelineItem title="December 2020" fadeInGG>
+              <a
+                href="https://twitter.com/metagammadelta/status/1338532174610407424"
+                target="_blank"
+                rel="noopener"
+              >
+                Awarded MakerDAO grant by MGD</a>
               </TimelineItem>
               <TimelineItem title="Q1 2021" fadeInGG>
-                Mainnet launch with gas minimised MVP architecture.
+                Mainnet MVP launch with gas minimized architecture
               </TimelineItem>
               {/* <TimelineItem title="March 2020">
                 Deployed a high-quality first release and conducted a market validation test

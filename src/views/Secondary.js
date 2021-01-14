@@ -45,13 +45,13 @@ class Secondary extends React.Component {
     };
 
     const genericSection04Header = {
-      title: "Frequently Asked Questions (FAQs)",
+      title: "Frequently Asked Questions (FAQ)",
     };
 
     return (
       <React.Fragment>
         {/* <HeroFull className="illustration-section-02" /> */}
-        <Team className="illustration-section-04" />
+        <Team className="illustration-section-04"/>
         {/*
         <GenericSection topDivider>
           <div className="container-xs">
@@ -242,7 +242,7 @@ class Secondary extends React.Component {
             />
             <Accordion>
               <AccordionItem title="When are you launching?">
-                We are in active development. We will be recruiting alpha testers during Q4 2020 from our Discord community. After fine-tuning our product, we will launch a first version in early 2021.
+                We are in active development. We have been recruiting alpha testers during Q4 2020 from our Discord community. After fine-tuning our product, we will launch a first version in early 2021.
                 Read more about our <a href="https://medium.com/goodghosting/confession-time-whats-next-f5ac52aa517d" target="_blank" rel="noopener"> development plans in this blog post.</a>
               </AccordionItem>
               <AccordionItem
@@ -305,9 +305,14 @@ class Secondary extends React.Component {
                 game.</span>
               </AccordionItem>
               <AccordionItem title="Is my money safe?">
-                As with all DeFi products there is an inherent risk. Although we only
+                As with all DeFi products there are inherent <a href="https://medium.com/@xave.meegan/identifying-key-non-financial-risks-in-decentralised-finance-on-ethereum-blockchain-87402cb82e23" target="_blank" rel="noopener noreferrer">
+                              risks</a>. Although we only
                 plug into audited platforms - and adhere to strict security practices - our smart contracts are not (yet)
                 audited. Please do not add more money than you can afford to lose.
+              </AccordionItem>
+              <AccordionItem title="Can I withdraw my funds at any time?">
+                Yes. You can withdraw your funds at any time. We are fully <a href="https://web3.consulting/blog/post/defi-explained-self-custody" target="_blank" rel="noopener noreferrer">
+                              non-custodial</a> and our smart contracts operate 24/7. If you wish to do withdraw from an ongoing game, you may be charged a small fee to compensate the remaining players in the savings pool.
               </AccordionItem>
               <AccordionItem title="Which DeFi platforms are you using?">
                 <span>We currently support </span>
@@ -316,21 +321,21 @@ class Secondary extends React.Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  AAVE
+                  AAVE v2
                 </a>
                 <span> for our MVP, and </span>
                 <span>
                    are actively researching adding more yield platforms such as </span>
                   <a href="https://yearn.finance/" target="_blank" rel="noopener noreferrer">
                                 Yearn.finance </a>
-                <span>, </span> <a href="https://pickle.finance/" target="_blank" rel="noopener noreferrer">
-                              Pickle.finance </a><span> and </span>
+                <span> and </span>
                               <a href="https://idle.finance/" target="_blank" rel="noopener noreferrer">
-                                            Idle.finance </a>
+                                            Idle.finance</a>
                 <span>. Let us know if there is one particular DeFi project or robo-advisor you are looking for.</span>
               </AccordionItem>
               <AccordionItem title="What about gas costs?">
-                We know Ethereum gas costs can be rather high, so we are sponsoring our
+                We know Ethereum <a href="https://www.investopedia.com/terms/g/gas-ethereum.asp" target="_blank" rel="noopener noreferrer">
+                              gas costs</a> can be rather high, so we are sponsoring our
                 users transaction fees for their first complete saving game. In
                 the future, we will be using multiple solutions to reduce the gas
                 costs for savers (e.g. layer 2 scaling and meta-transactions).

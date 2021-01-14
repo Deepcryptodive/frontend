@@ -124,16 +124,15 @@ class Header extends React.Component {
                         navPosition && `header-nav-${navPosition}`
                       )}
                     >
-                      {/* FIX THESE */}
                       <li>
                         <Link to="/game" onClick={this.closeMenu}>
                           Game
                         </Link>
                       </li>
                       <li>
-                        <Link to="/2" onClick={this.closeMenu}>
+                        <HashLink to="/2#team" onClick={this.closeMenu}>
                           Team
-                        </Link>
+                        </HashLink>
                       </li>
                       <li>
                         <HashLink to="/2#faqs" onClick={this.closeMenu}>
