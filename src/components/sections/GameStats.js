@@ -44,8 +44,8 @@ export const getViewableGameStats = (gameInfo) => [
     confirmLabel: "Recurring Deposit",
     data: `${weiToERC20(gameInfo.rawSegmentPayment)} DAI every ${
           process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
-            ? dayjs.duration(roundsLengthsSecs, "seconds").asWeeks()
-            : dayjs.duration(roundsLengthsSecs, "seconds").asDays()
+            ? dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asWeeks()
+            : dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asDays()
         } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
   },
 ];
