@@ -147,10 +147,10 @@ class GameStats extends React.Component {
                       >
                         {gameData[0].label} : {"  "}
                       </span>
+                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[0].data}
                     </span>
-                  </OverlayTrigger>
                   </div>
                 </Col>
 
@@ -172,10 +172,10 @@ class GameStats extends React.Component {
                     >
                       {gameData[1].label} : {"  "}
                     </span>
+                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[1].data}
                     </span>
-                  </OverlayTrigger>
                   </div>
                 </Col>
               </Row>
@@ -199,10 +199,10 @@ class GameStats extends React.Component {
                     >
                       {gameData[3].label} : {"  "}
                     </span>
+                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[3].data}
                     </span>
-                  </OverlayTrigger>
                   </div>
                 </Col>
                 <Col sm={6}>
@@ -223,10 +223,10 @@ class GameStats extends React.Component {
                     >
                       {gameData[2].label} : {"  "}
                     </span>
+                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[2].data}
                     </span>
-                  </OverlayTrigger>
                   </div>
                 </Col>
               </Row>
