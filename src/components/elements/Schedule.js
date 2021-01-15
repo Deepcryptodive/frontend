@@ -73,7 +73,7 @@ const Schedule = (props) => {
               >
                 {i.round === 1
                     ? "Game launched"
-                    : {i.round === numberOfRounds
+                    : i.round === numberOfRounds
                       ? `Waiting period ends`
                       : `Deposit deadline ${i.round - 1}`
                     }
