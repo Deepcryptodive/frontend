@@ -66,10 +66,13 @@ class GameStats extends React.Component {
   render() {
     const { ...props } = this.props;
 
+    const totalInterest = props.gameInfo.totalGameInterest;
+
     const personalInterest =
       props.gameInfo.totalGameInterest > 0
         ? props.gameInfo.totalGameInterest / props.players.length
         : 0;
+
     const numberOfPlayers = (status) => {
       const conditions = {
         dead: (player) =>
@@ -93,7 +96,7 @@ class GameStats extends React.Component {
       paddingLeft: "10px",
       paddingRight: "4px",
       // borderRadius: "3px",
-      fontSize: "0.85rem",
+      fontSize: "0.95rem",
     };
     return (
       <section>
@@ -133,15 +136,16 @@ class GameStats extends React.Component {
                   <div key={0}>
                     <OverlayTrigger
                       placement="bottom"
+                      delay={{ show: 250, hide: 400 }}
                       overlay={
                         <Tooltip id="button-tooltip-2">
-                          The time the game runs, from start to finish.
+                          The time the game runs, from start to finish
                         </Tooltip>}
                     >
                       <span
                         style={{
                           fontWeight: "600",
-                          fontSize: "0.85rem",
+                          fontSize: "0.8rem",
                           color: "black",
                         }}
                       >
@@ -158,6 +162,7 @@ class GameStats extends React.Component {
                   <div key={1}>
                   <OverlayTrigger
                     placement="bottom"
+                    delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="button-tooltip-2">
                         Example content for tooltip item 2
@@ -166,7 +171,7 @@ class GameStats extends React.Component {
                     <span
                       style={{
                         fontWeight: "600",
-                        fontSize: "0.85rem",
+                        fontSize: "0.8rem",
                         color: "black",
                       }}
                     >
@@ -185,15 +190,16 @@ class GameStats extends React.Component {
                   <div>
                   <OverlayTrigger
                     placement="bottom"
+                    delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="button-tooltip-2">
-                        Example content for tooltip item 3
+                        The amount you need to deposit each round to stay in the game
                       </Tooltip>}
                   >
                     <span
                       style={{
                         fontWeight: "600",
-                        fontSize: "0.85rem",
+                        fontSize: "0.8rem",
                         color: "black",
                       }}
                     >
@@ -209,15 +215,16 @@ class GameStats extends React.Component {
                   <div key={3}>
                   <OverlayTrigger
                     placement="bottom"
+                    delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="button-tooltip-2">
-                        Example content for tooltip item 4
+                        The time between two deposits.
                       </Tooltip>}
                   >
                     <span
                       style={{
                         fontWeight: "600",
-                        fontSize: "0.85rem",
+                        fontSize: "0.8rem",
                         color: "black",
                       }}
                     >
@@ -230,6 +237,11 @@ class GameStats extends React.Component {
                   </div>
                 </Col>
               </Row>
+             <Row>
+               <span>
+                 </br>
+               </span>
+             </Row>
               <Row>
                 <CircleData
                   label="Pool APY"
@@ -237,8 +249,13 @@ class GameStats extends React.Component {
                   measure="%"
                 />
                 <CircleData
-                  label="Your Interest Earned"
-                  data={personalInterest}
+                  label="Interest Earned"
+                  data={totalInterest}
+                  measure="DAI"
+                />
+                <CircleData
+                  label="Winners"
+                  data={props.players.length}
                   measure="DAI"
                 />
                 <CircleData
