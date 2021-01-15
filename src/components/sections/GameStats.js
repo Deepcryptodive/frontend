@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { displaySegment, weiToERC20, round } from "./../../utils/utilities";
 import web3 from "web3";
 import dayjs from "dayjs";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export const getViewableGameStats = (gameInfo) => [
   {
@@ -127,15 +127,24 @@ class GameStats extends React.Component {
               <Row>
                 <Col sm={6}>
                   <div key={0}>
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "0.7rem",
-                        color: "black",
-                      }}
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={
+                        <Tooltip id="button-tooltip-2">
+                          Example content for tooltip
+                        </Tooltip>
+                      }
                     >
-                      {gameData[0].label} : {"  "}
-                    </span>
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "0.7rem",
+                          color: "black",
+                        }}
+                      >
+                        {gameData[0].label} : {"  "}
+                      </span>
+                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[0].data}
                     </span>
