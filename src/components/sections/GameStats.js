@@ -7,7 +7,7 @@ import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export const getViewableGameStats = (gameInfo) => [
   {
-    label: `🏁 Game Duration`,
+    label: `🕒 Game Duration`,
     confirmLabel: "Game Duration",
     data: `${round(
       dayjs
@@ -93,7 +93,7 @@ class GameStats extends React.Component {
       paddingLeft: "10px",
       paddingRight: "4px",
       // borderRadius: "3px",
-      fontSize: "0.7rem",
+      fontSize: "0.85rem",
     };
     return (
       <section>
@@ -135,25 +135,25 @@ class GameStats extends React.Component {
                       placement="bottom"
                       overlay={
                         <Tooltip id="button-tooltip-2">
-                          Example content for tooltip item 1
+                          The time the game runs, from start to finish.
                         </Tooltip>}
                     >
                       <span
                         style={{
                           fontWeight: "600",
-                          fontSize: "0.7rem",
+                          fontSize: "0.85rem",
                           color: "black",
                         }}
                       >
                         {gameData[0].label} : {"  "}
                       </span>
-                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[0].data}
                     </span>
+                  </OverlayTrigger>
                   </div>
-
                 </Col>
+
                 <Col sm={6}>
                   <div key={1}>
                   <OverlayTrigger
@@ -166,42 +166,34 @@ class GameStats extends React.Component {
                     <span
                       style={{
                         fontWeight: "600",
-                        fontSize: "0.7rem",
+                        fontSize: "0.85rem",
                         color: "black",
                       }}
                     >
                       {gameData[1].label} : {"  "}
                     </span>
-                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[1].data}
                     </span>
+                  </OverlayTrigger>
                   </div>
                 </Col>
               </Row>
+
               <Row>
                 <Col sm={6}>
                   <div>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        Example content for tooltip item 3
+                      </Tooltip>}
+                  >
                     <span
                       style={{
                         fontWeight: "600",
-                        fontSize: "0.7rem",
-                        color: "black",
-                      }}
-                    >
-                      {gameData[2].label} : {"  "}
-                    </span>
-                    <span className="code" style={valueStyle}>
-                      {gameData[2].data}
-                    </span>
-                  </div>
-                </Col>
-                <Col sm={6}>
-                  <div key={3}>
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "0.7rem",
+                        fontSize: "0.85rem",
                         color: "black",
                       }}
                     >
@@ -210,6 +202,31 @@ class GameStats extends React.Component {
                     <span className="code" style={valueStyle}>
                       {gameData[3].data}
                     </span>
+                  </OverlayTrigger>
+                  </div>
+                </Col>
+                <Col sm={6}>
+                  <div key={3}>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        Example content for tooltip item 4
+                      </Tooltip>}
+                  >
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "0.85rem",
+                        color: "black",
+                      }}
+                    >
+                      {gameData[2].label} : {"  "}
+                    </span>
+                    <span className="code" style={valueStyle}>
+                      {gameData[2].data}
+                    </span>
+                  </OverlayTrigger>
                   </div>
                 </Col>
               </Row>
