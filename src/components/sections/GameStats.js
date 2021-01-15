@@ -25,7 +25,6 @@ export const getViewableGameStats = (gameInfo) => [
     )}`,
     confirmLabel: "Game status",
     confirmData: displaySegment(gameInfo.lastSegment),
-    {/* TODO 🚨- add a message when the game already is finished*/}
   },
   {
     label: "🕒 Round Length",
@@ -219,7 +218,7 @@ class GameStats extends React.Component {
                     delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="button-tooltip-2">
-                        The time between two deposits deadlines.
+                        The time between two deposits deadlines
                       </Tooltip>}
                   >
                     <span
