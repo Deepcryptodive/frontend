@@ -7,12 +7,14 @@ import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export const getViewableGameStats = (gameInfo) => [
   {
-    label: "🕐Round",
-    data: `${displaySegment(gameInfo.currentSegment)} of ${displaySegment(
+    label: "⏳ Current Round",
+    data: !this.props.gameInfo.isGameCompleted
+    ? `${displaySegment(gameInfo.currentSegment)} of ${displaySegment(
       gameInfo.lastSegment
     )}`,
     confirmLabel: "Number of Rounds",
     confirmData: displaySegment(gameInfo.lastSegment),
+    : "Game Completed ✔️",
   },
   {
     label: "🕒 Round Length",
@@ -33,8 +35,8 @@ export const getViewableGameStats = (gameInfo) => [
     data: `${weiToERC20(gameInfo.rawSegmentPayment)} DAI`,
   },
   {
-    label: `🏁 Game Length`,
-    confirmLabel: "Game Length",
+    label: `🏁 Game Duration`,
+    confirmLabel: "Game Duration",
     data: `${round(
       dayjs
         .duration(
