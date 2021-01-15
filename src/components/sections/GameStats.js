@@ -239,7 +239,7 @@ class GameStats extends React.Component {
               </Row>
              <Row>
                <span>
-                 </br>
+                 <br />
                </span>
              </Row>
               <Row>
