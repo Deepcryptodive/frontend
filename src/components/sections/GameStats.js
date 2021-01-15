@@ -19,12 +19,13 @@ export const getViewableGameStats = (gameInfo) => [
     )} Days`,
   },
   {
-    label: "⏳ Current Round",
-    data: `${displaySegment(gameInfo.currentSegment)} out of ${displaySegment(
+    label: "⏳ Game status",
+    data: `round ${displaySegment(gameInfo.currentSegment)} out of ${displaySegment(
       gameInfo.lastSegment
     )}`,
-    confirmLabel: "Current Round",
+    confirmLabel: "Game status",
     confirmData: displaySegment(gameInfo.lastSegment),
+    {/* TODO 🚨- add a message when the game already is finished*/}
   },
   {
     label: "🕒 Round Length",
@@ -139,7 +140,7 @@ class GameStats extends React.Component {
                       delay={{ show: 250, hide: 400 }}
                       overlay={
                         <Tooltip id="button-tooltip-2">
-                          The time the game runs, from start to finish
+                          How long the game runs, from start to finish
                         </Tooltip>}
                     >
                       <span
@@ -218,7 +219,7 @@ class GameStats extends React.Component {
                     delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="button-tooltip-2">
-                        The time between two deposits.
+                        The time between two deposits deadlines.
                       </Tooltip>}
                   >
                     <span
@@ -243,26 +244,54 @@ class GameStats extends React.Component {
                </span>
              </Row>
               <Row>
+              <OverlayTrigger
+                placement="left"
+                delay={{ show: 250, hide: 400 }}
+                overlay={
+                  <Tooltip id="button-tooltip-2">
+                    The current interest rate that is being earned by the savings pool
+                  </Tooltip>}
+              >
                 <CircleData
                   label="Pool APY"
                   data={Math.round(props.gameInfo.poolAPY * 10) / 10}
                   measure="%"
                 />
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="left"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={
+                    <Tooltip id="button-tooltip-2">
+                      The total interest earned by the savings pool thus far. This will be given to all winning players!
+                    </Tooltip>}
+                >
                 <CircleData
                   label="Interest Earned"
                   data={totalInterest}
                   measure="DAI"
                 />
+                </OverlayTrigger>
+                {/* Might be nice to include in the players view:
                 <CircleData
                   label="Winners"
                   data={props.players.length}
-                  measure="DAI"
-                />
+                  measure="players"
+                />*/}
+                <OverlayTrigger
+                  placement="left"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={
+                    <Tooltip id="button-tooltip-2">
+                      The sum of all deposits into the savings pool (excluding interest)
+                    </Tooltip>}
+                >
                 <CircleData
                   label="Total Pool Funds"
                   data={weiToERC20(props.gameInfo.totalGamePrincipal)}
                   measure="DAI"
                 />
+                </OverlayTrigger>
               </Row>
             </Container>
           </div>
@@ -278,7 +307,7 @@ const CircleData = (props) => (
       style={{
         height: "150px",
         borderColor: "#6EB0FC",
-        borderWidth: "12px",
+        borderWidth: "11px",
         width: "150px",
         borderStyle: "solid",
         borderRadius: "50%",
