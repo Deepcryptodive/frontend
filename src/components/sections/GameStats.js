@@ -7,14 +7,24 @@ import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export const getViewableGameStats = (gameInfo) => [
   {
+    label: `🏁 Game Duration`,
+    confirmLabel: "Game Duration",
+    data: `${round(
+      dayjs
+        .duration(
+          gameInfo.segmentLengthInSecs * displaySegment(gameInfo.lastSegment),
+          "seconds"
+        )
+        .asDays()
+    )} Days`,
+  },
+  {
     label: "⏳ Current Round",
-    data: !this.props.gameInfo.isGameCompleted
-    ? `${displaySegment(gameInfo.currentSegment)} of ${displaySegment(
+    data: `${displaySegment(gameInfo.currentSegment)} out of ${displaySegment(
       gameInfo.lastSegment
     )}`,
-    confirmLabel: "Number of Rounds",
+    confirmLabel: "Current Round",
     confirmData: displaySegment(gameInfo.lastSegment),
-    : "Game Completed ✔️",
   },
   {
     label: "🕒 Round Length",
@@ -30,21 +40,13 @@ export const getViewableGameStats = (gameInfo) => [
     } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
   },
   {
-    label: "🎯 Deposit Amount",
-    confirmLabel: "Deposit Amount",
-    data: `${weiToERC20(gameInfo.rawSegmentPayment)} DAI`,
-  },
-  {
-    label: `🏁 Game Duration`,
-    confirmLabel: "Game Duration",
-    data: `${round(
-      dayjs
-        .duration(
-          gameInfo.segmentLengthInSecs * displaySegment(gameInfo.lastSegment),
-          "seconds"
-        )
-        .asDays()
-    )} Days`,
+    label: "🎯 Recurring Deposit",
+    confirmLabel: "Recurring Deposit",
+    data: `${weiToERC20(gameInfo.rawSegmentPayment)} DAI every ${
+          process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
+            ? dayjs.duration(roundsLengthsSecs, "seconds").asWeeks()
+            : dayjs.duration(roundsLengthsSecs, "seconds").asDays()
+        } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
   },
 ];
 
@@ -133,9 +135,8 @@ class GameStats extends React.Component {
                       placement="bottom"
                       overlay={
                         <Tooltip id="button-tooltip-2">
-                          Example content for tooltip
-                        </Tooltip>
-                      }
+                          Example content for tooltip item 1
+                        </Tooltip>}
                     >
                       <span
                         style={{
@@ -151,9 +152,17 @@ class GameStats extends React.Component {
                       {gameData[0].data}
                     </span>
                   </div>
+
                 </Col>
                 <Col sm={6}>
                   <div key={1}>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        Example content for tooltip item 2
+                      </Tooltip>}
+                  >
                     <span
                       style={{
                         fontWeight: "600",
@@ -163,6 +172,7 @@ class GameStats extends React.Component {
                     >
                       {gameData[1].label} : {"  "}
                     </span>
+                    </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[1].data}
                     </span>
@@ -210,12 +220,12 @@ class GameStats extends React.Component {
                   measure="%"
                 />
                 <CircleData
-                  label="Interest Earned"
+                  label="Your Interest Earned"
                   data={personalInterest}
                   measure="DAI"
                 />
                 <CircleData
-                  label="Total Pooled"
+                  label="Total Pool Funds"
                   data={weiToERC20(props.gameInfo.totalGamePrincipal)}
                   measure="DAI"
                 />
