@@ -71,7 +71,12 @@ const Schedule = (props) => {
                   i.round % 2 !== 0 ? "schedule-left" : "schedule-right"
                 }
               >
-                {i.round === 1 ? "Game launched" : `Deposit deadline ${i.round - 1}`}
+                {i.round === 1
+                    ? "Game launched"
+                    : {i.round === numberOfRounds
+                      ? `Waiting period ends`
+                      : `Deposit deadline ${i.round - 1}`
+                    }
               </TimelineItem>
             );
           })}
@@ -85,10 +90,16 @@ const Schedule = (props) => {
               textAlign: "center",
             }}
           >
-            After the final round
+            After the waiting period
           </p>
           <span>
+          <p
+            style={{
+              textAlign: "center",
+            }}
+          >
           Get back your initial deposit and collect your winnings!
+          </p>
           </span>
           <p style={{ textAlign: "center", paddingBottom: "20px" }}>
             <span
