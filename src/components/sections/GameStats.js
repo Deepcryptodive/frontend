@@ -170,7 +170,7 @@ class GameStats extends React.Component {
                       delay={{ show: 250, hide: 400 }}
                       overlay={
                         <Tooltip id="button-tooltip-2">
-                          Example content for tooltip item 2
+                          The current round (out of total rounds in the game)
                         </Tooltip>
                       }
                     >
