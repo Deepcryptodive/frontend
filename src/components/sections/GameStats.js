@@ -16,11 +16,11 @@ export const getViewableGameStats = (gameInfo) => [
           "seconds"
         )
         .asDays()
-    )} Days`,
+    )} days`,
   },
   {
-    label: "⏳ Game status",
-    data: `round ${displaySegment(gameInfo.currentSegment)} out of ${displaySegment(
+    label: "⏳ Game Round",
+    data: `${displaySegment(gameInfo.currentSegment)} / ${displaySegment(
       gameInfo.lastSegment
     )}`,
     confirmLabel: "Game status",
@@ -43,10 +43,14 @@ export const getViewableGameStats = (gameInfo) => [
     label: "🎯 Recurring Deposit",
     confirmLabel: "Recurring Deposit",
     data: `${weiToERC20(gameInfo.rawSegmentPayment)} DAI every ${
-          process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
-            ? dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asWeeks()
-            : dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asDays()
-        } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
+      process.env.REACT_APP_WEEKS_OR_DAYS === "weeks"
+        ? round(
+            dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asWeeks()
+          )
+        : round(
+            dayjs.duration(gameInfo.segmentLengthInSecs, "seconds").asDays()
+          )
+    } ${process.env.REACT_APP_WEEKS_OR_DAYS}`,
   },
 ];
 
@@ -140,7 +144,8 @@ class GameStats extends React.Component {
                       overlay={
                         <Tooltip id="button-tooltip-2">
                           How long the game runs, from start to finish
-                        </Tooltip>}
+                        </Tooltip>
+                      }
                     >
                       <span
                         style={{
@@ -160,23 +165,24 @@ class GameStats extends React.Component {
 
                 <Col sm={6}>
                   <div key={1}>
-                  <OverlayTrigger
-                    placement="bottom"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={
-                      <Tooltip id="button-tooltip-2">
-                        Example content for tooltip item 2
-                      </Tooltip>}
-                  >
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "0.8rem",
-                        color: "black",
-                      }}
+                    <OverlayTrigger
+                      placement="bottom"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={
+                        <Tooltip id="button-tooltip-2">
+                          Example content for tooltip item 2
+                        </Tooltip>
+                      }
                     >
-                      {gameData[1].label} : {"  "}
-                    </span>
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "0.8rem",
+                          color: "black",
+                        }}
+                      >
+                        {gameData[1].label} : {"  "}
+                      </span>
                     </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[1].data}
@@ -188,23 +194,25 @@ class GameStats extends React.Component {
               <Row>
                 <Col sm={6}>
                   <div>
-                  <OverlayTrigger
-                    placement="bottom"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={
-                      <Tooltip id="button-tooltip-2">
-                        The amount you need to deposit each round to stay in the game
-                      </Tooltip>}
-                  >
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "0.8rem",
-                        color: "black",
-                      }}
+                    <OverlayTrigger
+                      placement="bottom"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={
+                        <Tooltip id="button-tooltip-2">
+                          The amount you need to deposit each round to stay in
+                          the game
+                        </Tooltip>
+                      }
                     >
-                      {gameData[3].label} : {"  "}
-                    </span>
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "0.8rem",
+                          color: "black",
+                        }}
+                      >
+                        {gameData[3].label} : {"  "}
+                      </span>
                     </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[3].data}
@@ -213,23 +221,24 @@ class GameStats extends React.Component {
                 </Col>
                 <Col sm={6}>
                   <div key={3}>
-                  <OverlayTrigger
-                    placement="bottom"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={
-                      <Tooltip id="button-tooltip-2">
-                        The time between two deposits deadlines
-                      </Tooltip>}
-                  >
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "0.8rem",
-                        color: "black",
-                      }}
+                    <OverlayTrigger
+                      placement="bottom"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={
+                        <Tooltip id="button-tooltip-2">
+                          The time between two deposits deadlines
+                        </Tooltip>
+                      }
                     >
-                      {gameData[2].label} : {"  "}
-                    </span>
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "0.8rem",
+                          color: "black",
+                        }}
+                      >
+                        {gameData[2].label} : {"  "}
+                      </span>
                     </OverlayTrigger>
                     <span className="code" style={valueStyle}>
                       {gameData[2].data}
@@ -237,39 +246,43 @@ class GameStats extends React.Component {
                   </div>
                 </Col>
               </Row>
-             <Row>
-               <span>
-                 <br />
-               </span>
-             </Row>
               <Row>
-              <OverlayTrigger
-                placement="left"
-                delay={{ show: 250, hide: 400 }}
-                overlay={
-                  <Tooltip id="button-tooltip-2">
-                    The current interest rate that is being earned by the savings pool
-                  </Tooltip>}
-              >
-                <CircleData
-                  label="Pool APY"
-                  data={Math.round(props.gameInfo.poolAPY * 10) / 10}
-                  measure="%"
-                />
+                <span>
+                  <br />
+                </span>
+              </Row>
+              <Row>
+                <OverlayTrigger
+                  placement="left"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={
+                    <Tooltip id="button-tooltip-2">
+                      The current interest rate that is being earned by the
+                      savings pool
+                    </Tooltip>
+                  }
+                >
+                  <CircleData
+                    label="Pool APY"
+                    data={Math.round(props.gameInfo.poolAPY * 10) / 10}
+                    measure="%"
+                  />
                 </OverlayTrigger>
                 <OverlayTrigger
                   placement="left"
                   delay={{ show: 250, hide: 400 }}
                   overlay={
                     <Tooltip id="button-tooltip-2">
-                      The total interest earned by the savings pool thus far. This will be given to all winning players!
-                    </Tooltip>}
+                      The total interest earned by the savings pool thus far.
+                      This will be given to all winning players!
+                    </Tooltip>
+                  }
                 >
-                <CircleData
-                  label="Interest Earned"
-                  data={totalInterest}
-                  measure="DAI"
-                />
+                  <CircleData
+                    label="Interest Earned"
+                    data={totalInterest}
+                    measure="DAI"
+                  />
                 </OverlayTrigger>
                 {/* Might be nice to include in the players view:
                 <CircleData
@@ -282,14 +295,16 @@ class GameStats extends React.Component {
                   delay={{ show: 250, hide: 400 }}
                   overlay={
                     <Tooltip id="button-tooltip-2">
-                      The sum of all deposits into the savings pool (excluding interest)
-                    </Tooltip>}
+                      The sum of all deposits into the savings pool (excluding
+                      interest)
+                    </Tooltip>
+                  }
                 >
-                <CircleData
-                  label="Total Pool Funds"
-                  data={weiToERC20(props.gameInfo.totalGamePrincipal)}
-                  measure="DAI"
-                />
+                  <CircleData
+                    label="Total Pool Funds"
+                    data={weiToERC20(props.gameInfo.totalGamePrincipal)}
+                    measure="DAI"
+                  />
                 </OverlayTrigger>
               </Row>
             </Container>

@@ -215,7 +215,6 @@ const GamePage = () => {
         const newPlayerInfo = Object.assign({}, playerInfo, {
           mostRecentSegmentPaid: parseInt(playerInfo.mostRecentSegmentPaid) + 1,
         });
-        console.log("oldPlayer:", playerInfo, "newPlayerInfo :", newPlayerInfo);
         setSuccessState({ makeDeposit: true });
         setPlayerInfo(newPlayerInfo);
         getGameInfo();
