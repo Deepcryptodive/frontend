@@ -10,7 +10,8 @@ import Button from "./../elements/Button";
 
 export default (props) => {
   const hasPaid =
-    props.playerInfo.mostRecentSegmentPaid === props.gameInfo.currentSegment;
+    props.playerInfo.mostRecentSegmentPaid === props.gameInfo.currentSegment ||
+    props.success.makeDeposit;
   return (
     <Col className="show-desktop-only">
       <div

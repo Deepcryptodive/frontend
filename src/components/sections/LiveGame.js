@@ -61,6 +61,7 @@ export default (props) => {
               gameInfo={props.gameInfo}
               makeDeposit={props.makeDeposit}
               showButton={props.playerInfo.isLive}
+              succes={props.success}
               buttonClick={() => setShowDepsitModal(true)}
             />
           )}
