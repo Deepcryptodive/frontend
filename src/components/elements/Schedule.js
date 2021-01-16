@@ -71,7 +71,12 @@ const Schedule = (props) => {
                   i.round % 2 !== 0 ? "schedule-left" : "schedule-right"
                 }
               >
-                {i.round === 1 ? "Game launched" : `Round ${i.round - 1} ends`}
+                {i.round === 1
+                    ? "Game launched"
+                    : i.round === numberOfRounds
+                      ? `Waiting period ends`
+                      : `Deposit deadline ${i.round - 1}`
+                    }
               </TimelineItem>
             );
           })}
@@ -80,13 +85,22 @@ const Schedule = (props) => {
               textTransform: "uppercase",
               fontFamily: "Cardo",
               fontWeight: "400",
-              marginTop: "40px",
-              fontSize: "14px",
+              marginTop: "10px",
+              fontSize: "12px",
               textAlign: "center",
             }}
           >
-            After the final round
+            After the waiting period
           </p>
+          <span>
+          <p
+            style={{
+              textAlign: "center",
+            }}
+          >
+          Get back your initial deposit and collect your winnings!
+          </p>
+          </span>
           <p style={{ textAlign: "center", paddingBottom: "20px" }}>
             <span
               role="img"
