@@ -35,10 +35,10 @@ export default (props) => {
         show={props.success.makeDeposit}
       /> */}
       {props.success.depositIntoExternalPool && (
-        <Alert text="Deposit in to the Aave completed" />
+        <Alert text="Deposit into Aave completed" />
       )}
       {props.success.makeDeposit && (
-        <Alert text="Congrats, your deposit completed! 🥳" />
+        <Alert text="Congrats, your deposit completed! 🥳 Keep up the good work!" />
       )}
       <DepositModal
         success={props.success.makeDeposit}
@@ -106,7 +106,7 @@ export default (props) => {
               PlayersPrint(props.players, props.playerInfo.address).length <
                 1 && (
                 <p>
-                  Your have elimated the competition
+                  Very nice: your have elimated the competition!
                   <span role="img" aria-label="muscle emoji">
                     💪
                   </span>
@@ -129,14 +129,22 @@ export default (props) => {
 const UnRegisteredPlayer = (props) => (
   <>
     <p>
-      <span role="img">🙁</span>Too late to join!
+      <span role="img">🙁</span>
+      <span style={{
+          fontWeight: "800",
+          fontSize: "2.0rem",
+          color: "black",
+        }}
+      >
+      Sadly you are too late to join the game!
+      </span>
     </p>
     <p>
       Keep an eye on our{" "}
       <a href="https://discord.com/invite/AWvcTFP" rel="noopener noreferrer">
-        discord
+        Discord server
       </a>{" "}
-      for news of the next game.
+      to get notified when the next game starts.
       <span role="img">👀</span>
     </p>
   </>
