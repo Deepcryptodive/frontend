@@ -202,7 +202,7 @@ class Team extends React.Component {
                     <div className="team-item-image mb-24 illustration-element-06">
                       <a href="https://www.linkedin.com/in/simon-cousaert/" target="_blank" rel="noopener">
                       <Image
-                        src={require('./../../assets/images/Simon.png')}
+                        src={require('./../../assets/images/Simon.jpeg')}
                         alt="Team member 06"
                         width={180}
                         height={180} />
