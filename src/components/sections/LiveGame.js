@@ -132,11 +132,11 @@ const UnRegisteredPlayer = (props) => (
       <span role="img">🙁</span>
       <span style={{
           fontWeight: "800",
-          fontSize: "2.0rem",
+          fontSize: "1.9rem",
           color: "black",
         }}
       >
-      Sadly you are too late to join the game!
+      {" "}Sadly you are too late to join the game!
       </span>
     </p>
     <p>
@@ -144,7 +144,7 @@ const UnRegisteredPlayer = (props) => (
       <a href="https://discord.com/invite/AWvcTFP" rel="noopener noreferrer">
         Discord server
       </a>{" "}
-      to get notified when the next game starts.
+      to get notified when the next game starts
       <span role="img">👀</span>
     </p>
   </>
