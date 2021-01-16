@@ -206,7 +206,7 @@ class Team extends React.Component {
                         alt="Team member 06"
                         width={180}
                         height={180} />
-                    {/*</a>*/}
+                    </a>
                     </div>
                   </div>
                   <div className="team-item-content reveal-from-top" data-reveal-container=".tiles-item" data-reveal-delay="200">
