@@ -196,6 +196,31 @@ class Team extends React.Component {
                 </div>
               </div>
 
+              <div className="tiles-item">
+                <div className="tiles-item-inner">
+                  <div className="team-item-header reveal-from-top" data-reveal-container=".tiles-item">
+                    <div className="team-item-image mb-24 illustration-element-06">
+                      <a href="https://www.linkedin.com/in/simon-cousaert/" target="_blank" rel="noopener">
+                      <Image
+                        src={require('./../../assets/images/Simon.png')}
+                        alt="Team member 06"
+                        width={180}
+                        height={180} />
+                    {/*</a>*/}
+                    </div>
+                  </div>
+                  <div className="team-item-content reveal-from-top" data-reveal-container=".tiles-item" data-reveal-delay="200">
+                    <h5 className="team-item-name mt-0 mb-4">
+                    Simon Cousaert
+                    </h5>
+                    <div className="team-item-role text-xxs tt-u fw-500 text-color-primary mb-8 sans_serif">
+                      Intern | Business Dev
+                    </div>
+                    <p className="m-0 text-sm">
+                    Graduated as a MSc in Business Engineering, with a major in Data Analytics. Immersing himself in the blockchain ecosystem and soon strengthening his skills in London at UCL. Interned at Keyrock (Crypto Market Maker), and will help developing the GoodGhosting business.</p>
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
