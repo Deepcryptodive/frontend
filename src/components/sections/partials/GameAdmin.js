@@ -4,7 +4,7 @@ import LoadingButton from "./../../elements/LoadingButton";
 
 const GameAdmin = (props) => {
   return (
-    <>
+    <div style={{ padding: "20px" }}>
       <h1>This is the admin content</h1>
       <p className="Cardo">
         You shouldn't need to call these functions, as the GoodGhosting team
@@ -55,7 +55,7 @@ const GameAdmin = (props) => {
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
