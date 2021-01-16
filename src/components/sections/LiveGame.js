@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { status, isNotEmptyObj, displaySegment } from "../../utils/utilities";
+import { status, displaySegment, isNotEmptyObj } from "../../utils/utilities";
 import PlayersPrint from "./../elements/PrintPlayers";
 import Button from "./../elements/Button";
 import GameStats from "./GameStats";
@@ -19,6 +19,7 @@ import Image from "./../elements/Image";
 import PlayerProfile from "./../elements/PlayerProfile";
 import GameAdmin from "./partials/GameAdmin";
 import DepositModal from "../elements/DepositModal";
+import Alert from "./../elements/Alert";
 
 export default (props) => {
   const { playerInfo } = props;
@@ -33,6 +34,9 @@ export default (props) => {
         close={props.toggleSuccess.bind(null, "makeDeposit")}
         show={props.success.makeDeposit}
       /> */}
+      {props.success.depositIntoExternalPool && (
+        <Alert text="Deposit in to the Aave completed" />
+      )}
       <DepositModal
         success={props.success.makeDeposit}
         errors={props.errors}
@@ -80,6 +84,7 @@ export default (props) => {
                   liveGame={true}
                   depositIntoExternalPool={props.depositIntoExternalPool}
                   loadingState={props.loadingState}
+                  isLoggedIn={isNotEmptyObj(props.playerInfo)}
                 />
               </TabContent>
             </Tabs>

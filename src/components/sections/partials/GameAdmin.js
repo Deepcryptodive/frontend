@@ -46,7 +46,7 @@ const GameAdmin = (props) => {
           </span>
         </a>
       </p>
-      {props.liveGame && (
+      {props.liveGame && props.isLoggedIn && (
         <div>
           <LoadingButton
             text="depositIntoExternalPool"

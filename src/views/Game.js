@@ -401,7 +401,8 @@ const GamePage = () => {
       .send({ from: usersAddress })
       .then((res) => console.log("♥️", res))
       .catch((err) => console.log("👀", Error));
-    setLoadingState({ depositIntoExternalPool: false }); //put inside then and catch
+    setLoadingState({ depositIntoExternalPool: false });
+    setSuccessState({ depositIntoExternalPool: true }); //put inside then and catch
   };
 
   const toggleSuccess = (attribute) => {
