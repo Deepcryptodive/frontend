@@ -395,7 +395,6 @@ const GamePage = () => {
     //   setWeb3(web3);
     // }
     setLoadingState({ depositIntoExternalPool: true });
-    console.log("goodgHostingContract", goodGhostingContract);
     await goodGhostingContract.methods
       .depositIntoExternalPool()
       .send({ from: usersAddress })

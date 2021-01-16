@@ -12,7 +12,7 @@ export default (props) => {
   return (
     <Modal show={props.show} handleClose={props.close}>
       {!props.success && <h3>Deposit this round</h3>}
-      {props.errors.makeDeposit && <JoinError />}
+      {props.errors.makeDeposit && !props.success && <JoinError />}
       {/* {props.errors.makeDeposit && !props.success && <JoinError />} */}
       {props.success && (
         <div>

@@ -37,6 +37,9 @@ export default (props) => {
       {props.success.depositIntoExternalPool && (
         <Alert text="Deposit in to the Aave completed" />
       )}
+      {props.success.makeDeposit && (
+        <Alert text="Congrats, your deposit completed! 🥳" />
+      )}
       <DepositModal
         success={props.success.makeDeposit}
         errors={props.errors}
