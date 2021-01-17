@@ -170,8 +170,7 @@ const GamePage = () => {
     const lendingPoolData = await lendingPoolInstance.methods
       .getReserveData(daiAddress)
       .call();
-
-    const rawADaiAPY = new web3.utils.BN(lendingPoolData.liquidityRate);
+    const rawADaiAPY = new web3.utils.BN(lendingPoolData.currentLiquidityRate);
 
     const aDaiAPY = (rawADaiAPY / 10 ** 27) * 100;
     const lastSegment = await goodGhostingContract.methods.lastSegment().call();

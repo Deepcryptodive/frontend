@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { displaySegment, weiToERC20, round } from "./../../utils/utilities";
 import web3 from "web3";
 import dayjs from "dayjs";
