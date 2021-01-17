@@ -98,28 +98,6 @@ export default (props) => {
       </div>
 
       <>
-        {!props.gameInfo.isGameCompleted && (
-          <div style={{ justifyContent: "center", marginTop: "3em " }}>
-            {props.playerInfo.address && <h4> The Competition</h4>}
-            {props.userStatus !== status.unregistered &&
-              props.players &&
-              PlayersPrint(props.players, props.playerInfo.address).length <
-                1 && (
-                <p>
-                  Very nice: your have elimated the competition!
-                  <span role="img" aria-label="muscle emoji">
-                    💪
-                  </span>
-                </p>
-              )}
-          </div>
-        )}
-        {props.gameInfo.isGameCompleted && (
-          <div style={{ justifyContent: "center", marginTop: "3em " }}>
-            {props.playerInfo.address && <h4>The Winners! 🥳</h4>}
-            {props.players && PlayersPrint(props.players)}
-          </div>
-        )}
         <KovanFauctet />
       </>
     </>

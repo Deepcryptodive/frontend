@@ -18,7 +18,7 @@ export const getViewableGameStats = (gameInfo) => [
     )} days`,
   },
   {
-    label: "⏳ Game Round",
+    label: "⏳ Current Round",
     data: `${displaySegment(gameInfo.currentSegment)} / ${displaySegment(
       gameInfo.lastSegment
     )}`,

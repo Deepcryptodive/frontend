@@ -11,7 +11,7 @@ import Button from "./../elements/Button";
 export default (props) => {
   const hasPaid =
     props.playerInfo.mostRecentSegmentPaid === props.gameInfo.currentSegment ||
-    props.success.makeDeposit;
+    (props.success && props.success.makeDeposit);
   return (
     <Col className="show-desktop-only">
       <div
@@ -71,7 +71,8 @@ export default (props) => {
             <Col lg={4}>
               <span>{`${displaySegment(
                 props.playerInfo.mostRecentSegmentPaid
-              )} / ${displaySegment(props.gameInfo.lastSegment)}`}</span>  {/* 🚨 TO CHECK: shouldn't this be 'lastSegment' minus one*/}
+              )} / ${displaySegment(props.gameInfo.lastSegment)}`}</span>{" "}
+              {/* 🚨 TO CHECK: shouldn't this be 'lastSegment' minus one*/}
             </Col>
           </Row>
           <Row>
@@ -87,7 +88,8 @@ export default (props) => {
               <span>💰 Potential Gains</span>
             </Col>
             <Col lg={4}>
-              <span> +XX.XX DAI </span>  {/* 🚨 Feature request: add how much a user stands to gain if the completes the game - see https://github.com/Good-Ghosting/frontend/issues/28*/}
+              <span> +XX.XX DAI </span>{" "}
+              {/* 🚨 Feature request: add how much a user stands to gain if the completes the game - see https://github.com/Good-Ghosting/frontend/issues/28*/}
             </Col>
           </Row>
         </div>
