@@ -130,13 +130,15 @@ const UnRegisteredPlayer = (props) => (
   <>
     <p>
       <span role="img">🙁</span>
-      <span style={{
+      <span
+        style={{
           fontWeight: "800",
           fontSize: "1.9rem",
           color: "black",
         }}
       >
-      {" "}Sadly you are too late to join the game!
+        {" "}
+        Sadly you are too late to join the game!
       </span>
     </p>
     <p>

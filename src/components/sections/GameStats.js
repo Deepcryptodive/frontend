@@ -70,7 +70,7 @@ class GameStats extends React.Component {
   render() {
     const { ...props } = this.props;
 
-    const totalInterest = props.gameInfo.totalGameInterest;
+    const totalInterest = 0;
 
     const personalInterest =
       props.gameInfo.totalGameInterest > 0
