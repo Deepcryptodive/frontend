@@ -71,7 +71,9 @@ export default (props) => {
                 header={"Game Stats"}
                 style={props.playerInfo.isLive ? { padding: "30px 0" } : {}}
               >
-                <GameStats gameInfo={props.gameInfo} players={props.players} />
+                <GameStats gameInfo={props.gameInfo} players={props.players}>
+                  {props.gameInfo.isGameComplete && <h1>HI</h1>}
+                </GameStats>
               </TabContent>
               <TabContent header="Timeline">
                 <Schedule

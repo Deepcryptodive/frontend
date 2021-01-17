@@ -251,61 +251,36 @@ class GameStats extends React.Component {
                 </span>
               </Row>
               <Row>
-                <OverlayTrigger
-                  placement="left"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={
-                    <Tooltip id="button-tooltip-2">
-                      The current interest rate that is being earned by the
-                      savings pool
-                    </Tooltip>
-                  }
-                >
-                  <CircleData
-                    label="Pool APY"
-                    data={Math.round(props.gameInfo.poolAPY * 10) / 10}
-                    measure="%"
-                  />
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement="left"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={
-                    <Tooltip id="button-tooltip-2">
-                      The total interest earned by the savings pool thus far.
-                      This will be given to all winning players!
-                    </Tooltip>
-                  }
-                >
-                  <CircleData
-                    label="Interest Earned"
-                    data={totalInterest}
-                    measure="DAI"
-                  />
-                </OverlayTrigger>
+                <CircleData
+                  label="Pool APY"
+                  data={Math.round(props.gameInfo.poolAPY * 10) / 10}
+                  measure="%"
+                  tooltipText="The current interest rate that is being earned by the
+                    savings pool"
+                />
+
+                <CircleData
+                  label="Interest Earned"
+                  data={totalInterest}
+                  measure="DAI"
+                  tooltipText="The total interest earned by the savings pool thus far.
+                    This will be given to all winning players!"
+                />
                 {/* Might be nice to include in the players view:
                 <CircleData
                   label="Winners"
                   data={props.players.length}
                   measure="players"
                 />*/}
-                <OverlayTrigger
-                  placement="left"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={
-                    <Tooltip id="button-tooltip-2">
-                      The sum of all deposits into the savings pool (excluding
-                      interest)
-                    </Tooltip>
-                  }
-                >
-                  <CircleData
-                    label="Total Pool Funds"
-                    data={weiToERC20(props.gameInfo.totalGamePrincipal)}
-                    measure="DAI"
-                  />
-                </OverlayTrigger>
+
+                <CircleData
+                  label="Total Pool Funds"
+                  data={weiToERC20(props.gameInfo.totalGamePrincipal)}
+                  measure="DAI"
+                  tooltipText="  The sum of all deposits into the savings pool (excluding interest)"
+                />
               </Row>
+              {props.children}
             </Container>
           </div>
         </div>
@@ -316,31 +291,36 @@ class GameStats extends React.Component {
 const CircleData = (props) => (
   <Col sm={4}>
     <h5 style={{ textAlign: "center" }}>{props.label}</h5>
-    <div
-      style={{
-        height: "150px",
-        borderColor: "#6EB0FC",
-        borderWidth: "11px",
-        width: "150px",
-        borderStyle: "solid",
-        borderRadius: "50%",
-        margin: "auto",
-        textAlign: "center",
-      }}
+    <OverlayTrigger
+      placement="bottom"
+      delay={{ show: 250, hide: 400 }}
+      overlay={<Tooltip id="button-tooltip-2">{props.tooltipText}</Tooltip>}
     >
-      <p
+      <div
         style={{
-          fontSize: props.data.length > 3 ? "1em" : "2em",
-          marginBottom: "0px",
-          marginTop: "1.5rem",
-          lineHeight: "1.7rem",
+          height: "150px",
+          borderColor: "#6EB0FC",
+          borderWidth: "11px",
+          width: "150px",
+          borderStyle: "solid",
+          borderRadius: "50%",
+          margin: "auto",
+          textAlign: "center",
         }}
       >
-        {console.log("data", props.data, props.data.length)}
-        {props.data}
-      </p>
-      <p>{props.measure}</p>
-    </div>
+        <p
+          style={{
+            fontSize: props.data.length > 3 ? "1em" : "2em",
+            marginBottom: "0px",
+            marginTop: "1.5rem",
+            lineHeight: "1.7rem",
+          }}
+        >
+          {props.data}
+        </p>
+        <p>{props.measure}</p>
+      </div>
+    </OverlayTrigger>
   </Col>
 );
 
