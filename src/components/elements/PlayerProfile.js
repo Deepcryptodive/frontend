@@ -14,7 +14,7 @@ export default (props) => {
     props.playerInfo.mostRecentSegmentPaid == props.gameInfo.currentSegment;
 
   return (
-    <Col>
+    <Col xs={12} sm={3}>
       <div
         style={{
           backgroundColor: "white",
@@ -66,10 +66,10 @@ export default (props) => {
             </Col>
           </Row>
           <Row>
-            <Col lg={8}>
+            <Col xs={8}>
               <span>✅ Deposits Made</span>
             </Col>
-            <Col lg={4}>
+            <Col xs={4}>
               <span>{`${displaySegment(
                 props.playerInfo.mostRecentSegmentPaid
               )} / ${
@@ -79,18 +79,18 @@ export default (props) => {
             </Col>
           </Row>
           <Row>
-            <Col lg={8}>
+            <Col xs={8}>
               <span>💸 Total Deposited </span>
             </Col>
-            <Col lg={4}>
+            <Col xs={4}>
               <span>{weiToERC20(props.playerInfo.amountPaid)}</span>
             </Col>
           </Row>
           <Row>
-            <Col lg={8}>
+            <Col xs={8}>
               <span>💰 Potential Gains</span>
             </Col>
-            <Col lg={4}>
+            <Col xs={4}>
               <span> +XX.XX DAI </span>{" "}
               {/* 🚨 Feature request: add how much a user stands to gain if the completes the game - see https://github.com/Good-Ghosting/frontend/issues/28*/}
             </Col>

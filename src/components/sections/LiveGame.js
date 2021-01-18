@@ -84,7 +84,7 @@ export default (props) => {
               buttonClick={() => setShowDepsitModal(true)}
             />
           )}
-          <Col lg={registeredPlayer ? 9 : 12}>
+          <Col sm={registeredPlayer ? 9 : 12}>
             <Tabs>
               <TabContent
                 header={"Game Stats"}
