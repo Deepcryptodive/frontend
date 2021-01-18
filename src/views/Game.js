@@ -195,10 +195,7 @@ const GamePage = () => {
       poolAPY: aDaiAPY,
       isGameCompleted,
       // interest,
-      isWaitingRound: glqGameData.games[gameNumber]
-        ? glqGameData.games[gameNumber].lastSegment ===
-          glqGameData.games[gameNumber].currentSegment
-        : false,
+      isWaitingRound: lastSegment === currentSegment,
       firstSegmentEnd: dayjs.unix(firstSegmentStart).add(segmentLength, "s"),
       nextSegmentEnd: dayjs
         .unix(firstSegmentStart)
@@ -343,6 +340,7 @@ const GamePage = () => {
   useEffect(() => {
     if (success.joinGame) {
       const fetchData = async () => {
+        await getPlayers();
         await getGameInfo();
         calculateIsLive();
       };
@@ -391,7 +389,6 @@ const GamePage = () => {
         setSuccessState({ joinGame: true });
         setLoadingState({ joinGame: false });
         setUserStatus(status.registered);
-        getPlayers();
       })
       .catch((err) => {
         console.log("err", err);
