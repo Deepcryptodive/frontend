@@ -4,6 +4,17 @@ import web3 from "web3";
 import dayjs from "dayjs";
 import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 
+const getRound = (gameInfo) => {
+  if (gameInfo.isGameCompleted) {
+    return "Game Completed";
+  }
+  if (gameInfo.isWaitingRound) {
+    return "Waiting round";
+  }
+  return `${displaySegment(gameInfo.currentSegment)} / ${displaySegment(
+    gameInfo.lastSegment
+  )}`;
+};
 export const getViewableGameStats = (gameInfo) => [
   {
     label: `🕒 Game Duration`,
@@ -19,11 +30,7 @@ export const getViewableGameStats = (gameInfo) => [
   },
   {
     label: "⏳ Current Round",
-    data: gameInfo.isGameCompleted
-      ? "Game Completed"
-      : `${displaySegment(gameInfo.currentSegment)} / ${displaySegment(
-          gameInfo.lastSegment
-        )}`,
+    data: getRound(gameInfo),
     confirmLabel: "Game status",
     confirmData: displaySegment(gameInfo.lastSegment),
   },
@@ -241,7 +248,11 @@ class GameStats extends React.Component {
 
                 <CircleData
                   label="Interest Earned"
-                  data={totalInterest}
+                  data={
+                    props.gameInfo.currentSegment === "0"
+                      ? "Available after round 1"
+                      : totalInterest
+                  }
                   measure="DAI"
                   tooltipText="The total interest earned by the savings pool thus far.
                     This will be given to all winning players!"

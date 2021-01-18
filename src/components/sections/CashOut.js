@@ -28,11 +28,15 @@ const CashOut = (props) => {
             // onClickFunc={props.withdraw}
           />
         </div>
-        <LoadingButton
-          text="Withdraw"
-          onClick={props.withdraw}
-          loading={props.loadingState.withdraw}
-        />
+        {!props.playerInfo.withdrawn && (
+          <div style={{ paddingBottom: "20px" }}>
+            <LoadingButton
+              text="Withdraw"
+              onClick={props.withdraw}
+              loading={props.loadingState.withdraw}
+            />
+          </div>
+        )}
       </div>
     </>
   );

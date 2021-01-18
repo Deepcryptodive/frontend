@@ -176,6 +176,10 @@ const GamePage = () => {
       .call();
     const rawADaiAPY = new web3.utils.BN(lendingPoolData.currentLiquidityRate);
 
+    // const interest = await lendingPoolInstance.methods
+    //   .getUserAccountData(process.env.REACT_APP_GG_CONTRACT)
+    //   .call();
+
     const aDaiAPY = (rawADaiAPY / 10 ** 27) * 100;
     const lastSegment = await goodGhostingContract.methods.lastSegment().call();
     const gameInfo = {
@@ -190,6 +194,10 @@ const GamePage = () => {
       lastSegment,
       poolAPY: aDaiAPY,
       isGameCompleted,
+      // interest,
+      isWaitingRound:
+        glqGameData.games[gameNumber].lastSegment ===
+        glqGameData.games[gameNumber].currentSegment,
       firstSegmentEnd: dayjs.unix(firstSegmentStart).add(segmentLength, "s"),
       nextSegmentEnd: dayjs
         .unix(firstSegmentStart)
@@ -217,6 +225,9 @@ const GamePage = () => {
       .then((res) => {
         const newPlayerInfo = Object.assign({}, playerInfo, {
           mostRecentSegmentPaid: parseInt(playerInfo.mostRecentSegmentPaid) + 1,
+          amountPaid:
+            parseInt(playerInfo.amountPaid) +
+            parseInt(gameInfo.rawSegmentPayment),
         });
         setSuccessState({ makeDeposit: true });
         setPlayerInfo(newPlayerInfo);

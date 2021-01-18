@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Image from "./Image";
+import dayjs from "dayjs";
 import {
   displayAddress,
   weiToERC20,
@@ -95,7 +96,7 @@ export default (props) => {
             </Col>
           </Row>
         </div>
-        {props.showButton && !hasPaid && (
+        {props.showButton && !hasPaid && !props.gameInfo.isWaitingRound && (
           <div style={{ paddingTop: "16px" }}>
             <Button
               style={{ marginBottom: "12px" }}
@@ -104,6 +105,19 @@ export default (props) => {
             >
               Make your deposit
             </Button>
+          </div>
+        )}
+        {props.gameInfo.isWaitingRound && !props.gameInfo.isGameCompleted && (
+          <div>
+            {" "}
+            <h5>⏱Waiting Round</h5>
+            {console.log(
+              "🥳",
+              props.gameInfo.nextSegmentEnd
+                .add(props.gameInfo.segmentLengthInSecs, "second")
+                .format("HH:mm ddd D MMM")
+            )}
+            {/* <p>Ends at: {props.gameInfo.nextSegmentEnd.dateData.format("HH:mm ddd D MMM")}</p> */}
           </div>
         )}
       </div>
