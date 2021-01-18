@@ -24,7 +24,19 @@ const TimelineItem = ({ className, children, title, ...props }) => {
             props.fadeInGG && "reveal-fade"
           }`}
         >
-          {title}
+          {title}{" "}
+          {props.calInvite && (
+            <>
+              {" "}
+              <a
+                target="_blank"
+                href="https://calendar.google.com/event?action=TEMPLATE&amp;tmeid=M28zaXNvM2dtcHFlZWVna29iYTJrcjFxMmsgYm9vQGdvb2RnaG9zdGluZy5jb20&amp;tmsrc=boo%40goodghosting.com"
+              >
+                {" "}
+                <span>📅</span>
+              </a>{" "}
+            </>
+          )}
         </div>
         <div
           className={`timeline-item-content h4 m-0 ${

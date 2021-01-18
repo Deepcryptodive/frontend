@@ -36,6 +36,10 @@ const Schedule = (props) => {
         (i - 1) * roundsLengthsSecs,
         "second"
       ),
+      calInvite:
+        i == 1
+          ? "https://calendar.google.com/event?action=TEMPLATE&tmeid=M28zaXNvM2dtcHFlZWVna29iYTJrcjFxMmsgY19rbGFlOHRlZXJraHI0amhvNjY0MThlY2NzY0Bn&tmsrc=c_klae8teerkhr4jho66418eccsc%40group.calendar.google.com"
+          : null,
     };
   });
 
@@ -72,6 +76,7 @@ const Schedule = (props) => {
                     ? `Waiting period ends`
                     : `Deposit deadline ${i.round - 1}`
                 }`}
+                calInvite={i.calInvite}
                 key={i.round}
                 className={
                   i.round % 2 !== 0 ? "schedule-left" : "schedule-right"
