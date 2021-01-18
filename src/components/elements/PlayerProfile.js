@@ -14,7 +14,7 @@ export default (props) => {
     props.playerInfo.mostRecentSegmentPaid == props.gameInfo.currentSegment;
 
   return (
-    <Col className="show-desktop-only">
+    <Col>
       <div
         style={{
           backgroundColor: "white",

@@ -31,7 +31,7 @@ const GameAdmin = (props) => {
       <p>
         The Graph URL:{" "}
         <a
-          href={process.env.REACT_APP_GRAPH_URL}
+          href="https://thegraph.com/explorer/subgraph/good-ghosting/goodghostingsept"
           rel="noopener noreferrer nofollow"
           target="_blank"
         >

@@ -180,14 +180,14 @@ const GamePage = () => {
       .balanceOf(process.env.REACT_APP_GG_CONTRACT)
       .call();
     // console.log("totalADai", totalADai);
-    // // const poolInterest = new web
-    // console.log(
-    //   "glqGameData[gameNumber]",
-    //   glqGameData.games[gameNumber].toString()
-    // );
-    // const poolInterest = new web3.utils.BN(totalADai).sub(
-    //   new web3.utils.BN(glqGameData.games[gameNumber].totalGamePrincipal)
-    // );
+    // // // const poolInterest = new web
+
+    // const poolInterest =
+    //   totalADai === "0"
+    //     ? "0"
+    //     : new web3.utils.BN(totalADai).sub(
+    //         new web3.utils.BN(glqGameData.games[gameNumber].totalGamePrincipal)
+    //       );
     // console.log("poolInterest", poolInterest.toString());
 
     const aDaiAPY = (rawADaiAPY / 10 ** 27) * 100;
