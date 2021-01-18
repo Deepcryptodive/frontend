@@ -223,9 +223,9 @@ const GamePage = () => {
       .then((res) => {
         const newPlayerInfo = Object.assign({}, playerInfo, {
           mostRecentSegmentPaid: parseInt(playerInfo.mostRecentSegmentPaid) + 1,
-          amountPaid:
-            parseInt(playerInfo.amountPaid) +
-            parseInt(gameInfo.rawSegmentPayment),
+          amountPaid: new web3.utils.BN(playerInfo.amountPaid).iadd(
+            new web3.utils.BN(gameInfo.rawSegmentPayment)
+          ),
         });
         setSuccessState({ makeDeposit: true });
         setPlayerInfo(newPlayerInfo);
