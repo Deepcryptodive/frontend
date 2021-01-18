@@ -195,9 +195,10 @@ const GamePage = () => {
       poolAPY: aDaiAPY,
       isGameCompleted,
       // interest,
-      isWaitingRound:
-        glqGameData.games[gameNumber].lastSegment ===
-        glqGameData.games[gameNumber].currentSegment,
+      isWaitingRound: glqGameData.games[gameNumber]
+        ? glqGameData.games[gameNumber].lastSegment ===
+          glqGameData.games[gameNumber].currentSegment
+        : false,
       firstSegmentEnd: dayjs.unix(firstSegmentStart).add(segmentLength, "s"),
       nextSegmentEnd: dayjs
         .unix(firstSegmentStart)
