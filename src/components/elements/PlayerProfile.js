@@ -30,7 +30,7 @@ export default (props) => {
             borderColor: "#A0CBFD",
             borderStyle: "solid",
             borderWidth: "6px",
-            fontFamily: "Monsterrat",
+            fontFamily: "Montserrat",
             maxHeight: "200px",
           }}
           width={100}

@@ -42,6 +42,13 @@ export default (props) => {
           <Alert color="#FF7272" text="Something went wrong, try again." />
         ))}
 
+      {props.userStatus === status.unregistered && (
+        <Alert
+          color="#FF7272"
+          text="Sorry the game has already started. Keep an eye on our discord for new games"
+        />
+      )}
+
       <DepositModal
         success={props.success.makeDeposit}
         errors={props.errors}
@@ -130,6 +137,7 @@ const UnRegisteredPlayer = (props) => (
           fontWeight: "800",
           fontSize: "1.9rem",
           color: "black",
+          fontFamily: "Montserrat",
         }}
       >
         {" "}
