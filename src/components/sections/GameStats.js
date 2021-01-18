@@ -251,7 +251,7 @@ class GameStats extends React.Component {
                   data={
                     props.gameInfo.currentSegment === "0"
                       ? "Available next round"
-                      : "WIP"
+                      : props.gameInfo.poolInterest.substring(0, 4)
                   }
                   measure={
                     props.gameInfo.currentSegment === "0" ? false : "DAI"

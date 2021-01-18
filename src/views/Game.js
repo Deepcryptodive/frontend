@@ -11,7 +11,12 @@ import toArray from "dayjs/plugin/toArray";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Button from "./../components/elements/Button";
 import { useAlert } from "react-alert";
-import { gameNumber, gqlErrors, aDaiAddress } from "./../utils/utilities";
+import {
+  gameNumber,
+  gqlErrors,
+  aDaiAddress,
+  weiToERC20,
+} from "./../utils/utilities";
 import { NotKovan, NoWeb3 } from "./../components/elements/Errors";
 import Alert from "./../components/elements/Alert";
 // import parseErr  from 'parse-err';
@@ -112,6 +117,7 @@ const GamePage = () => {
             totalGamePrincipal
             totalGameInterest
             redeemed
+            externalPoolLiquidity
           }
         }
       `;
@@ -179,16 +185,18 @@ const GamePage = () => {
     const totalADai = await aDaiContract.methods
       .balanceOf(process.env.REACT_APP_GG_CONTRACT)
       .call();
-    // console.log("totalADai", totalADai);
-    // // // const poolInterest = new web
+    console.log("totalADai", totalADai);
 
-    // const poolInterest =
-    //   totalADai === "0"
-    //     ? "0"
-    //     : new web3.utils.BN(totalADai).sub(
-    //         new web3.utils.BN(glqGameData.games[gameNumber].totalGamePrincipal)
-    //       );
-    // console.log("poolInterest", poolInterest.toString());
+    const poolInterest =
+      totalADai === "0"
+        ? "0"
+        : weiToERC20(
+            new web3.utils.BN(totalADai).sub(
+              new web3.utils.BN(
+                glqGameData.games[gameNumber].externalPoolLiquidity
+              )
+            )
+          );
 
     const aDaiAPY = (rawADaiAPY / 10 ** 27) * 100;
     const lastSegment = await goodGhostingContract.methods.lastSegment().call();
@@ -204,7 +212,7 @@ const GamePage = () => {
       lastSegment,
       poolAPY: aDaiAPY,
       isGameCompleted,
-      // interest,
+      poolInterest,
       isWaitingRound: lastSegment === currentSegment,
       firstSegmentEnd: dayjs.unix(firstSegmentStart).add(segmentLength, "s"),
       nextSegmentEnd: dayjs
