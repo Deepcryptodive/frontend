@@ -88,9 +88,6 @@ const GamePage = () => {
             amountPaid: players.players[key].amountPaid,
             threeBoxName: data.name,
             withdrawn: players.players[key].withdrawn,
-            // isLive:
-            // parseInt(gameInfo.currentSegment) - 1 >=
-            // parseInt(players.players[key].mostRecentSegmentPaid),
             threeBoxAvatar: data.image
               ? `https://ipfs.infura.io/ipfs/${data.image[0].contentUrl["/"]}`
               : null,
@@ -296,9 +293,7 @@ const GamePage = () => {
 
   // TODO find away to make this always call with out trigger an infinit loop
   useEffect(() => {
-    console.log("getPlayersStatus", getPlayersStatus);
     if (isNotEmptyObj(gameInfo) && getPlayersStatus) {
-      console.log("in calculater triggers");
       return calculateIsLive();
     }
     // return false;
@@ -376,7 +371,6 @@ const GamePage = () => {
     const approve = await daiContract.methods
       .approve(goodGhostingAdress, gameInfo.rawSegmentPayment)
       .send({ from: usersAddress })
-      .then((res) => console.log("res", res))
       .catch((err) => {
         setErrors({ joinGame: err }); // 🚨 TODO display in FE
         setLoadingState({ joinGame: false });
