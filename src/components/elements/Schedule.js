@@ -83,8 +83,10 @@ const Schedule = (props) => {
                       ? `Waiting period ends`
                       : `Deposit deadline ${i.round - 1}`
                     } */}
-                {i.round === numberOfRounds
-                  ? `Waiting Period`
+                {i.round === numberOfRounds - 1
+                  ? `Waiting Round`
+                  : i.round === numberOfRounds
+                  ? null
                   : `Round  ${i.round}`}
               </TimelineItem>
             );
