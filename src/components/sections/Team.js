@@ -290,8 +290,7 @@ class Team extends React.Component {
                       Graduated as a MSc in Business Engineering, with a major
                       in Data Analytics. Immersing himself in the blockchain
                       ecosystem and soon strengthening his skills in London at
-                      UCL. Interned at Keyrock (Crypto Market Maker), and will
-                      help developing the GoodGhosting business.
+                      UCL. Interned at Keyrock (Crypto Market Maker).
                     </p>
                   </div>
                 </div>
