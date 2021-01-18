@@ -10,15 +10,15 @@ import Button from "./../elements/Button";
 
 export default (props) => {
   const hasPaid =
-    props.playerInfo.mostRecentSegmentPaid === props.gameInfo.currentSegment ||
-    (props.success && props.success.makeDeposit);
+    props.playerInfo.mostRecentSegmentPaid == props.gameInfo.currentSegment;
+
   return (
     <Col className="show-desktop-only">
       <div
         style={{
           backgroundColor: "white",
           marginTop: "24px",
-          height: props.showButton ? "465px" : "413px",
+          // height: props.showButton ? "465px" : "413px",
           paddingTop: "16px",
         }}
       >
@@ -71,7 +71,9 @@ export default (props) => {
             <Col lg={4}>
               <span>{`${displaySegment(
                 props.playerInfo.mostRecentSegmentPaid
-              )} / ${displaySegment(props.gameInfo.lastSegment)}`}</span>{" "}
+              )} / ${
+                displaySegment(props.gameInfo.lastSegment) - 1
+              }`}</span>{" "}
               {/* 🚨 TO CHECK: shouldn't this be 'lastSegment' minus one*/}
             </Col>
           </Row>
@@ -95,7 +97,11 @@ export default (props) => {
         </div>
         {props.showButton && !hasPaid && (
           <div style={{ paddingTop: "16px" }}>
-            <Button onClick={props.buttonClick} color="primary">
+            <Button
+              style={{ marginBottom: "12px" }}
+              onClick={props.buttonClick}
+              color="primary"
+            >
               Make your deposit
             </Button>
           </div>

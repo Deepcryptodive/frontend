@@ -48,11 +48,24 @@ const GameAdmin = (props) => {
       </p>
       {props.liveGame && props.isLoggedIn && (
         <div>
-          <LoadingButton
-            text="depositIntoExternalPool"
-            loading={props.loadingState.depositIntoExternalPool}
-            onClick={props.depositIntoExternalPool}
-          />
+          {/* {!props.isGameCompleted && ( */}
+          <div style={{ padding: "10px" }}>
+            <LoadingButton
+              text="depositIntoExternalPool"
+              loading={props.loadingState.depositIntoExternalPool}
+              onClick={props.depositIntoExternalPool}
+            />
+          </div>
+          {/* )} */}
+          {props.isGameCompleted && (
+            <div style={{ padding: "10px" }}>
+              <LoadingButton
+                text="Allocate the funds to enable users to cash out "
+                loading={props.loadingState.redeem}
+                onClick={props.redeem}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

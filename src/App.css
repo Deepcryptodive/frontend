@@ -57,6 +57,9 @@
 .schedule-left {
   text-align: left;
 }
+.hidePointer label {
+  cursor: default !important;
+}
 @media (min-width: 641) {
   .schedule-right {
     text-align: right;

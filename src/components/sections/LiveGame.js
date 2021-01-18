@@ -3,12 +3,9 @@ import { status, displaySegment, isNotEmptyObj } from "../../utils/utilities";
 import PlayersPrint from "./../elements/PrintPlayers";
 import Button from "./../elements/Button";
 import GameStats from "./GameStats";
-import Loading from "./../../assets/loading.svg";
-import LoadingDark from "./../../assets/loading-dark.svg";
-import CheckBox from "react-animated-checkbox";
+
 import EmergencyWithdraw from "./../elements/EmergencyWithdraw";
 import KovanFaucet from "./../elements/KovanFaucet";
-import KovanFauctet from "./../elements/KovanFaucet";
 import Schedule from "./../elements/Schedule";
 import SuccessModal from "./../elements/SuccessModal";
 import Tabs from "./../elements/Tabs";
@@ -20,6 +17,7 @@ import PlayerProfile from "./../elements/PlayerProfile";
 import GameAdmin from "./partials/GameAdmin";
 import DepositModal from "../elements/DepositModal";
 import Alert from "./../elements/Alert";
+import CashOut from "./CashOut";
 
 export default (props) => {
   const { playerInfo } = props;
@@ -30,16 +28,20 @@ export default (props) => {
     props.usersAddress && props.userStatus === status.unregistered;
   return (
     <>
-      {/* <SuccessModal
-        close={props.toggleSuccess.bind(null, "makeDeposit")}
-        show={props.success.makeDeposit}
-      /> */}
       {props.success.depositIntoExternalPool && (
         <Alert text="Deposit into Aave completed" />
       )}
       {props.success.makeDeposit && (
         <Alert text="Congrats, your deposit completed! 🥳 Keep up the good work!" />
       )}
+      {props.success.redeem && (
+        <Alert text="Funds allocated successfully. Individual players can now withdraw their funds." />
+      )}
+      {props.errors.redeem ||
+        (props.errors.depositIntoExternalPool && (
+          <Alert color="#FF7272" text="Something went wrong, try again." />
+        ))}
+
       <DepositModal
         success={props.success.makeDeposit}
         errors={props.errors}
@@ -53,6 +55,16 @@ export default (props) => {
         connectToWallet={props.connectToWallet}
         usersAddress={props.usersAddress}
       />
+      {props.gameInfo.isGameCompleted &&
+        props.userStatus === status.registered && (
+          <CashOut
+            gameInfo={props.gameInfo}
+            loadingState={props.loadingState}
+            redeem={props.redeemed}
+            withdraw={props.withdraw}
+            playerInfo={props.playerInfo}
+          />
+        )}
       <div className="container">
         <Row>
           {registeredPlayer && isNotEmptyObj(playerInfo) && (
@@ -71,9 +83,10 @@ export default (props) => {
                 header={"Game Stats"}
                 style={props.playerInfo.isLive ? { padding: "30px 0" } : {}}
               >
-                <GameStats gameInfo={props.gameInfo} players={props.players}>
-                  {props.gameInfo.isGameComplete && <h1>HI</h1>}
-                </GameStats>
+                <GameStats
+                  gameInfo={props.gameInfo}
+                  players={props.players}
+                ></GameStats>
               </TabContent>
               <TabContent header="Timeline">
                 <Schedule
@@ -90,7 +103,9 @@ export default (props) => {
                   liveGame={true}
                   depositIntoExternalPool={props.depositIntoExternalPool}
                   loadingState={props.loadingState}
-                  isLoggedIn={isNotEmptyObj(props.playerInfo)}
+                  isLoggedIn={!!props.usersAddress}
+                  isGameCompleted={props.gameInfo.isGameCompleted}
+                  redeem={props.redeem}
                 />
               </TabContent>
             </Tabs>
@@ -100,7 +115,7 @@ export default (props) => {
       </div>
 
       <>
-        <KovanFauctet />
+        <KovanFaucet />
       </>
     </>
   );
@@ -128,61 +143,6 @@ const UnRegisteredPlayer = (props) => (
       </a>{" "}
       to get notified when the next game starts
       <span role="img">👀</span>
-    </p>
-  </>
-);
-
-const ButtonAndTick = (props) => (
-  <>
-    <p style={{ lineHeight: "69px", marginBottom: "0px" }}>
-      <span
-        style={{
-          marginRight: "25px",
-          fontFamily: "Montserrat",
-          fontWeight: "900",
-        }}
-        className={!props.isActive ? "button-tick-hooverable" : ""}
-        onClick={() => {
-          if (!props.isActive) {
-            props.onClickFunc();
-          }
-        }}
-      >
-        {props.description}
-      </span>
-      {!props.isLoading && (
-        <CheckBox
-          checked={props.isActive}
-          checkBoxStyle={{
-            checkedColor: "#8E79FC",
-            size: 20,
-            unCheckedColor: "#b8b8b8",
-          }}
-          onClick={() => {
-            if (!props.isActive) {
-              props.onClickFunc();
-            }
-          }}
-          duration={400}
-        />
-      )}
-      {props.isLoading && (
-        <img
-          src={LoadingDark}
-          alt="loading"
-          // className="loading-img-button"
-          style={{ width: "28px", paddingLeft: "10px", display: "inline" }}
-        />
-      )}
-      {/* <Button
-        style={{ margin: "20px" }}
-        tag="a"
-        color={props.gameInfo.redeemed ? "hjsdgf" : "secondary"}
-        onClick={props.redeem}
-        disabled={true}
-      >
-        Redeem
-      </Button> */}
     </p>
   </>
 );

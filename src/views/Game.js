@@ -148,6 +148,10 @@ const GamePage = () => {
       .getCurrentSegment()
       .call();
 
+    const isGameCompleted = await goodGhostingContract.methods
+      .isGameCompleted()
+      .call();
+
     //get lending pool address from lending pool address provider
     const providerInstance = new web3.eth.Contract(
       lendingPoolAddressProviderABI,
@@ -185,7 +189,7 @@ const GamePage = () => {
       currentSegment,
       lastSegment,
       poolAPY: aDaiAPY,
-      isGameCompleted: currentSegment > lastSegment - 1,
+      isGameCompleted,
       firstSegmentEnd: dayjs.unix(firstSegmentStart).add(segmentLength, "s"),
       nextSegmentEnd: dayjs
         .unix(firstSegmentStart)
@@ -236,16 +240,18 @@ const GamePage = () => {
       .send({
         from: usersAddress,
       })
+      .then(() => {
+        const newGameInfo = Object.assign({}, gameInfo, { redeemed: true });
+        setGameInfo(newGameInfo);
+        setSuccessState({ redeem: true });
+        setLoadingState({ redeem: false });
+      })
       .catch(async (error) => {
         const reason = await parseRevertError(error);
         //   alert.show(reason);
+        setLoadingState({ redeem: false });
+        setErrors({ redeem: true });
       });
-    // await goodGhostingContract.methods
-    //   .allocateWithdrawAmounts()
-    //   .send({ from: usersAddress });
-    const newGameInfo = Object.assign({}, gameInfo, { redeemed: true });
-    setGameInfo(newGameInfo);
-    setLoadingState({ redeem: false });
   };
 
   const withdraw = async () => {
@@ -396,10 +402,15 @@ const GamePage = () => {
     await goodGhostingContract.methods
       .depositIntoExternalPool()
       .send({ from: usersAddress })
-      .then((res) => console.log("♥️", res))
-      .catch((err) => console.log("👀", Error));
-    setLoadingState({ depositIntoExternalPool: false });
-    setSuccessState({ depositIntoExternalPool: true }); //put inside then and catch
+      .then((res) => {
+        setLoadingState({ depositIntoExternalPool: false });
+        setSuccessState({ depositIntoExternalPool: true });
+      })
+      .catch((err) => {
+        setErrors({ depositIntoExternalPool: true });
+        setLoadingState({ depositIntoExternalPool: false });
+      });
+    //put inside then and catch
   };
 
   const toggleSuccess = (attribute) => {

@@ -19,9 +19,11 @@ export const getViewableGameStats = (gameInfo) => [
   },
   {
     label: "⏳ Current Round",
-    data: `${displaySegment(gameInfo.currentSegment)} / ${displaySegment(
-      gameInfo.lastSegment
-    )}`,
+    data: gameInfo.isGameCompleted
+      ? "Game Completed"
+      : `${displaySegment(gameInfo.currentSegment)} / ${displaySegment(
+          gameInfo.lastSegment
+        )}`,
     confirmLabel: "Game status",
     confirmData: displaySegment(gameInfo.lastSegment),
   },
@@ -112,28 +114,6 @@ class GameStats extends React.Component {
               Game Stats
             </h3>
             <Container style={{ paddingBottom: "24px" }}>
-              {/* {gameData.map((item, i) => {
-                if (item.hasOwnProperty("condition") && !item.condition) {
-                  return null;
-                }
-                return (
-                  <>
-
-                    <div key={i}>
-                      <span
-                        style={{
-                          fontWeight: "600",
-                          fontSize: "0.7rem",
-                          color: "black",
-                        }}
-                      >
-                        {item.label} : {"  "}
-                      </span>
-                      <span style={valueStyle}>{item.data}</span>
-                    </div>
-                  </>
-                );
-              })} */}
               <Row>
                 <Col sm={6}>
                   <div key={0}>
