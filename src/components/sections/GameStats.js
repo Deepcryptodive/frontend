@@ -12,7 +12,7 @@ const getRound = (gameInfo) => {
     return "Waiting round";
   }
   return `${displaySegment(gameInfo.currentSegment)} / ${displaySegment(
-    gameInfo.lastSegment
+    gameInfo.lastSegment - 1
   )}`;
 };
 export const getViewableGameStats = (gameInfo) => [
