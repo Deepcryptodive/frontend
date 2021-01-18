@@ -26,7 +26,7 @@ const Schedule = (props) => {
   );
 
   const numberOfPayableRounds = parseInt(props.gameInfo.lastSegment);
-  const numberOfRounds = numberOfPayableRounds + 3;
+  const numberOfRounds = numberOfPayableRounds + 2;
   const roundsLengthsSecs = props.gameInfo.segmentLengthInSecs;
   const arr = new Array(numberOfRounds);
   const segments = Array.apply(null, arr).map(function (x, i) {
