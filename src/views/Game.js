@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GoodGhostingABI from "../ABIs/ABI-goodghosting";
 import DaiABI from "../ABIs/ABI-dai";
+import aDaiABI from "../ABIs/ABI-aDai";
 import lendingPoolAddressProviderABI from "./../ABIs/ABI-aave-lending-pool-provider";
 import lendingPoolABI from "./../ABIs/ABI-aave-lendingPool.js";
 import Web3 from "web3";
@@ -10,7 +11,7 @@ import toArray from "dayjs/plugin/toArray";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Button from "./../components/elements/Button";
 import { useAlert } from "react-alert";
-import { gameNumber, gqlErrors } from "./../utils/utilities";
+import { gameNumber, gqlErrors, aDaiAddress } from "./../utils/utilities";
 import { NotKovan, NoWeb3 } from "./../components/elements/Errors";
 import Alert from "./../components/elements/Alert";
 // import parseErr  from 'parse-err';
@@ -173,9 +174,21 @@ const GamePage = () => {
       .call();
     const rawADaiAPY = new web3.utils.BN(lendingPoolData.currentLiquidityRate);
 
-    // const interest = await lendingPoolInstance.methods
-    //   .getUserAccountData(process.env.REACT_APP_GG_CONTRACT)
-    //   .call();
+    const aDaiContract = new web3.eth.Contract(aDaiABI, aDaiAddress);
+
+    const totalADai = await aDaiContract.methods
+      .balanceOf(process.env.REACT_APP_GG_CONTRACT)
+      .call();
+    console.log("totalADai", totalADai);
+    // const poolInterest = new web
+    console.log(
+      "glqGameData[gameNumber]",
+      glqGameData.games[gameNumber].toString()
+    );
+    const poolInterest = new web3.utils.BN(totalADai).sub(
+      new web3.utils.BN(glqGameData.games[gameNumber].totalGamePrincipal)
+    );
+    console.log("poolInterest", poolInterest.toString());
 
     const aDaiAPY = (rawADaiAPY / 10 ** 27) * 100;
     const lastSegment = await goodGhostingContract.methods.lastSegment().call();
