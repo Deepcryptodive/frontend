@@ -250,10 +250,12 @@ class GameStats extends React.Component {
                   label="Interest Earned"
                   data={
                     props.gameInfo.currentSegment === "0"
-                      ? "Available after round 1"
+                      ? "Available next round"
                       : totalInterest
                   }
-                  measure="DAI"
+                  measure={
+                    props.gameInfo.currentSegment === "0" ? false : "DAI"
+                  }
                   tooltipText="The total interest earned by the savings pool thus far.
                     This will be given to all winning players!"
                 />
@@ -309,7 +311,7 @@ const CircleData = (props) => (
         >
           {props.data}
         </p>
-        <p>{props.measure}</p>
+        {props.measure && <p>{props.measure}</p>}
       </div>
     </OverlayTrigger>
   </Col>
