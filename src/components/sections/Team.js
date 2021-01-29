@@ -111,7 +111,7 @@ class Team extends React.Component {
                       COO | Crypto Economics
                     </div>
                     <p className="m-0 text-sm">
-                    Heavy DeFi user and professional blockchain consultant. Experienced in digital asset management, yield optimization and research.<br/> Molecular scientist by training (PhD in Biotechnology). Member of the Melon Council DAO.
+                    Heavy DeFi user and professional blockchain consultant. Experienced in digital asset management, yield optimization and research.<br/> Molecular scientist by training (PhD in Biotechnology). Member of the Enzyme Finance DAO.
                     </p>
                   </div>
                 </div>
