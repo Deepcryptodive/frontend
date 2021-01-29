@@ -85,7 +85,7 @@ class FeaturesTiles extends React.Component {
                     Join our saving pool
                     </h4>
                     <p className="m-0 text-sm reveal-from-top" data-reveal-container=".tiles-item" data-reveal-delay="200">
-                      Dive in and join our one of our shared saving pools. Get motivated to save. No more waiting for the right time to start!
+                      Dive in and join one of our shared saving pools. Get motivated to save. No more waiting for the right time to start!
                     </p>
                   </div>
                 </div>
