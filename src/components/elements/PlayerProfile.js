@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Image from "./Image";
+import dayjs from "dayjs";
 import {
   displayAddress,
   weiToERC20,
@@ -10,15 +11,15 @@ import Button from "./../elements/Button";
 
 export default (props) => {
   const hasPaid =
-    props.playerInfo.mostRecentSegmentPaid === props.gameInfo.currentSegment ||
-    props.success.makeDeposit;
+    props.playerInfo.mostRecentSegmentPaid == props.gameInfo.currentSegment;
+
   return (
-    <Col className="show-desktop-only">
+    <Col xs={12} sm={3}>
       <div
         style={{
           backgroundColor: "white",
           marginTop: "24px",
-          height: props.showButton ? "465px" : "413px",
+          // height: props.showButton ? "465px" : "413px",
           paddingTop: "16px",
         }}
       >
@@ -29,7 +30,7 @@ export default (props) => {
             borderColor: "#A0CBFD",
             borderStyle: "solid",
             borderWidth: "6px",
-            fontFamily: "Monsterrat",
+            fontFamily: "Montserrat",
             maxHeight: "200px",
           }}
           width={100}
@@ -65,37 +66,58 @@ export default (props) => {
             </Col>
           </Row>
           <Row>
-            <Col lg={8}>
+            <Col xs={8}>
               <span>✅ Deposits Made</span>
             </Col>
-            <Col lg={4}>
+            <Col xs={4}>
               <span>{`${displaySegment(
                 props.playerInfo.mostRecentSegmentPaid
-              )} / ${displaySegment(props.gameInfo.lastSegment)}`}</span>  {/* 🚨 TO CHECK: shouldn't this be 'lastSegment' minus one*/}
+              )} / ${
+                displaySegment(props.gameInfo.lastSegment) - 1
+              }`}</span>{" "}
+              {/* 🚨 TO CHECK: shouldn't this be 'lastSegment' minus one*/}
             </Col>
           </Row>
           <Row>
-            <Col lg={8}>
+            <Col xs={8}>
               <span>💸 Total Deposited </span>
             </Col>
-            <Col lg={4}>
+            <Col xs={4}>
               <span>{weiToERC20(props.playerInfo.amountPaid)}</span>
             </Col>
           </Row>
           <Row>
-            <Col lg={8}>
+            <Col xs={8}>
               <span>💰 Potential Gains</span>
             </Col>
-            <Col lg={4}>
-              <span> +XX.XX DAI </span>  {/* 🚨 Feature request: add how much a user stands to gain if the completes the game - see https://github.com/Good-Ghosting/frontend/issues/28*/}
+            <Col xs={4}>
+              <span> +XX.XX DAI </span>{" "}
+              {/* 🚨 Feature request: add how much a user stands to gain if the completes the game - see https://github.com/Good-Ghosting/frontend/issues/28*/}
             </Col>
           </Row>
         </div>
-        {props.showButton && !hasPaid && (
+        {props.showButton && !hasPaid && !props.gameInfo.isWaitingRound && (
           <div style={{ paddingTop: "16px" }}>
-            <Button onClick={props.buttonClick} color="primary">
+            <Button
+              style={{ marginBottom: "12px" }}
+              onClick={props.buttonClick}
+              color="primary"
+            >
               Make your deposit
             </Button>
+          </div>
+        )}
+        {props.gameInfo.isWaitingRound && !props.gameInfo.isGameCompleted && (
+          <div>
+            {" "}
+            <h5>⏱Waiting Round</h5>
+            {console.log(
+              "🥳",
+              props.gameInfo.nextSegmentEnd
+                .add(props.gameInfo.segmentLengthInSecs, "second")
+                .format("HH:mm ddd D MMM")
+            )}
+            {/* <p>Ends at: {props.gameInfo.nextSegmentEnd.dateData.format("HH:mm ddd D MMM")}</p> */}
           </div>
         )}
       </div>

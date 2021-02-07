@@ -26,7 +26,7 @@ const Schedule = (props) => {
   );
 
   const numberOfPayableRounds = parseInt(props.gameInfo.lastSegment);
-  const numberOfRounds = numberOfPayableRounds + 1;
+  const numberOfRounds = numberOfPayableRounds + 2;
   const roundsLengthsSecs = props.gameInfo.segmentLengthInSecs;
   const arr = new Array(numberOfRounds);
   const segments = Array.apply(null, arr).map(function (x, i) {
@@ -36,6 +36,10 @@ const Schedule = (props) => {
         (i - 1) * roundsLengthsSecs,
         "second"
       ),
+      calInvite:
+        i == 1
+          ? "https://calendar.google.com/event?action=TEMPLATE&tmeid=M28zaXNvM2dtcHFlZWVna29iYTJrcjFxMmsgY19rbGFlOHRlZXJraHI0amhvNjY0MThlY2NzY0Bn&tmsrc=c_klae8teerkhr4jho66418eccsc%40group.calendar.google.com"
+          : null,
     };
   });
 
@@ -65,18 +69,30 @@ const Schedule = (props) => {
           {segments.map((i) => {
             return (
               <TimelineItem
-                title={i.dateData.format("HH:mm ddd D MMM")}
+                title={`${i.dateData.format("HH:mm ddd D MMM")}: ${
+                  i.round === 1
+                    ? "Game launched"
+                    : i.round === numberOfRounds
+                    ? `Waiting period ends`
+                    : `Deposit deadline ${i.round - 1}`
+                }`}
+                calInvite={i.calInvite}
                 key={i.round}
                 className={
                   i.round % 2 !== 0 ? "schedule-left" : "schedule-right"
                 }
               >
-                {i.round === 1
+                {/* {i.round === 1
                     ? "Game launched"
                     : i.round === numberOfRounds
                       ? `Waiting period ends`
                       : `Deposit deadline ${i.round - 1}`
-                    }
+                    } */}
+                {i.round === numberOfRounds - 1
+                  ? `Waiting Round`
+                  : i.round === numberOfRounds
+                  ? null
+                  : `Round  ${i.round}`}
               </TimelineItem>
             );
           })}
@@ -93,13 +109,13 @@ const Schedule = (props) => {
             After the waiting period
           </p>
           <span>
-          <p
-            style={{
-              textAlign: "center",
-            }}
-          >
-          Get back your initial deposit and collect your winnings!
-          </p>
+            <p
+              style={{
+                textAlign: "center",
+              }}
+            >
+              Get back your initial deposit and collect your winnings!
+            </p>
           </span>
           <p style={{ textAlign: "center", paddingBottom: "20px" }}>
             <span

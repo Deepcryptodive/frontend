@@ -21,10 +21,6 @@ const Welcome = (props) => {
           </p>
           <div style={{ justifyContent: "center" }}>
             {props.connectToWallet()}
-
-            {/* <button onClick={props.getAddressFromMetaMask}>
-              Connect MetaMask
-            </button> */}
           </div>
         </div>
       )}

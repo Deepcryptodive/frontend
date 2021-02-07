@@ -10,7 +10,7 @@ export default (props) => {
         width: "100vw",
         position: "absolute",
         top: "80px",
-        backgroundColor: "#FE88E4",
+        backgroundColor: props.color ? props.color : "#FE88E4",
         color: "#2B2C52",
         padding: "8px",
         display: visibiliy ? "block" : "none",

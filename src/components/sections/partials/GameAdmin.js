@@ -31,7 +31,7 @@ const GameAdmin = (props) => {
       <p>
         The Graph URL:{" "}
         <a
-          href={process.env.REACT_APP_GRAPH_URL}
+          href="https://thegraph.com/explorer/subgraph/good-ghosting/goodghostingnov"
           rel="noopener noreferrer nofollow"
           target="_blank"
         >
@@ -42,17 +42,32 @@ const GameAdmin = (props) => {
             }}
           >
             {" "}
-            {process.env.REACT_APP_GRAPH_URL}
+            {
+              "https://thegraph.com/explorer/subgraph/good-ghosting/goodghostingnov"
+            }
           </span>
         </a>
       </p>
       {props.liveGame && props.isLoggedIn && (
         <div>
-          <LoadingButton
-            text="depositIntoExternalPool"
-            loading={props.loadingState.depositIntoExternalPool}
-            onClick={props.depositIntoExternalPool}
-          />
+          {/* {!props.isGameCompleted && ( */}
+          <div style={{ padding: "10px" }}>
+            <LoadingButton
+              text="depositIntoExternalPool"
+              loading={props.loadingState.depositIntoExternalPool}
+              onClick={props.depositIntoExternalPool}
+            />
+          </div>
+          {/* )} */}
+          {props.isGameCompleted && (
+            <div style={{ padding: "10px" }}>
+              <LoadingButton
+                text="Allocate the funds to enable users to cash out "
+                loading={props.loadingState.redeem}
+                onClick={props.redeem}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

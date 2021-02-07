@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GoodGhostingABI from "../ABIs/ABI-goodghosting";
 import DaiABI from "../ABIs/ABI-dai";
+import aDaiABI from "../ABIs/ABI-aDai";
 import lendingPoolAddressProviderABI from "./../ABIs/ABI-aave-lending-pool-provider";
 import lendingPoolABI from "./../ABIs/ABI-aave-lendingPool.js";
 import Web3 from "web3";
@@ -10,7 +11,12 @@ import toArray from "dayjs/plugin/toArray";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Button from "./../components/elements/Button";
 import { useAlert } from "react-alert";
-import { gameNumber, gqlErrors } from "./../utils/utilities";
+import {
+  gameNumber,
+  gqlErrors,
+  aDaiAddress,
+  weiToERC20,
+} from "./../utils/utilities";
 import { NotKovan, NoWeb3 } from "./../components/elements/Errors";
 import Alert from "./../components/elements/Alert";
 // import parseErr  from 'parse-err';
@@ -88,9 +94,6 @@ const GamePage = () => {
             amountPaid: players.players[key].amountPaid,
             threeBoxName: data.name,
             withdrawn: players.players[key].withdrawn,
-            // isLive:
-            // parseInt(gameInfo.currentSegment) - 1 >=
-            // parseInt(players.players[key].mostRecentSegmentPaid),
             threeBoxAvatar: data.image
               ? `https://ipfs.infura.io/ipfs/${data.image[0].contentUrl["/"]}`
               : null,
@@ -114,6 +117,7 @@ const GamePage = () => {
             totalGamePrincipal
             totalGameInterest
             redeemed
+            externalPoolLiquidity
           }
         }
       `;
@@ -148,6 +152,10 @@ const GamePage = () => {
       .getCurrentSegment()
       .call();
 
+    const isGameCompleted = await goodGhostingContract.methods
+      .isGameCompleted()
+      .call();
+
     //get lending pool address from lending pool address provider
     const providerInstance = new web3.eth.Contract(
       lendingPoolAddressProviderABI,
@@ -170,8 +178,25 @@ const GamePage = () => {
     const lendingPoolData = await lendingPoolInstance.methods
       .getReserveData(daiAddress)
       .call();
+    const rawADaiAPY = new web3.utils.BN(lendingPoolData.currentLiquidityRate);
 
-    const rawADaiAPY = new web3.utils.BN(lendingPoolData.liquidityRate);
+    const aDaiContract = new web3.eth.Contract(aDaiABI, aDaiAddress);
+
+    const totalADai = await aDaiContract.methods
+      .balanceOf(process.env.REACT_APP_GG_CONTRACT)
+      .call();
+    console.log("totalADai", totalADai);
+
+    const poolInterest =
+      totalADai === "0"
+        ? "0"
+        : weiToERC20(
+            new web3.utils.BN(totalADai).sub(
+              new web3.utils.BN(
+                glqGameData.games[gameNumber].externalPoolLiquidity
+              )
+            )
+          );
 
     const aDaiAPY = (rawADaiAPY / 10 ** 27) * 100;
     const lastSegment = await goodGhostingContract.methods.lastSegment().call();
@@ -186,7 +211,9 @@ const GamePage = () => {
       currentSegment,
       lastSegment,
       poolAPY: aDaiAPY,
-      isGameCompleted: currentSegment > lastSegment - 1,
+      isGameCompleted,
+      poolInterest,
+      isWaitingRound: lastSegment === currentSegment,
       firstSegmentEnd: dayjs.unix(firstSegmentStart).add(segmentLength, "s"),
       nextSegmentEnd: dayjs
         .unix(firstSegmentStart)
@@ -214,6 +241,9 @@ const GamePage = () => {
       .then((res) => {
         const newPlayerInfo = Object.assign({}, playerInfo, {
           mostRecentSegmentPaid: parseInt(playerInfo.mostRecentSegmentPaid) + 1,
+          amountPaid: new web3.utils.BN(playerInfo.amountPaid).iadd(
+            new web3.utils.BN(gameInfo.rawSegmentPayment)
+          ),
         });
         setSuccessState({ makeDeposit: true });
         setPlayerInfo(newPlayerInfo);
@@ -237,16 +267,18 @@ const GamePage = () => {
       .send({
         from: usersAddress,
       })
+      .then(() => {
+        const newGameInfo = Object.assign({}, gameInfo, { redeemed: true });
+        setGameInfo(newGameInfo);
+        setSuccessState({ redeem: true });
+        setLoadingState({ redeem: false });
+      })
       .catch(async (error) => {
         const reason = await parseRevertError(error);
         //   alert.show(reason);
+        setLoadingState({ redeem: false });
+        setErrors({ redeem: true });
       });
-    // await goodGhostingContract.methods
-    //   .allocateWithdrawAmounts()
-    //   .send({ from: usersAddress });
-    const newGameInfo = Object.assign({}, gameInfo, { redeemed: true });
-    setGameInfo(newGameInfo);
-    setLoadingState({ redeem: false });
   };
 
   const withdraw = async () => {
@@ -282,9 +314,7 @@ const GamePage = () => {
 
   // TODO find away to make this always call with out trigger an infinit loop
   useEffect(() => {
-    console.log("getPlayersStatus", getPlayersStatus);
     if (isNotEmptyObj(gameInfo) && getPlayersStatus) {
-      console.log("in calculater triggers");
       return calculateIsLive();
     }
     // return false;
@@ -326,6 +356,7 @@ const GamePage = () => {
   useEffect(() => {
     if (success.joinGame) {
       const fetchData = async () => {
+        await getPlayers();
         await getGameInfo();
         calculateIsLive();
       };
@@ -361,7 +392,6 @@ const GamePage = () => {
     const approve = await daiContract.methods
       .approve(goodGhostingAdress, gameInfo.rawSegmentPayment)
       .send({ from: usersAddress })
-      .then((res) => console.log("res", res))
       .catch((err) => {
         setErrors({ joinGame: err }); // 🚨 TODO display in FE
         setLoadingState({ joinGame: false });
@@ -374,7 +404,6 @@ const GamePage = () => {
         setSuccessState({ joinGame: true });
         setLoadingState({ joinGame: false });
         setUserStatus(status.registered);
-        getPlayers();
       })
       .catch((err) => {
         console.log("err", err);
@@ -397,10 +426,15 @@ const GamePage = () => {
     await goodGhostingContract.methods
       .depositIntoExternalPool()
       .send({ from: usersAddress })
-      .then((res) => console.log("♥️", res))
-      .catch((err) => console.log("👀", Error));
-    setLoadingState({ depositIntoExternalPool: false });
-    setSuccessState({ depositIntoExternalPool: true }); //put inside then and catch
+      .then((res) => {
+        setLoadingState({ depositIntoExternalPool: false });
+        setSuccessState({ depositIntoExternalPool: true });
+      })
+      .catch((err) => {
+        setErrors({ depositIntoExternalPool: true });
+        setLoadingState({ depositIntoExternalPool: false });
+      });
+    //put inside then and catch
   };
 
   const toggleSuccess = (attribute) => {

@@ -56,10 +56,7 @@ export default (props) => {
               <span>{gameInfo[3].confirmLabel}:</span>{" "}
               <span className="code">{gameInfo[3].data}</span>
             </div>
-            <div>
-              <span>{gameInfo[1].confirmLabel}:</span>{" "}
-              <span className="code">{gameInfo[1].data}</span>
-            </div>
+
             <div>
               <span>{gameInfo[2].confirmLabel}:</span>{" "}
               <span className="code">{gameInfo[2].data}</span>

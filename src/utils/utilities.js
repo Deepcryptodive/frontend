@@ -10,8 +10,9 @@ export const status = {
 export const isNotEmptyObj = (myObject) => !!Object.keys(myObject).length;
 
 export const aaveLendingPoolProvider =
-  "0x506B0B2CF20FAA8f38a4E2B524EE43e1f4458Cc5";
+  "0x88757f2f99175387ab4c6a4b3067c77a695b0349";
 export const daiAddress = "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD";
+export const aDaiAddress = "0xdCf0aF9e59C002FA3AA091a46196b37530FD48a8";
 export const goodGhostingAdress = process.env.REACT_APP_GG_CONTRACT; // 2 week segments
 // export const goodGhostingAdress = '0x79C01423De3Ca5c436dF4996c9B16d796c871370' //1800 secs
 // export const goodGhostingAdress = "0x839f2F25216621D01D0567646c459d960abD6267";

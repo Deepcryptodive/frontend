@@ -22,7 +22,6 @@
   color: black;
   margin: 6px;
   transition: background-color 0.2s;
-  width: 22%;
 }
 
 .react-tabs__tab--selected {
@@ -57,4 +56,10 @@
 
 .react-tabs__tab-panel--selected {
   display: block;
+}
+
+@media (min-width: 709px) {
+  .react-tabs__tab {
+    width: 22%;
+  }
 }
